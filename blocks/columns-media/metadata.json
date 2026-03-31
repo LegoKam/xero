@@ -1,0 +1,40 @@
+{
+  "variantName": "columns-media",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-03-30T00:11:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.xero.com/au/",
+    "originPage": "Xero AU homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "feature",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "text column + image column",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "text-media side-by-side layouts",
+      "feature highlight sections with images",
+      "award/badge image grids",
+      "content with checklist and image"
+    ],
+    "notSuitableFor": [
+      "text-only column layouts",
+      "complex multi-column layouts with 3+ columns",
+      "data comparison tables"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/au/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-03-30T00:11:00.000Z"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "variantName": "hero-split",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-03-30T00:11:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.xero.com/au/",
+    "originPage": "Xero AU homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "heading + paragraph + CTA + image",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "homepage hero sections",
+      "landing pages with split text/image layout",
+      "pages with dark background hero banners"
+    ],
+    "notSuitableFor": [
+      "text-only hero sections",
+      "hero sections with background video",
+      "minimal hero without images"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/au/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-03-30T00:11:00.000Z"
+  }
+}

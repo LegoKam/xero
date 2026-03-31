@@ -1,0 +1,41 @@
+{
+  "variantName": "cards-grid",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-03-30T00:11:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.xero.com/au/",
+    "originPage": "Xero AU homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "feature",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + heading + description per card",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "feature highlight card grids",
+      "icon cards with descriptions",
+      "image cards with headings",
+      "pricing plan cards",
+      "wayfinding content tiles"
+    ],
+    "notSuitableFor": [
+      "single-card layouts",
+      "card carousels or sliders",
+      "cards without images or icons"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/au/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-03-30T00:11:00.000Z"
+  }
+}
