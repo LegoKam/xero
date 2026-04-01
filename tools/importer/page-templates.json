@@ -1,0 +1,315 @@
+{
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://www.xero.com/au/"
+      ],
+      "description": "Main marketing homepage with hero, awards ribbon, JAX AI feature, feature highlights, pricing carousel, business-type cards, content tiles (app integrations, accountants, payments, affiliate), and free-trial CTA band.",
+      "blocks": [
+        {
+          "name": "hero-split",
+          "instances": [
+            "#content--2109965610"
+          ]
+        },
+        {
+          "name": "columns-media",
+          "instances": [
+            "[class*='ImageBanner__ImagesContainer']",
+            "#content-431188245 [class*='Highlight__CopyWrapper']"
+          ]
+        },
+        {
+          "name": "cards-grid",
+          "instances": [
+            "#content--337345242 [class*='BoxItem__Element']",
+            "[class*='PlansCompactV2__PlanRow']",
+            "#content-677870770 [class*='PostCard__Card']",
+            "#content-2084693112 [class*='Block__Element']"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1-hero",
+          "name": "Hero",
+          "selector": "#content--2109965610",
+          "style": "dark-blue",
+          "blocks": [
+            "hero-split"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2-awards",
+          "name": "Awards Ribbon",
+          "selector": "#content-1585018489",
+          "style": null,
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": [
+            "#content-1585018489 h2",
+            "#content-1585018489 > section > div > div > div > div > p"
+          ]
+        },
+        {
+          "id": "section-3-jax-ai",
+          "name": "JAX AI Feature",
+          "selector": "#content-431188245",
+          "style": null,
+          "blocks": [
+            "columns-media"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4-features",
+          "name": "Feature Highlights",
+          "selector": "#content--337345242",
+          "style": null,
+          "blocks": [
+            "cards-grid"
+          ],
+          "defaultContent": [
+            "#content--337345242 h2#run-your-business-but-better",
+            "#content--337345242 > section > div > div > div > div > div > div > div > p"
+          ]
+        },
+        {
+          "id": "section-5-pricing",
+          "name": "Pricing Plans",
+          "selector": "#content--669239732",
+          "style": "accent",
+          "blocks": [
+            "cards-grid"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6-business-types",
+          "name": "Business Type Cards",
+          "selector": "#content-677870770",
+          "style": null,
+          "blocks": [
+            "cards-grid"
+          ],
+          "defaultContent": [
+            "#content-677870770 h2#see-how-xero-works-for-your-business",
+            "#content-677870770 > section > div > div > div > div > p"
+          ]
+        },
+        {
+          "id": "section-7-content-tiles",
+          "name": "Content Tiles",
+          "selector": "#content-2084693112",
+          "style": null,
+          "blocks": [
+            "cards-grid"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-8-cta",
+          "name": "CTA Banner",
+          "selector": "#content-427774869",
+          "style": "highlight",
+          "blocks": [],
+          "defaultContent": [
+            "#content-427774869 h2#start-using-xero-for-free",
+            "#content-427774869 p",
+            "#content-427774869 ul"
+          ]
+        },
+        {
+          "id": "section-9-disclaimer",
+          "name": "Disclaimer",
+          "selector": "#content-1176262756",
+          "style": "light",
+          "blocks": [],
+          "defaultContent": [
+            "#content-1176262756 p"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "product-overview",
+      "urls": [
+        "https://www.xero.com/au/accounting-software/",
+        "https://www.xero.com/au/accounting-software/all-features/"
+      ],
+      "description": "Long-form product overview page with hero, value proposition cards, feature deep-dive blocks with alternating image/text, pricing section, customer testimonial, FAQ accordion, video embed, and feature link grid.",
+      "blocks": []
+    },
+    {
+      "name": "feature-detail",
+      "urls": [
+        "https://www.xero.com/au/accounting-software/send-invoices/",
+        "https://www.xero.com/au/accounting-software/accept-payments/",
+        "https://www.xero.com/au/accounting-software/pay-bills/",
+        "https://www.xero.com/au/accounting-software/claim-expenses/",
+        "https://www.xero.com/au/accounting-software/connect-your-bank/",
+        "https://www.xero.com/au/accounting-software/manage-inventory/",
+        "https://www.xero.com/au/accounting-software/payroll/",
+        "https://www.xero.com/au/accounting-software/track-projects/",
+        "https://www.xero.com/au/accounting-software/xero-accounting-mobile-app/",
+        "https://www.xero.com/au/accounting-software/app-integrations/"
+      ],
+      "description": "Individual feature marketing page with hero, alternating text/image feature blocks, checklist highlights, customer testimonial, FAQ accordion, pricing plans, and cross-sell CTA.",
+      "blocks": []
+    },
+    {
+      "name": "pricing",
+      "urls": [
+        "https://www.xero.com/au/pricing-plans/",
+        "https://www.xero.com/au/pricing-plans/ignite/",
+        "https://www.xero.com/au/pricing-plans/grow/",
+        "https://www.xero.com/au/pricing-plans/comprehensive/",
+        "https://www.xero.com/au/pricing-plans/ultimate-10/"
+      ],
+      "description": "Pricing page with plan comparison cards (Ignite, Grow, Comprehensive, Ultimate tiers), feature matrix, segment toggle (small business vs accountant), FAQ, and free-trial CTA.",
+      "blocks": []
+    },
+    {
+      "name": "business-type",
+      "urls": [
+        "https://www.xero.com/au/small-businesses/",
+        "https://www.xero.com/au/small-businesses/self-employed/",
+        "https://www.xero.com/au/small-businesses/construction/",
+        "https://www.xero.com/au/small-businesses/real-estate/",
+        "https://www.xero.com/au/small-businesses/non-profit/",
+        "https://www.xero.com/au/small-businesses/all-business-types/",
+        "https://www.xero.com/au/small-businesses/customers/"
+      ],
+      "description": "Industry/business-type landing page with hero, social proof strip, feature highlights, alternating feature detail blocks with images, customer testimonial quote, software overview cards, FAQ accordion, pricing plans, app integrations, and resource cards.",
+      "blocks": []
+    },
+    {
+      "name": "accountants-landing",
+      "urls": [
+        "https://www.xero.com/au/accountants-bookkeepers/",
+        "https://www.xero.com/au/accountants-bookkeepers/accountants/",
+        "https://www.xero.com/au/accountants-bookkeepers/bookkeepers/",
+        "https://www.xero.com/au/accountants-bookkeepers/bas-agents/"
+      ],
+      "description": "Professional audience landing page targeting accountants and bookkeepers with hero, value proposition cards, partner program benefits with checklist, product tool showcase, and certification CTA.",
+      "blocks": []
+    },
+    {
+      "name": "professional-tool",
+      "urls": [
+        "https://www.xero.com/au/xero-hq/",
+        "https://www.xero.com/au/xero-practice-manager/",
+        "https://www.xero.com/au/xero-workpapers/",
+        "https://www.xero.com/au/xero-ledger-and-cashbook/",
+        "https://www.xero.com/au/xero-tax/",
+        "https://www.xero.com/au/syft-from-xero/"
+      ],
+      "description": "Focused product sub-page for accountant/bookkeeper tools with hero, summary feature cards, alternating feature blocks with checklist bullets, FAQ accordion, partner CTA, and related products grid.",
+      "blocks": []
+    },
+    {
+      "name": "versus-compare",
+      "urls": [
+        "https://www.xero.com/au/versus/myob-alternative/",
+        "https://www.xero.com/au/versus/hnry-alternative/",
+        "https://www.xero.com/au/versus/reckon-alternative/",
+        "https://www.xero.com/au/versus/quickbooks-alternative/"
+      ],
+      "description": "Competitive comparison page with hero, three-column feature differentiation cards, feature grids, checklist blocks, customer testimonial, FAQ accordion, migration steps, pricing plans, and cross-competitor links.",
+      "blocks": []
+    },
+    {
+      "name": "resources-hub",
+      "urls": [
+        "https://www.xero.com/au/resources/",
+        "https://www.xero.com/au/resources/small-business-insights/",
+        "https://www.xero.com/au/resources/starting-your-own-business-toolkit/",
+        "https://www.xero.com/au/guides/",
+        "https://www.xero.com/au/calculators/",
+        "https://www.xero.com/au/glossary/",
+        "https://www.xero.com/au/accountant-bookkeeper-guides/"
+      ],
+      "description": "Content hub/index page with category-grouped resource cards, guide listings, calculator tools, and glossary entries organized in grid layouts with search/filter functionality.",
+      "blocks": []
+    },
+    {
+      "name": "template-download",
+      "urls": [
+        "https://www.xero.com/au/templates/",
+        "https://www.xero.com/au/templates/invoice-template/",
+        "https://www.xero.com/au/templates/payslip-template/",
+        "https://www.xero.com/au/templates/receipt-template/"
+      ],
+      "description": "Template download / lead generation page with hero, template preview, download CTA form, tips/best-practices content, FAQ accordion, and related template links.",
+      "blocks": []
+    },
+    {
+      "name": "campaign-program",
+      "urls": [
+        "https://www.xero.com/au/affiliate-program/",
+        "https://www.xero.com/au/campaign/refer-a-friend/",
+        "https://www.xero.com/au/campaign/xero-partnership/",
+        "https://www.xero.com/au/partner-programme/",
+        "https://www.xero.com/au/certifications/",
+        "https://www.xero.com/au/initiative/end-of-financial-year/",
+        "https://www.xero.com/au/initiative/payday-super/",
+        "https://www.xero.com/au/programme/single-touch-payroll/",
+        "https://www.xero.com/au/explore/online-accounting/",
+        "https://www.xero.com/au/business-loans-and-finance/",
+        "https://www.xero.com/au/integrators/",
+        "https://www.xero.com/au/ai-in-accounting/jax-vision/"
+      ],
+      "description": "Campaign, initiative, and program landing pages with hero, benefit highlights, step-by-step process blocks, partner/affiliate CTAs, and promotional content tailored to specific audiences or seasonal events.",
+      "blocks": []
+    },
+    {
+      "name": "about-corporate",
+      "urls": [
+        "https://www.xero.com/au/about/",
+        "https://www.xero.com/au/about/contact/",
+        "https://www.xero.com/au/about/our-brands/",
+        "https://www.xero.com/au/sustainability/",
+        "https://www.xero.com/au/investors/",
+        "https://www.xero.com/au/investors/governance/",
+        "https://www.xero.com/au/media/",
+        "https://www.xero.com/au/accessibility/"
+      ],
+      "description": "Corporate information pages (about, contact, sustainability, investors, media) with text-heavy content, alternating text/image sections, team/leadership profiles, and company values blocks.",
+      "blocks": []
+    },
+    {
+      "name": "signup",
+      "urls": [
+        "https://www.xero.com/au/signup/",
+        "https://www.xero.com/au/signup/ignite/",
+        "https://www.xero.com/au/signup/grow/",
+        "https://www.xero.com/au/signup/comprehensive/",
+        "https://www.xero.com/au/signup/ultimate-10/"
+      ],
+      "description": "Signup/registration flow page with plan selection, email form, trial activation CTA, and trust badges. Minimal navigation chrome focused on conversion.",
+      "blocks": []
+    },
+    {
+      "name": "legal",
+      "urls": [
+        "https://www.xero.com/au/legal/terms/",
+        "https://www.xero.com/au/legal/privacy/",
+        "https://www.xero.com/au/security/data-protection/",
+        "https://www.xero.com/au/sitemap/"
+      ],
+      "description": "Legal, privacy, security, and sitemap pages with long-form text content, table of contents navigation, and minimal visual design.",
+      "blocks": []
+    },
+    {
+      "name": "advisor-directory",
+      "urls": [
+        "https://www.xero.com/au/advisors/"
+      ],
+      "description": "Find an accountant/bookkeeper directory page with search form, location filters, results listing, and advisor profile cards.",
+      "blocks": []
+    }
+  ]
+}

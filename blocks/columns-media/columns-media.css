@@ -1,0 +1,56 @@
+/* section: center default content above block */
+.columns-media-container .default-content-wrapper h2 {
+  text-align: center;
+}
+
+.columns-media-container .default-content-wrapper p {
+  text-align: center;
+}
+
+/* block: badge/logo grid */
+.columns-media img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.columns-media > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.columns-media > div > div {
+  order: 1;
+}
+
+/* hide empty cells */
+.columns-media > div > div:empty {
+  display: none;
+}
+
+.columns-media > div > .columns-media-img-col {
+  order: 0;
+}
+
+.columns-media > div > .columns-media-img-col img {
+  display: block;
+}
+
+@media (width >= 900px) {
+  .columns-media > div {
+    gap: 32px;
+  }
+
+  .columns-media > div > div {
+    flex: unset;
+    order: unset;
+  }
+
+  .columns-media img {
+    width: 144px;
+    height: 144px;
+  }
+}
