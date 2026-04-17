@@ -1,7 +1,93 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
-export default function decorate(block) {
-  /* change to ul, li */
+function isPricingGrid(block) {
+  return block.querySelector('h3') && block.querySelectorAll(':scope > div > div > p').length > 4;
+}
+
+function decoratePricingGrid(block) {
+  const rows = [...block.children];
+  // Filter out empty rows (rows where inner div has no meaningful content)
+  const contentRows = rows.filter((row) => {
+    const inner = row.querySelector(':scope > div');
+    return inner && inner.textContent.trim().length > 0;
+  });
+
+  // Group into cards: each card has [pricing, name, cta] in sequence
+  const cards = [];
+  for (let i = 0; i < contentRows.length; i += 3) {
+    if (i + 2 < contentRows.length) {
+      cards.push({
+        pricing: contentRows[i],
+        name: contentRows[i + 1],
+        cta: contentRows[i + 2],
+      });
+    }
+  }
+
+  const ul = document.createElement('ul');
+  cards.forEach((card) => {
+    const li = document.createElement('li');
+    li.className = 'cards-grid-pricing-card';
+
+    // Plan name
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'cards-grid-plan-name';
+    const heading = card.name.querySelector('h3');
+    if (heading) nameDiv.append(heading);
+    li.append(nameDiv);
+
+    // Pricing details
+    const pricingDiv = document.createElement('div');
+    pricingDiv.className = 'cards-grid-plan-pricing';
+    const paragraphs = card.pricing.querySelectorAll('p');
+    paragraphs.forEach((p) => {
+      // Detect savings line (has bold text with "Save")
+      if (p.querySelector('strong') && p.textContent.includes('Save')) {
+        p.classList.add('cards-grid-savings');
+      }
+      // Detect the "Now" + price line
+      if (p.querySelector('strong') && p.textContent.includes('Now')) {
+        p.classList.add('cards-grid-now-price');
+      }
+      // Detect "Usually" line
+      if (p.textContent.startsWith('Usually')) {
+        p.classList.add('cards-grid-usual-price');
+      }
+      // Detect "AUD per month"
+      if (p.textContent.includes('per month')) {
+        p.classList.add('cards-grid-per-month');
+      }
+      // Description (no class added = last paragraph without special markers)
+      pricingDiv.append(p);
+    });
+    li.append(pricingDiv);
+
+    // CTA buttons
+    const ctaDiv = document.createElement('div');
+    ctaDiv.className = 'cards-grid-plan-cta';
+    const links = card.cta.querySelectorAll('a');
+    links.forEach((link) => {
+      const wrapper = document.createElement('p');
+      if (link.textContent.trim() === 'Buy now') {
+        wrapper.className = 'button-wrapper';
+        link.className = 'button primary';
+      } else {
+        wrapper.className = 'cards-grid-learn-more';
+      }
+      wrapper.append(link);
+      ctaDiv.append(wrapper);
+    });
+    li.append(ctaDiv);
+
+    ul.append(li);
+  });
+
+  block.textContent = '';
+  block.classList.add('pricing');
+  block.append(ul);
+}
+
+function decorateDefaultGrid(block) {
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
@@ -18,4 +104,12 @@ export default function decorate(block) {
   });
   block.textContent = '';
   block.append(ul);
+}
+
+export default function decorate(block) {
+  if (isPricingGrid(block)) {
+    decoratePricingGrid(block);
+  } else {
+    decorateDefaultGrid(block);
+  }
 }
