@@ -7,14 +7,46 @@
   text-align: center;
 }
 
-/* block: badge/logo grid */
-.columns-media img {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
+/* badge/logo grid mode */
+.columns-media .columns-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  place-items: center;
 }
 
-.columns-media > div {
+.columns-media .columns-media-grid img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  display: block;
+}
+
+@media (width >= 600px) {
+  .columns-media .columns-media-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .columns-media .columns-media-grid img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (width >= 900px) {
+  .columns-media .columns-media-grid {
+    gap: 32px;
+  }
+
+  .columns-media .columns-media-grid img {
+    width: 144px;
+    height: 144px;
+  }
+}
+
+/* standard columns-media (text + image) */
+.columns-media > div:not(.columns-media-grid) {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -22,34 +54,39 @@
   gap: 24px;
 }
 
-.columns-media > div > div {
+.columns-media > div:not(.columns-media-grid) > div {
   order: 1;
 }
 
-/* hide empty cells */
-.columns-media > div > div:empty {
+.columns-media > div:not(.columns-media-grid) > div:empty {
   display: none;
 }
 
-.columns-media > div > .columns-media-img-col {
+.columns-media > div:not(.columns-media-grid) img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.columns-media > div:not(.columns-media-grid) > .columns-media-img-col {
   order: 0;
 }
 
-.columns-media > div > .columns-media-img-col img {
+.columns-media > div:not(.columns-media-grid) > .columns-media-img-col img {
   display: block;
 }
 
 @media (width >= 900px) {
-  .columns-media > div {
+  .columns-media > div:not(.columns-media-grid) {
     gap: 32px;
   }
 
-  .columns-media > div > div {
+  .columns-media > div:not(.columns-media-grid) > div {
     flex: unset;
     order: unset;
   }
 
-  .columns-media img {
+  .columns-media > div:not(.columns-media-grid) img {
     width: 144px;
     height: 144px;
   }
