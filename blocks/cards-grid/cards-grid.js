@@ -87,6 +87,50 @@ function decoratePricingGrid(block) {
   block.append(ul);
 }
 
+function isImageCardGrid(block) {
+  const rows = [...block.children];
+  return rows.length > 0 && rows.every((row) => {
+    const img = row.querySelector('img');
+    const hasHeading = row.querySelector('h2, h3');
+    return img && !hasHeading;
+  });
+}
+
+function decorateImageCardGrid(block) {
+  const ul = document.createElement('ul');
+  [...block.children].forEach((row) => {
+    const li = document.createElement('li');
+    li.className = 'cards-grid-image-card';
+
+    const img = row.querySelector('img');
+    if (img) {
+      const imageDiv = document.createElement('div');
+      imageDiv.className = 'cards-grid-card-image';
+      const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
+      imageDiv.append(optimizedPic);
+      li.append(imageDiv);
+    }
+
+    // Collect any remaining text content (headings, paragraphs, links)
+    const textContent = row.querySelectorAll('h2, h3, h4, p, a');
+    if (textContent.length > 0) {
+      const bodyDiv = document.createElement('div');
+      bodyDiv.className = 'cards-grid-card-body';
+      textContent.forEach((el) => {
+        if (!el.closest('picture') && el.textContent.trim()) {
+          bodyDiv.append(el);
+        }
+      });
+      if (bodyDiv.children.length > 0) li.append(bodyDiv);
+    }
+
+    ul.append(li);
+  });
+  block.textContent = '';
+  block.classList.add('image-cards');
+  block.append(ul);
+}
+
 function decorateDefaultGrid(block) {
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
@@ -109,6 +153,8 @@ function decorateDefaultGrid(block) {
 export default function decorate(block) {
   if (isPricingGrid(block)) {
     decoratePricingGrid(block);
+  } else if (isImageCardGrid(block)) {
+    decorateImageCardGrid(block);
   } else {
     decorateDefaultGrid(block);
   }
