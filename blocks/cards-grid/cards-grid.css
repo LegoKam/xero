@@ -9,13 +9,40 @@
 }
 
 .cards-grid > ul > li {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 16px;
   background-color: transparent;
 }
 
+/* CSS-generated checkmark icon when no image column exists */
+.cards-grid > ul > li::before {
+  content: "✓";
+  grid-row: 1 / -1;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--xero-blue);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Hide pseudo-icon when a real image column exists or on variant grids */
+.cards-grid > ul > li:has(.cards-grid-card-image)::before,
+.cards-grid.pricing > ul > li::before,
+.cards-grid.image-cards > ul > li::before {
+  display: none;
+}
+
 .cards-grid .cards-grid-card-image {
+  grid-row: 1 / -1;
   flex-shrink: 0;
   width: 48px;
   height: 48px;
@@ -23,7 +50,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--xero-blue);
-  border-radius: 6px;
+  border-radius: 8px;
   line-height: 0;
 }
 
@@ -42,24 +69,22 @@
 .cards-grid .cards-grid-card-body h3 {
   font-size: var(--heading-font-size-m);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.2;
   margin: 0 0 8px;
+  color: var(--xero-dark-navy);
 }
 
 .cards-grid .cards-grid-card-body p {
   font-size: var(--body-font-size-s);
-  line-height: 1.4;
-  margin: 0;
+  line-height: 1.5;
+  margin: 8px 0 0;
+  color: var(--text-color);
 }
 
 @media (width >= 900px) {
   .cards-grid > ul {
     grid-template-columns: repeat(3, 1fr);
     gap: 36px;
-  }
-
-  .cards-grid > ul > li {
-    gap: 24px;
   }
 
   .cards-grid .cards-grid-card-body h2,
@@ -69,7 +94,7 @@
 
   .cards-grid .cards-grid-card-body p {
     font-size: 18px;
-    line-height: 1.3;
+    line-height: 1.4;
   }
 }
 
@@ -155,6 +180,7 @@
 .cards-grid.pricing > ul > li.cards-grid-pricing-card {
   display: flex;
   flex-direction: column;
+  grid-template-columns: unset;
   background-color: #fff;
   border: 1px solid #dde3e8;
   border-radius: 12px;
