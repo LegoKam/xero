@@ -44,6 +44,46 @@ async function loadFonts() {
 }
 
 /**
+ * Converts block tables inside list items into proper block elements.
+ * When blocks are authored inside lists, EDS doesn't auto-decorate them.
+ * Each list item becomes one row in the resulting block.
+ * @param {Element} main The container element
+ */
+function buildListBlocks(main) {
+  main.querySelectorAll('ul').forEach((list) => {
+    const items = [...list.querySelectorAll(':scope > li')];
+    const blockItems = items.filter((li) => {
+      const table = li.querySelector(':scope > table');
+      return table && table.querySelector('th');
+    });
+    if (blockItems.length === 0 || blockItems.length !== items.length) return;
+
+    const blockName = blockItems[0].querySelector('th').textContent.trim();
+    const className = blockName.toLowerCase().replace(/\s+/g, '-');
+
+    const block = document.createElement('div');
+    block.className = className;
+
+    // Each list item (table) becomes one row — merge all cells from all body rows
+    blockItems.forEach((li) => {
+      const table = li.querySelector('table');
+      const rowDiv = document.createElement('div');
+      const cells = table.querySelectorAll('tbody td');
+      [...cells].forEach((cell) => {
+        if (cell.innerHTML.trim()) {
+          const cellDiv = document.createElement('div');
+          cellDiv.innerHTML = cell.innerHTML;
+          rowDiv.append(cellDiv);
+        }
+      });
+      block.append(rowDiv);
+    });
+
+    list.replaceWith(block);
+  });
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -68,6 +108,7 @@ function buildAutoBlocks(main) {
     }
 
     buildHeroBlock(main);
+    buildListBlocks(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

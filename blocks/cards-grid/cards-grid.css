@@ -1,27 +1,311 @@
+/* === Default cards-grid (icon + text) === */
 .cards-grid > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 32px;
 }
 
 .cards-grid > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 16px;
+  background-color: transparent;
 }
 
-.cards-grid .cards-grid-card-body {
-  margin: 16px;
+/* CSS-generated checkmark icon when no image column exists */
+.cards-grid > ul > li::before {
+  content: "✓";
+  grid-row: 1 / -1;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--xero-blue);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Hide pseudo-icon when a real image column exists or on variant grids */
+.cards-grid > ul > li:has(.cards-grid-card-image)::before,
+.cards-grid.pricing > ul > li::before,
+.cards-grid.image-cards > ul > li::before {
+  display: none;
 }
 
 .cards-grid .cards-grid-card-image {
+  grid-row: 1 / -1;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--xero-blue);
+  border-radius: 8px;
   line-height: 0;
 }
 
-.cards-grid > ul > li img {
+.cards-grid .cards-grid-card-image img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  aspect-ratio: auto;
+}
+
+.cards-grid .cards-grid-card-body {
+  margin: 0;
+}
+
+.cards-grid .cards-grid-card-body h2,
+.cards-grid .cards-grid-card-body h3 {
+  font-size: var(--heading-font-size-m);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 8px;
+  color: var(--xero-dark-navy);
+}
+
+.cards-grid .cards-grid-card-body p {
+  font-size: var(--body-font-size-s);
+  line-height: 1.5;
+  margin: 8px 0 0;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  .cards-grid > ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+  }
+
+  .cards-grid .cards-grid-card-body h2,
+  .cards-grid .cards-grid-card-body h3 {
+    font-size: 20px;
+  }
+
+  .cards-grid .cards-grid-card-body p {
+    font-size: 18px;
+    line-height: 1.4;
+  }
+}
+
+/* === Image cards-grid === */
+.cards-grid.image-cards > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+.cards-grid.image-cards > ul > li.cards-grid-image-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.cards-grid.image-cards .cards-grid-card-image {
   width: 100%;
+  height: auto;
+  background-color: transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  line-height: 0;
+  display: block;
+  flex-shrink: unset;
+}
+
+.cards-grid.image-cards .cards-grid-card-image img {
+  width: 100%;
+  height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  display: block;
+}
+
+.cards-grid.image-cards .cards-grid-card-body {
+  padding-top: 20px;
+}
+
+.cards-grid.image-cards .cards-grid-card-body h2,
+.cards-grid.image-cards .cards-grid-card-body h3 {
+  font-size: var(--heading-font-size-l);
+  font-weight: 700;
+  color: var(--xero-dark-navy);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.cards-grid.image-cards .cards-grid-card-body h3 a,
+.cards-grid.image-cards .cards-grid-card-body h2 a {
+  color: var(--xero-dark-navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cards-grid.image-cards .cards-grid-card-body p {
+  font-size: var(--body-font-size-s);
+  line-height: 1.5;
+  color: var(--text-color);
+  margin: 0;
+}
+
+@media (width >= 900px) {
+  .cards-grid.image-cards > ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+/* === Pricing cards-grid === */
+.cards-grid.pricing > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.cards-grid.pricing > ul > li.cards-grid-pricing-card {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: unset;
+  background-color: #fff;
+  border: 1px solid #dde3e8;
+  border-radius: 12px;
+  padding: 28px 24px;
+  gap: 0;
+}
+
+/* Plan name */
+.cards-grid.pricing .cards-grid-plan-name h3 {
+  font-size: var(--heading-font-size-l);
+  font-weight: 700;
+  color: var(--xero-dark-navy);
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+
+/* Pricing details */
+.cards-grid.pricing .cards-grid-plan-pricing {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cards-grid.pricing .cards-grid-plan-pricing p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.cards-grid.pricing .cards-grid-usual-price {
+  font-size: 15px;
+  color: var(--xero-grey);
+  margin-bottom: 8px;
+}
+
+.cards-grid.pricing .cards-grid-savings {
+  font-size: 14px;
+  color: var(--xero-dark-navy);
+  margin-bottom: 16px;
+}
+
+.cards-grid.pricing .cards-grid-savings strong {
+  background-color: var(--xero-green);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 700;
+}
+
+.cards-grid.pricing .cards-grid-now-price {
+  font-size: 15px;
+  color: var(--xero-dark-navy);
+  margin-bottom: 4px;
+}
+
+.cards-grid.pricing .cards-grid-now-price strong:first-child {
+  font-size: 15px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.cards-grid.pricing .cards-grid-now-price strong:last-child {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--xero-dark-navy);
+}
+
+.cards-grid.pricing .cards-grid-per-month {
+  font-size: 14px;
+  color: var(--text-color);
+  margin-bottom: 12px;
+}
+
+/* Description (last p without a special class) */
+.cards-grid.pricing .cards-grid-plan-pricing p:last-child:not(.cards-grid-savings, .cards-grid-now-price, .cards-grid-usual-price, .cards-grid-per-month) {
+  font-size: 15px;
+  color: var(--text-color);
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* CTA section */
+.cards-grid.pricing .cards-grid-plan-cta {
+  margin-top: auto;
+  width: 100%;
+  align-self: stretch;
+}
+
+.cards-grid.pricing .cards-grid-plan-cta .button-wrapper {
+  margin: 0 0 12px;
+}
+
+.cards-grid.pricing .cards-grid-plan-cta .button.primary {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  border-radius: 4px;
+}
+
+.cards-grid.pricing .cards-grid-plan-cta .cards-grid-learn-more {
+  text-align: center;
+  margin: 0;
+}
+
+.cards-grid.pricing .cards-grid-plan-cta .cards-grid-learn-more a {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--xero-dark-navy);
+  text-decoration: underline;
+}
+
+@media (width >= 600px) {
+  .cards-grid.pricing > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .cards-grid.pricing > ul {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
 }
