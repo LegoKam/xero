@@ -1,5 +1,11 @@
 {
-  "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json",
   "type": "da",
-  "contentHostUrl": "https://content.da.live/legokam/xero/"
+  "sites": {
+    "xero": {
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json",
+      "contentHostUrl": "https://content.da.live/legokam/xero/",
+      "previewOrg": "legokam",
+      "previewSite": "xero"
+    }
+  }
 }
