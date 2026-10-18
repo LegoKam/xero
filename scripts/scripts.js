@@ -22,7 +22,7 @@ function buildHeroBlock(main) {
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
     // Check if h1 or picture is already inside a hero block
-    if (h1.closest('.hero, [class^="hero-"]') || picture.closest('.hero, [class^="hero-"]')) {
+    if (h1.closest('.hero') || picture.closest('.hero')) {
       return; // Don't create a duplicate hero block
     }
     const section = document.createElement('div');
@@ -41,46 +41,6 @@ async function loadFonts() {
   } catch (e) {
     // do nothing
   }
-}
-
-/**
- * Converts block tables inside list items into proper block elements.
- * When blocks are authored inside lists, EDS doesn't auto-decorate them.
- * Each list item becomes one row in the resulting block.
- * @param {Element} main The container element
- */
-function buildListBlocks(main) {
-  main.querySelectorAll('ul').forEach((list) => {
-    const items = [...list.querySelectorAll(':scope > li')];
-    const blockItems = items.filter((li) => {
-      const table = li.querySelector(':scope > table');
-      return table && table.querySelector('th');
-    });
-    if (blockItems.length === 0 || blockItems.length !== items.length) return;
-
-    const blockName = blockItems[0].querySelector('th').textContent.trim();
-    const className = blockName.toLowerCase().replace(/\s+/g, '-');
-
-    const block = document.createElement('div');
-    block.className = className;
-
-    // Each list item (table) becomes one row — merge all cells from all body rows
-    blockItems.forEach((li) => {
-      const table = li.querySelector('table');
-      const rowDiv = document.createElement('div');
-      const cells = table.querySelectorAll('tbody td');
-      [...cells].forEach((cell) => {
-        if (cell.innerHTML.trim()) {
-          const cellDiv = document.createElement('div');
-          cellDiv.innerHTML = cell.innerHTML;
-          rowDiv.append(cellDiv);
-        }
-      });
-      block.append(rowDiv);
-    });
-
-    list.replaceWith(block);
-  });
 }
 
 /**
@@ -108,7 +68,6 @@ function buildAutoBlocks(main) {
     }
 
     buildHeroBlock(main);
-    buildListBlocks(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
