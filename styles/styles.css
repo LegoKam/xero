@@ -1,3 +1,5 @@
+@import url('brand.css');
+
 /*
  * Copyright 2020 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -10,64 +12,14 @@
  * governing permissions and limitations under the License.
  */
 
-:root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
-
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
-
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
-
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
-
-  /* nav height */
-  --nav-height: 64px;
-}
-
-/* fallback fonts */
+/* fallback font metrics matched to Inter to limit layout shift while it loads */
 @font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
+  font-family: inter-fallback;
+  size-adjust: 107.64%;
+  ascent-override: 90%;
+  descent-override: 22.43%;
+  line-gap-override: 0%;
   src: local('Arial');
-}
-
-@font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
-  src: local('Arial');
-}
-
-@media (width >= 900px) {
-  :root {
-    /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
-
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
-  }
 }
 
 body {
@@ -77,7 +29,9 @@ body {
   color: var(--text-color);
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
-  line-height: 1.6;
+  line-height: var(--body-line-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body.appear {
@@ -98,6 +52,7 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+/* typography (source: Heading__Element / Typography__Paragraph computed styles) */
 h1,
 h2,
 h3,
@@ -105,19 +60,32 @@ h4,
 h5,
 h6 {
   margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.4em;
+  color: var(--heading-color);
   font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: var(--heading-letter-spacing);
   scroll-margin: 40px;
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
+h1 {
+  font-size: var(--heading-font-size-xxl);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
 h2 { font-size: var(--heading-font-size-xl); }
 h3 { font-size: var(--heading-font-size-l); }
 h4 { font-size: var(--heading-font-size-m); }
 h5 { font-size: var(--heading-font-size-s); }
 h6 { font-size: var(--heading-font-size-xs); }
+
+h1 em,
+h2 em,
+h3 em {
+  font-style: normal;
+}
 
 p,
 dl,
@@ -126,7 +94,21 @@ ul,
 pre,
 blockquote {
   margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.4em;
+}
+
+ul,
+ol {
+  padding-inline-start: 1.25em;
+}
+
+li + li {
+  margin-top: 0.25em;
+}
+
+sup {
+  font-size: 0.6em;
+  line-height: 0;
 }
 
 code,
@@ -142,10 +124,6 @@ pre {
   white-space: pre;
 }
 
-main > div {
-  margin: 40px 16px;
-}
-
 input,
 textarea,
 select,
@@ -153,21 +131,31 @@ button {
   font: inherit;
 }
 
-/* links */
+/* links: navy text with a 2px Xero-blue underline that drops on hover */
 a:any-link {
   color: var(--link-color);
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: var(--link-underline-color);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.12em;
   overflow-wrap: break-word;
+  transition: text-underline-offset 0.15s ease-out;
 }
 
 a:hover {
   color: var(--link-hover-color);
-  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
 }
 
 /* buttons */
 p.button-wrapper {
-  margin: 12px 0;
+  margin: 16px 0;
 }
 
 a.button:any-link,
@@ -177,105 +165,88 @@ button.button {
   align-items: center;
   justify-content: center;
   max-width: 100%;
+  min-height: 48px;
   margin: 0;
   border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
-  font: inherit;
+  border-radius: var(--button-radius);
+  padding: 0 20px;
+  font-family: var(--body-font-family);
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.25;
+  text-align: center;
   text-decoration: none;
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: var(--button-transition);
 }
 
 a.button[aria-disabled="true"],
 button.button:disabled {
   cursor: not-allowed;
   pointer-events: none;
+  opacity: 0.5;
 }
 
+/* primary (bold link): Xero green CTA */
 a.button.primary,
 button.button.primary {
-  border-color: var(--text-color);
-  background-color: var(--text-color);
-  color: var(--background-color);
+  border-color: var(--button-primary-bg);
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-color);
 }
 
 a.button.primary:hover,
 a.button.primary:focus-visible,
 button.button.primary:hover,
 button.button.primary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--dark-color);
-  color: var(--light-color);
+  border-color: var(--button-primary-bg-hover);
+  background-color: var(--button-primary-bg-hover);
+  color: var(--button-primary-color);
 }
 
-a.button.primary[aria-disabled="true"],
-a.button.primary[aria-disabled="true"]:hover,
-a.button.primary[aria-disabled="true"]:focus-visible,
-button.button.primary:disabled,
-button.button.primary:disabled:hover,
-button.button.primary:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
-}
-
+/* secondary (italic link): navy outline */
 a.button.secondary,
 button.button.secondary {
-  border-color: var(--text-color);
+  border-color: var(--xero-navy);
   background-color: transparent;
-  color: var(--text-color);
+  color: var(--xero-navy);
 }
 
 a.button.secondary:hover,
 a.button.secondary:focus-visible,
 button.button.secondary:hover,
 button.button.secondary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--light-color);
-  color: var(--dark-color);
+  border-color: var(--xero-navy);
+  background-color: var(--xero-navy);
+  color: var(--xero-white);
 }
 
-a.button.secondary[aria-disabled="true"],
-a.button.secondary[aria-disabled="true"]:hover,
-a.button.secondary[aria-disabled="true"]:focus-visible,
-button.button.secondary:disabled,
-button.button.secondary:disabled:hover,
-button.button.secondary:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
-}
-
-/* high-impact call-to-action */
+/* accent (bold + italic link): Xero blue */
 a.button.accent,
 button.button.accent {
-  border-color: var(--link-color);
-  background-color: var(--link-color);
-  color: var(--background-color);
+  border-color: var(--button-accent-bg);
+  background-color: var(--button-accent-bg);
+  color: var(--button-accent-color);
 }
 
 a.button.accent:hover,
 a.button.accent:focus-visible,
 button.button.accent:hover,
 button.button.accent:focus-visible {
-  border-color: var(--link-hover-color);
-  background-color: var(--link-hover-color);
+  border-color: var(--button-accent-bg-hover);
+  background-color: var(--button-accent-bg-hover);
+  color: var(--button-accent-color);
 }
 
-a.button.accent[aria-disabled="true"],
-a.button.accent[aria-disabled="true"]:hover,
-a.button.accent[aria-disabled="true"]:focus-visible,
-button.button.accent:disabled,
-button.button.accent:disabled:hover,
-button.button.accent:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
+@media (width >= 900px) {
+  a.button:any-link,
+  button.button {
+    min-height: 44px;
+    font-size: 17px;
+  }
 }
 
 main img {
@@ -297,29 +268,60 @@ main img {
 
 /* sections */
 main > .section {
-  margin: 40px 0;
+  margin: var(--section-spacing) 0;
 }
 
 main > .section > div {
-  max-width: 1200px;
+  max-width: var(--content-max-width);
   margin: auto;
-  padding: 0 24px;
+  padding: 0 var(--content-padding);
+  box-sizing: border-box;
 }
 
 main > .section:first-of-type {
   margin-top: 0;
 }
 
-@media (width >= 900px) {
-  main > .section > div {
-    padding: 0 32px;
-  }
+main > .section > .default-content-wrapper > :first-child {
+  margin-top: 0;
+}
+
+/* default content: intro heading + lead paragraph before a block */
+main > .section > .default-content-wrapper {
+  margin-bottom: 32px;
+}
+
+main > .section > .default-content-wrapper p {
+  max-width: 900px;
+  font-size: var(--body-font-size-m);
 }
 
 /* section metadata */
+main .section.centered > .default-content-wrapper {
+  text-align: center;
+}
+
+main .section.centered > .default-content-wrapper p {
+  margin-inline: auto;
+}
+
 main .section.light,
-main .section.highlight {
-  background-color: var(--light-color);
+main .section.highlight,
+main .section.grey-blue {
   margin: 0;
-  padding: 40px 0;
+  padding: var(--section-spacing) 0;
+  background-color: var(--xero-grey-blue);
+}
+
+main .section.dark,
+main .section.navy {
+  margin: 0;
+  padding: var(--section-spacing) 0;
+  background-color: var(--xero-navy);
+  color: var(--xero-white);
+}
+
+main .section.dark :is(h1, h2, h3, h4, h5, h6, p, li, a:any-link),
+main .section.navy :is(h1, h2, h3, h4, h5, h6, p, li, a:any-link) {
+  color: var(--xero-white);
 }

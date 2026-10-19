@@ -1,0 +1,104 @@
+/*
+ * Xero brand tokens, extracted from https://www.xero.com/au/ (computed styles).
+ * Source typeface National2 is licensed; Inter is used as the open-licence substitute.
+ */
+:root {
+  /* brand palette */
+  --xero-navy: #000856;
+  --xero-blue: #1f65d6;
+  --xero-blue-dark: #184390;
+  --xero-green: #50dcaa;
+  --xero-green-dark: #4ac49d;
+  --xero-cyan: #13b5ea;
+  --xero-grey-blue: #ecf2f6;
+  --xero-mist: #f5f9fa;
+  --xero-sand: #f2f1ee;
+  --xero-white: #fff;
+
+  /* semantic colors */
+  --background-color: var(--xero-white);
+  --text-color: var(--xero-navy);
+  --heading-color: var(--xero-navy);
+  --link-color: var(--xero-navy);
+  --link-hover-color: var(--xero-navy);
+  --link-underline-color: var(--xero-blue);
+  --light-color: var(--xero-grey-blue);
+  --dark-color: var(--xero-navy);
+  --focus-color: var(--xero-blue);
+
+  /* buttons */
+  --button-primary-bg: var(--xero-green);
+  --button-primary-bg-hover: var(--xero-green-dark);
+  --button-primary-color: var(--xero-navy);
+  --button-accent-bg: var(--xero-blue);
+  --button-accent-bg-hover: var(--xero-blue-dark);
+  --button-accent-color: var(--xero-white);
+  --button-radius: 6px;
+  --button-transition: background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* shapes */
+  --radius-panel: 12px;
+  --radius-pill: 56px;
+
+  /* fonts */
+  --body-font-family: inter, inter-fallback, "Helvetica Neue", helvetica, arial, sans-serif;
+  --heading-font-family: inter, inter-fallback, "Helvetica Neue", helvetica, arial, sans-serif;
+
+  /* body sizes (mobile) */
+  --body-font-size-l: 20px;
+  --body-font-size-m: 18px;
+  --body-font-size-s: 16px;
+  --body-font-size-xs: 14px;
+  --body-line-height: 1.4;
+
+  /* heading sizes (mobile) */
+  --heading-font-size-xxl: 32px;
+  --heading-font-size-xl: 28px;
+  --heading-font-size-l: 20px;
+  --heading-font-size-m: 18px;
+  --heading-font-size-s: 16px;
+  --heading-font-size-xs: 14px;
+  --heading-letter-spacing: -0.02em;
+
+  /* layout */
+  --content-max-width: 1440px;
+  --content-padding: 22px;
+  --section-spacing: 48px;
+  --nav-height: 60px;
+}
+
+@media (width >= 600px) {
+  :root {
+    --content-padding: 32px;
+    --heading-font-size-xxl: 40px;
+    --heading-font-size-xl: 34px;
+  }
+}
+
+@media (width >= 900px) {
+  :root {
+    --body-font-size-l: 24px;
+    --body-font-size-m: 20px;
+    --body-font-size-s: 16px;
+    --body-font-size-xs: 14px;
+    --heading-font-size-xxl: 46px;
+    --heading-font-size-xl: 38px;
+    --heading-font-size-l: 21px;
+    --heading-font-size-m: 18px;
+    --heading-font-size-s: 16px;
+    --heading-font-size-xs: 14px;
+    --content-padding: 40px;
+    --section-spacing: 72px;
+  }
+}
+
+@media (width >= 1200px) {
+  :root {
+    --body-font-size-l: 27.6px;
+    --body-font-size-m: 21.96px;
+    --heading-font-size-xxl: 51.6px;
+    --heading-font-size-xl: 42px;
+    --heading-font-size-l: 21.96px;
+    --content-padding: 29px;
+  }
+}
