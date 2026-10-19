@@ -13,6 +13,110 @@ function isBoldOnly(el) {
 }
 
 /**
+ * Checks whether a paragraph only holds a single link (button or text CTA).
+ * @param {Element} el
+ * @returns {boolean}
+ */
+function isLinkOnly(el) {
+  if (el.tagName !== 'P') return false;
+  const links = el.querySelectorAll('a');
+  return links.length === 1 && el.textContent.trim() === links[0].textContent.trim();
+}
+
+/**
+ * Splits a price such as "$7.80 per month" into styled parts.
+ * @param {Element} price The bold price paragraph
+ */
+function decoratePrice(price) {
+  const strong = price.querySelector('strong');
+  const match = strong.textContent.trim().match(/^(\D*?)(\d[\d,]*)(\.\d+)?(.*)$/);
+  if (!match) return;
+  const [, currency, amount, cents, period] = match;
+  const parts = [
+    ['currency', currency],
+    ['amount', amount],
+    ['cents', cents],
+    ['period', period],
+  ].filter(([, text]) => text && text.trim());
+  strong.replaceChildren(...parts.map(([name, text]) => {
+    const span = document.createElement('span');
+    span.className = `tabs-pricing-${name}`;
+    span.textContent = name === 'period' ? ` ${text.trim()}` : text;
+    return span;
+  }));
+}
+
+const TOGGLE_ICON = '<svg width="21" height="20" viewBox="0 0 21 20" focusable="false" aria-hidden="true">'
+  + '<path class="tabs-pricing-icon-v" d="M11.6179 1C10.7899 6.89958 10.1179 12.5732 10.1179 18.5"/>'
+  + '<path d="M1.99997 9.57983C7.79966 10.1618 14.0711 9.17061 19.7354 10.4201"/></svg>';
+
+/**
+ * Turns a label paragraph followed by a list into an expandable feature list.
+ * @param {Element} label The paragraph labelling the list (e.g. "Includes")
+ * @param {Element} list The feature list
+ * @param {string} id Unique id for the list container
+ */
+function buildFeatures(label, list, id) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'tabs-pricing-features';
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'tabs-pricing-toggle';
+  button.setAttribute('aria-expanded', 'false');
+  button.setAttribute('aria-controls', id);
+  const text = document.createElement('span');
+  text.className = 'tabs-pricing-toggle-label';
+  text.append(...label.childNodes);
+  const icon = document.createElement('span');
+  icon.className = 'tabs-pricing-toggle-icon';
+  icon.innerHTML = TOGGLE_ICON;
+  button.append(text, icon);
+
+  const content = document.createElement('div');
+  content.className = 'tabs-pricing-features-list';
+  content.id = id;
+  content.hidden = true;
+
+  label.replaceWith(wrapper);
+  content.append(list);
+  wrapper.append(button, content);
+}
+
+/**
+ * Structures a plan card: price, expandable feature lists and bottom CTAs.
+ * @param {Element} plan The plan card element
+ * @param {string} idPrefix Unique prefix for generated ids
+ */
+function decoratePlan(plan, idPrefix) {
+  const price = plan.querySelector('.tabs-pricing-price');
+  if (price) decoratePrice(price);
+
+  [...plan.querySelectorAll(':scope > ul, :scope > ol')].forEach((list, i) => {
+    const label = list.previousElementSibling;
+    if (label && label.tagName === 'P' && label !== price && !isLinkOnly(label)) {
+      buildFeatures(label, list, `${idPrefix}-features-${i}`);
+    }
+  });
+
+  const ctas = [];
+  let el = plan.lastElementChild;
+  while (el && isLinkOnly(el)) {
+    ctas.unshift(el);
+    el = el.previousElementSibling;
+  }
+  if (ctas.length) {
+    const group = document.createElement('div');
+    group.className = 'tabs-pricing-ctas';
+    ctas.forEach((cta) => {
+      if (!cta.querySelector('a.button')) cta.classList.add('tabs-pricing-link');
+    });
+    group.append(...ctas);
+    plan.append(group);
+  }
+}
+
+/**
  * Splits a tab panel into plan cards, one per H3.
  * Content before the first H3 is kept as the panel intro.
  * @param {Element} panel The tab panel content element
@@ -43,10 +147,27 @@ function buildPlans(panel) {
     }
   });
 
+  [...plans.children].forEach((plan, i) => decoratePlan(plan, `${panel.parentElement.id}-${i}`));
+
   const nodes = [];
   if (intro.children.length) nodes.push(intro);
   nodes.push(plans);
   panel.replaceChildren(...nodes);
+}
+
+/**
+ * Expands or collapses all feature lists in the same panel, like the source,
+ * so plan cards side by side stay aligned.
+ * @param {Element} toggle The clicked toggle button
+ */
+function toggleFeatures(toggle) {
+  const expanded = toggle.getAttribute('aria-expanded') !== 'true';
+  const scope = toggle.closest('.tabs-pricing-panel') || toggle.closest('.tabs-pricing-plan');
+  scope.querySelectorAll('.tabs-pricing-toggle').forEach((btn) => {
+    btn.setAttribute('aria-expanded', expanded);
+    const content = scope.querySelector(`#${btn.getAttribute('aria-controls')}`);
+    if (content) content.hidden = !expanded;
+  });
 }
 
 /**
@@ -121,6 +242,12 @@ export default async function decorate(block) {
     }
   });
 
+  block.addEventListener('click', (e) => {
+    const toggle = e.target.closest('.tabs-pricing-toggle');
+    if (toggle) toggleFeatures(toggle);
+  });
+
   block.prepend(tablist);
+  if (buttons.length === 1) block.classList.add('tabs-pricing-single');
   if (buttons.length) select(selectedIndex);
 }

@@ -1,39 +1,137 @@
+/* cards-industry: PostCard list (photo, linked title, description) and
+   ContentCard tiles (linked title above a square image, no description). */
+
 .cards-industry > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 30px 21.67px;
 }
 
 .cards-industry > ul > li {
   display: flex;
   flex-direction: column;
+  margin: 0;
+  color: var(--xero-navy);
 }
 
 .cards-industry .cards-industry-card-image {
   line-height: 0;
 }
 
-.cards-industry .cards-industry-card-body > :first-child {
-  margin-top: 16px;
+.cards-industry .cards-industry-card-image picture {
+  display: block;
 }
 
-.cards-industry > ul > li img {
+.cards-industry .cards-industry-card-image img {
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: auto;
+}
+
+.cards-industry .cards-industry-card-image + .cards-industry-card-body {
+  padding-top: 20px;
+}
+
+.cards-industry .cards-industry-card-body h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 23.8px;
+  letter-spacing: normal;
+  color: var(--xero-navy);
+}
+
+.cards-industry .cards-industry-card-body h3 a:any-link {
+  color: inherit;
+}
+
+.cards-industry .cards-industry-card-body p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 18.75px;
+  color: var(--xero-navy);
+}
+
+.cards-industry .cards-industry-card-body > h3 + p {
+  margin-top: 10px;
+}
+
+/* ContentCard tiles: every card is just a linked title + image */
+.cards-industry:not(:has(.cards-industry-card-body > :not(h3))) > ul {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px 21px;
+}
+
+.cards-industry:not(:has(.cards-industry-card-body > :not(h3))) .cards-industry-card-body {
+  order: -1;
+  margin-bottom: 10px;
+}
+
+.cards-industry:not(:has(.cards-industry-card-body > :not(h3))) .cards-industry-card-image + .cards-industry-card-body {
+  padding-top: 0;
+}
+
+.cards-industry:not(:has(.cards-industry-card-body > :not(h3))) .cards-industry-card-body h3 {
+  font-size: 16px;
+  line-height: 17.6px;
+}
+
+.cards-industry:not(:has(.cards-industry-card-body > :not(h3))) .cards-industry-card-image {
+  margin-top: auto;
+  overflow: hidden;
+  background-color: var(--xero-cyan);
+}
+
+.cards-industry:not(:has(.cards-industry-card-body > :not(h3))) .cards-industry-card-image img {
+  aspect-ratio: 1 / 1;
   object-fit: cover;
 }
 
 @media (width >= 600px) {
   .cards-industry > ul {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (width >= 900px) {
   .cards-industry > ul {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 36px 28.8px;
+  }
+
+  .cards-industry .cards-industry-card-image + .cards-industry-card-body {
+    padding-top: 24px;
+  }
+
+  .cards-industry .cards-industry-card-body h3 {
+    font-size: 21.96px;
+    line-height: 30.744px;
+  }
+
+  .cards-industry .cards-industry-card-body p {
+    font-size: 15.6px;
+    line-height: 19.5px;
+  }
+
+  .cards-industry .cards-industry-card-body > h3 + p {
+    margin-top: 12px;
+  }
+
+  .cards-industry:not(:has(.cards-industry-card-body > :not(h3))) > ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 36px 28.8px;
+  }
+
+  .cards-industry:not(:has(.cards-industry-card-body > :not(h3))) .cards-industry-card-body {
+    margin-bottom: 12px;
+  }
+
+  .cards-industry:not(:has(.cards-industry-card-body > :not(h3))) .cards-industry-card-body h3 {
+    font-size: 20.04px;
+    line-height: 23.046px;
+    letter-spacing: -0.4px;
   }
 }

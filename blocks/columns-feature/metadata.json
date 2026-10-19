@@ -4,7 +4,7 @@
   "canonicalModel": "standalone",
   "visualCharacteristics": {
     "purpose": "Feature section with text (heading, paragraph, tick list, link) beside an illustration",
-    "layout": "two columns side by side on desktop, image first when stacked on mobile; list items get tick markers"
+    "layout": "two columns side by side on desktop, text first and image below when stacked on mobile; image-left rows mirror the 12-col offsets; list items get tick markers"
   },
   "contentPattern": {
     "structure": "One row with two cells: text (heading, paragraph, list, link) | image"

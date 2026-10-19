@@ -21,9 +21,11 @@ function buildHeroBlock(main) {
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-    // Check if h1 or picture is already inside a hero block
-    if (h1.closest('.hero') || picture.closest('.hero')) {
-      return; // Don't create a duplicate hero block
+    // Don't auto-block when the h1 or picture is already authored inside a block
+    // (e.g. hero, hero-split, columns); blocks are `main > div > div[class]` at this stage.
+    const authoredBlock = 'main > div > div[class], .hero';
+    if (h1.closest(authoredBlock) || picture.closest(authoredBlock)) {
+      return;
     }
     const section = document.createElement('div');
     section.append(buildBlock('hero', { elems: [picture, h1] }));

@@ -1,21 +1,36 @@
+/* tabs-pricing: values from https://www.xero.com/au/ FinTabSet / PlanCard computed styles */
+.tabs-pricing {
+  --tabs-pricing-space: 10px;
+  --tabs-pricing-card-border: rgb(214 218 222);
+
+  color: var(--xero-navy);
+}
+
+/* folder-style tab switcher */
 .tabs-pricing .tabs-pricing-list {
   display: flex;
-  justify-content: center;
-  gap: 8px;
+  justify-content: flex-start;
+  gap: 2px;
   max-width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
   overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .tabs-pricing .tabs-pricing-list button {
   flex: 0 0 max-content;
   margin: 0;
-  border: 1px solid transparent;
-  border-radius: 0;
-  padding: 0.5em 0.75em;
+  border: 0;
+  border-radius: 5px 5px 0 0;
+  padding: 10px 12px;
   background-color: transparent;
-  color: inherit;
+  color: var(--xero-navy);
+  font-size: 14px;
   font-weight: 700;
-  line-height: unset;
+  line-height: 14px;
+  text-decoration: underline 2px var(--xero-blue);
+  text-underline-offset: 2px;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -25,14 +40,22 @@
 }
 
 .tabs-pricing .tabs-pricing-list button[aria-selected='true'] {
-  background-color: var(--text-color);
-  color: var(--background-color);
+  background-color: var(--xero-navy);
+  color: var(--xero-white);
+  text-decoration: none;
   cursor: default;
 }
 
+.tabs-pricing.tabs-pricing-single .tabs-pricing-list {
+  display: none;
+}
+
+/* navy panel */
 .tabs-pricing .tabs-pricing-panel {
-  margin-top: 16px;
-  padding: 24px 0;
+  margin: 0;
+  border-radius: 10px;
+  padding: 30px 0 45px;
+  background-color: var(--xero-navy);
 }
 
 .tabs-pricing .tabs-pricing-panel[aria-hidden='true'] {
@@ -44,52 +67,313 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
+  padding: 0 var(--content-padding);
+  color: var(--xero-white);
 }
 
-.tabs-pricing .tabs-pricing-intro p {
+.tabs-pricing .tabs-pricing-intro :is(p, h2, h4, h5, h6) {
   margin: 0;
+  color: var(--xero-white);
 }
 
+/* plan cards: horizontal scroller on mobile */
 .tabs-pricing .tabs-pricing-plans {
-  list-style: none;
+  display: flex;
+  gap: 21.67px;
   margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
+  padding: 0 43.33px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 43.33px;
+  scrollbar-width: none;
 }
 
 .tabs-pricing .tabs-pricing-plan {
   display: flex;
+  flex: 0 0 260px;
   flex-direction: column;
-  padding: 24px;
-  border-radius: 8px;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  box-sizing: border-box;
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--tabs-pricing-card-border);
+  border-radius: 10px;
+  padding: 20px;
+  background-color: var(--xero-white);
+  color: var(--xero-navy);
+  scroll-snap-align: start;
 }
 
 .tabs-pricing .tabs-pricing-plan > h3 {
+  margin: 0;
+  color: var(--xero-navy);
+  font-size: 18.3px;
+  font-weight: 700;
+  line-height: 20.13px;
+  letter-spacing: var(--heading-letter-spacing);
+}
+
+.tabs-pricing .tabs-pricing-plan p {
+  margin: var(--tabs-pricing-space) 0 0;
+  color: var(--xero-navy);
+  font-size: 14px;
+  line-height: 18.2px;
+}
+
+/* price: "$" small, dollars big, cents small */
+.tabs-pricing .tabs-pricing-plan .tabs-pricing-price {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20.8px;
+}
+
+.tabs-pricing .tabs-pricing-price strong {
+  display: block;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.tabs-pricing .tabs-pricing-price .tabs-pricing-amount {
+  font-size: 43px;
+  line-height: 43px;
+}
+
+.tabs-pricing .tabs-pricing-price :is(.tabs-pricing-currency, .tabs-pricing-cents) {
+  font-size: 16.7px;
+  line-height: 16.7px;
+}
+
+.tabs-pricing .tabs-pricing-price .tabs-pricing-period {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18.2px;
+}
+
+.tabs-pricing .tabs-pricing-plan .tabs-pricing-price + p {
   margin-top: 0;
 }
 
-.tabs-pricing .tabs-pricing-plan .tabs-pricing-price {
-  margin: 8px 0 0;
-  font-size: var(--heading-font-size-l);
+/* expandable "Includes" list */
+.tabs-pricing .tabs-pricing-features {
+  margin-top: calc(var(--tabs-pricing-space) * 2);
 }
 
-.tabs-pricing .tabs-pricing-plan .button-wrapper {
-  margin: 8px 0 0;
+.tabs-pricing .tabs-pricing-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-top: 2px solid var(--tabs-pricing-card-border);
+  border-bottom: 2px solid var(--tabs-pricing-card-border);
+  border-radius: 0;
+  padding: calc(var(--tabs-pricing-space) + 1px) 6px calc(var(--tabs-pricing-space) + 1px) var(--tabs-pricing-space);
+  background-color: transparent;
+  color: var(--xero-navy);
+  text-align: left;
+  cursor: pointer;
+}
+
+.tabs-pricing .tabs-pricing-toggle-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.tabs-pricing .tabs-pricing-toggle-icon {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  margin: 0 10px;
+}
+
+.tabs-pricing .tabs-pricing-toggle-icon svg {
+  width: 21px;
+  height: 20px;
+  fill: none;
+  stroke: rgb(0 120 200);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tabs-pricing .tabs-pricing-toggle[aria-expanded='true'] .tabs-pricing-icon-v {
+  display: none;
+}
+
+.tabs-pricing .tabs-pricing-features-list {
+  border-bottom: 2px solid var(--tabs-pricing-card-border);
+  padding: var(--tabs-pricing-space) 0 0 var(--tabs-pricing-space);
+}
+
+.tabs-pricing .tabs-pricing-features-list[hidden] {
+  display: none;
+}
+
+.tabs-pricing .tabs-pricing-features-list :is(ul, ol) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tabs-pricing .tabs-pricing-features-list li {
+  position: relative;
+  min-height: 20.4px;
+  margin: 0;
+  padding: 0 0 var(--tabs-pricing-space) 30px;
+  color: var(--xero-navy);
+  font-size: 14px;
+  line-height: 18.2px;
+}
+
+.tabs-pricing .tabs-pricing-features-list li::before {
+  content: '';
+  position: absolute;
+  top: 2.4px;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  background-color: rgb(0 130 77);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M3 10.5C4.33115 11.5286 5.37037 12.7132 6.59722 13.8333C7.27501 14.4522 7.40203 14.5441 7.65278 13.7083C8.83956 9.7524 12.3985 6.0745 15 3' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 18px 18px no-repeat;
+}
+
+/* CTAs pinned to the card bottom */
+.tabs-pricing .tabs-pricing-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tabs-pricing-space);
+  margin-top: auto;
+  padding-top: calc(var(--tabs-pricing-space) * 2);
+}
+
+.tabs-pricing .tabs-pricing-plan .tabs-pricing-ctas p {
+  margin: 0;
   text-align: center;
 }
 
-.tabs-pricing .tabs-pricing-plan a.button {
+main .tabs-pricing a.button:any-link {
   width: 100%;
-  box-sizing: border-box;
+  min-height: 40px;
+  border: 2px solid var(--xero-blue);
+  border-radius: 5px;
+  padding: 0 11px;
+  background-color: var(--xero-blue);
+  color: var(--xero-white);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+main .tabs-pricing a.button:any-link:hover,
+main .tabs-pricing a.button:any-link:focus-visible {
+  border-color: var(--xero-blue-dark);
+  background-color: var(--xero-blue-dark);
+  color: var(--xero-white);
+}
+
+.tabs-pricing .tabs-pricing-link a:any-link {
+  color: var(--xero-navy);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18.75px;
 }
 
 @media (width >= 900px) {
+  .tabs-pricing {
+    --tabs-pricing-space: 12px;
+  }
+
+  .tabs-pricing .tabs-pricing-list {
+    justify-content: center;
+    gap: 2.4px;
+    padding: 0;
+  }
+
+  .tabs-pricing .tabs-pricing-list button {
+    border-radius: 6px 6px 0 0;
+    padding: 12px 15px;
+    font-size: 15px;
+    line-height: 15px;
+    text-underline-offset: 2.4px;
+  }
+
+  .tabs-pricing .tabs-pricing-panel {
+    border-radius: var(--radius-panel);
+    padding: 36px 24px 60px;
+  }
+
   .tabs-pricing .tabs-pricing-plans {
-    grid-template-columns: repeat(3, 1fr);
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 9.6px;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .tabs-pricing .tabs-pricing-plan {
+    flex: 0 1 368px;
+    border-radius: var(--radius-panel);
+    padding: 24px;
+  }
+
+  .tabs-pricing .tabs-pricing-plan > h3 {
+    font-size: 21.96px;
+    line-height: 25.254px;
+  }
+
+  .tabs-pricing .tabs-pricing-plan p {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .tabs-pricing .tabs-pricing-plan .tabs-pricing-price {
+    font-size: 18px;
+    line-height: 23.4px;
+  }
+
+  .tabs-pricing .tabs-pricing-price .tabs-pricing-amount {
+    font-size: 51.6px;
+    line-height: 51.6px;
+  }
+
+  .tabs-pricing .tabs-pricing-price :is(.tabs-pricing-currency, .tabs-pricing-cents) {
+    font-size: 20.04px;
+    line-height: 20.04px;
+  }
+
+  .tabs-pricing .tabs-pricing-price .tabs-pricing-period {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .tabs-pricing .tabs-pricing-toggle-label {
+    font-size: 15px;
+  }
+
+  .tabs-pricing .tabs-pricing-features-list li {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  main .tabs-pricing a.button:any-link {
+    min-height: 36px;
+    border-radius: 6px;
+    padding: 0 14px;
+    font-size: 15px;
+  }
+
+  .tabs-pricing .tabs-pricing-link a:any-link {
+    font-size: 15.6px;
+    line-height: 19.5px;
+  }
+}
+
+@media (width >= 1200px) {
+  /* keep 4-plan tabs on one row, like the source */
+  .tabs-pricing .tabs-pricing-plans {
+    flex-wrap: nowrap;
   }
 }

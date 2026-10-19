@@ -1,33 +1,210 @@
+/* hero-split: values from xero.com/au Region > Grid > Row > Col computed styles */
+
+/* mobile (source root 10px) */
 .hero-split {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  padding: 40px 0;
+  padding: 60px 10.8333px;
+  color: var(--xero-navy);
 }
 
-.hero-split .hero-split-content > :first-child {
-  margin-top: 0;
+.hero-split .hero-split-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.hero-split .hero-split-image {
+.hero-split .hero-split-content > * {
+  max-width: 100%;
+  margin: 0;
+}
+
+.hero-split .hero-split-content > * + * {
+  margin-top: 30px;
+}
+
+.hero-split h1 {
+  color: var(--xero-navy);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 30.72px;
+  letter-spacing: normal;
+}
+
+.hero-split .hero-split-content > p {
+  color: var(--xero-navy);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* CTA group: ButtonGroup (column on mobile) */
+.hero-split .hero-split-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
+.hero-split .hero-split-actions > p {
+  margin: 0;
+}
+
+.hero-split.with-image .hero-split-actions > .button-wrapper {
+  align-self: stretch;
+}
+
+main .hero-split a.button:any-link {
+  min-height: 40px;
+  padding: 0 11px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 36px;
+}
+
+.hero-split.with-image a.button:any-link {
+  width: 100%;
+}
+
+.hero-split .hero-split-link a:any-link {
+  color: var(--xero-navy);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18.2px;
+  text-underline-offset: 2px;
+}
+
+/* media column */
+.hero-split .hero-split-media {
+  margin-top: 30px;
   line-height: 0;
 }
 
 .hero-split .hero-split-image img {
+  display: block;
   width: 100%;
   height: auto;
-  object-fit: contain;
 }
 
+.hero-split .hero-split-video {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-split .hero-split-video > .video-wrapper {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* video caption: Caption__Figure figcaption, right aligned with arrow */
+.hero-split .hero-split-caption {
+  display: flex;
+  align-self: flex-end;
+  align-items: flex-start;
+  max-width: 200px;
+  margin: 35px 0 0;
+  color: var(--xero-navy);
+  font-size: 14px;
+  line-height: 18.2px;
+  text-align: right;
+}
+
+.hero-split .hero-split-caption-arrow {
+  flex: 0 0 45px;
+  width: 45px;
+  height: 50px;
+  margin: -10px 3px 0 0;
+  color: var(--xero-blue);
+}
+
+.hero-split .hero-split-caption-arrow svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* desktop (source root 12px): 12-col row, 28.8px gutters */
 @media (width >= 900px) {
   .hero-split {
-    flex-direction: row;
-    align-items: center;
-    gap: 48px;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 28.8px;
+    align-items: stretch;
+    padding: 72px 14.4px;
   }
 
-  .hero-split .hero-split-content,
-  .hero-split .hero-split-image {
-    flex: 1 1 50%;
+  .hero-split .hero-split-content {
+    grid-column: 2 / span 4;
+  }
+
+  .hero-split.no-media .hero-split-content {
+    grid-column: 2 / span 8;
+  }
+
+  .hero-split .hero-split-media {
+    grid-column: 7 / span 5;
+    align-self: start;
+    margin-top: 0;
+  }
+
+  .hero-split .hero-split-content > * + * {
+    margin-top: 36px;
+  }
+
+  .hero-split h1 {
+    font-size: 51.6px;
+    line-height: 51.6px;
+    letter-spacing: -1px;
+  }
+
+  .hero-split .hero-split-content > p {
+    font-size: 27.6px;
+    line-height: 33.12px;
+  }
+
+  .hero-split .hero-split-actions {
+    flex-flow: row wrap;
+    align-items: baseline;
+    gap: 24px 36px;
+  }
+
+  .hero-split.with-image .hero-split-actions > .button-wrapper {
+    align-self: auto;
+  }
+
+  main .hero-split a.button:any-link {
+    min-height: 36px;
+    padding: 0 14px;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 32px;
+  }
+
+  .hero-split.with-image a.button:any-link {
+    width: auto;
+  }
+
+  .hero-split .hero-split-link a:any-link {
+    font-size: 15px;
+    line-height: 18px;
+    text-underline-offset: 2.4px;
+  }
+
+  .hero-split .hero-split-caption {
+    max-width: 240px;
+    margin-top: 42px;
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .hero-split .hero-split-caption-arrow {
+    flex-basis: 60px;
+    width: 60px;
+    height: 60px;
+    margin: -24px 6px 0 0;
   }
 }
