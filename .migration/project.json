@@ -5,7 +5,8 @@
       "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json",
       "contentHostUrl": "https://content.da.live/legokam/xero/",
       "previewOrg": "legokam",
-      "previewSite": "xero"
+      "previewSite": "xero",
+      "botProtected": true
     }
   }
 }
