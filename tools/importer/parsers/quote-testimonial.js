@@ -7,6 +7,8 @@
  *    CustomerStory__AnnotationWrapper > figure.Caption__Figure (figcaption p + img).
  *  - CustomerStoryV2 (partner-programme): FigureCaption__Wrapper (caption span + img)
  *    and blockquote.CustomerStoryV2__Blockquote (h2 quote + footer attribution).
+ *  - BlockQuote (partner-hub): figure.Caption__Figure with figcaption p (attribution) and
+ *    Caption__ChildrenWrapper blockquote.BlockQuote__Quote p (quote); no image.
  * Block structure (1 column): row 1 = image (optional), row 2 = quote text,
  *   row 3 = attribution (name / business caption paragraphs + optional link).
  */
@@ -68,7 +70,8 @@ export default function parse(element, { document }) {
 
   // Quote
   // Ordered fallbacks (a comma list would return the outer blockquote first).
-  const quoteEl = ['q[class^="CustomerStory__Quote"]', '[class^="CustomerStoryV2__Quote"]', 'blockquote h2', 'q', 'h2', 'h3']
+  const quoteEl = ['q[class^="CustomerStory__Quote"]', '[class^="CustomerStoryV2__Quote"]', 'blockquote h2',
+    '[class^="BlockQuote__Quote"] p', '[class^="BlockQuote__Quote"]', 'q', 'h2', 'h3', 'blockquote p']
     .map((s) => element.querySelector(s))
     .find(Boolean);
   const quote = quoteEl ? buildQuote(document, quoteEl) : null;

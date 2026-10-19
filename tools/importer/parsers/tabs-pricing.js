@@ -208,6 +208,24 @@ function buildPlan(document, card) {
   return nodes;
 }
 
+/**
+ * Text of the nearest heading before the element within its enclosing section
+ * (falls back to the whole document when there is no section ancestor).
+ */
+function precedingHeading(element) {
+  const scope = element.closest('section, [class^="Region__Element"]') || element.ownerDocument.body;
+  if (!scope) return '';
+  const heads = [...scope.querySelectorAll('h1, h2, h3, h4, h5, h6')]
+    .filter((h) => !element.contains(h)
+      // eslint-disable-next-line no-bitwise
+      && (h.compareDocumentPosition(element) & 4)); // DOCUMENT_POSITION_FOLLOWING
+  for (let i = heads.length - 1; i >= 0; i -= 1) {
+    const text = clean(heads[i].textContent);
+    if (text) return text;
+  }
+  return '';
+}
+
 export default function parse(element, { document }) {
   const cells = [];
 
@@ -258,6 +276,14 @@ export default function parse(element, { document }) {
     });
   } else if (panelContent.length) {
     cells.push(['Plans', panelContent]);
+  } else {
+    // Standalone plan row (e.g. PlansCompactV2__NavigationWrapper): no category toggle or
+    // tab panel, only PlanCards. Migrate them as a single tab.
+    const cardContent = [];
+    element.querySelectorAll('[class^="PlanCard__Element"]').forEach((card) => {
+      cardContent.push(...buildPlan(document, card));
+    });
+    if (cardContent.length) cells.push([precedingHeading(element) || 'Plans', cardContent]);
   }
 
   const block = WebImporter.Blocks.createBlock(document, { name: 'tabs-pricing', cells });

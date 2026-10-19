@@ -3,8 +3,11 @@
 /**
  * Parser for accordion-faq.
  * Source: dl[class^="Accordion__Element"] > dt.AccordionItem__Term (button > title span)
- *   + dd.AccordionItem__Detail. Each dd renders the answer twice (mobile + desktop
- *   Responsive__Wrapper copies); only the first copy is used.
+ *   + dd.AccordionItem__Detail, or the div variant div[class^="Accordion__Element"] >
+ *   div.AccordionItem__Term (heading > button > title) + div.AccordionItem__Detail.
+ *   AccordionV3 answers sit in AccordionItem__Content > AccordionV3__RteContent.
+ *   Each detail renders the answer twice (mobile + desktop Responsive__Wrapper copies);
+ *   only the first copy is used.
  * Block structure (2 columns): one row per item -> [question text | answer rich text].
  */
 function clean(text) {
@@ -57,23 +60,34 @@ function buildAnswer(document, content) {
 export default function parse(element, { document }) {
   const cells = [];
 
-  element.querySelectorAll(':scope > dt').forEach((dt) => {
+  const isTerm = (n) => n.tagName === 'DT' || /^AccordionItem__Term/.test(n.className || '');
+  const isDetail = (n) => n.tagName === 'DD' || /^AccordionItem__Detail/.test(n.className || '');
+  const kids = [...element.children];
+  // Tolerate one wrapper level per item (term + detail inside a per-item div).
+  const terms = kids.some(isTerm)
+    ? kids.filter(isTerm)
+    : [...element.querySelectorAll(':scope > * > dt, :scope > * > [class^="AccordionItem__Term"]')];
+  const details = [...element.querySelectorAll('dd, [class^="AccordionItem__Detail"]')]
+    .filter((d, i, all) => !all.some((o) => o !== d && o.contains(d)));
+
+  terms.forEach((dt) => {
     const titleEl = dt.querySelector('[class^="AccordionItem__Title"] [class^="Typography__Span"]')
+      || dt.querySelector('[class^="AccordionItem__Title"] b, [class^="AccordionItem__Title"] strong')
       || dt.querySelector('[class^="AccordionItem__Title"]')
       || dt;
     const question = clean(titleEl.textContent);
 
-    // Pair dt with its dd: prefer aria-controls, fall back to the next sibling dd.
+    // Pair term with its detail: prefer aria-controls, fall back to the next sibling detail.
     const btn = dt.querySelector('[aria-controls]');
     let dd = null;
     const controls = btn && btn.getAttribute('aria-controls');
     if (controls) {
-      dd = [...element.querySelectorAll(':scope > dd')].find((d) => d.id === controls) || null;
+      dd = details.find((d) => d.id === controls) || null;
     }
     if (!dd) {
       let n = dt.nextElementSibling;
-      while (n && n.tagName !== 'DD' && n.tagName !== 'DT') n = n.nextElementSibling;
-      if (n && n.tagName === 'DD') dd = n;
+      while (n && !isDetail(n) && !isTerm(n)) n = n.nextElementSibling;
+      if (n && isDetail(n)) dd = n;
     }
 
     let answer = [];

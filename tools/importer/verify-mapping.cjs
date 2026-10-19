@@ -22,6 +22,7 @@
  *   node tools/importer/verify-mapping.cjs --exclude small-businesses
  *   node tools/importer/verify-mapping.cjs --quiet         # summary + issues only
  *   node tools/importer/verify-mapping.cjs --json out.json # machine-readable result
+ *   node tools/importer/verify-mapping.cjs --file other-page-templates.json
  * Exit code: 0 when clean, 1 when MULTI / NESTED / UNMAPPED issues remain.
  * jsdom: resolved from the project, $JSDOM_PATH, or the excat content-import skill.
  */
@@ -29,7 +30,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const TEMPLATES_FILE = path.join(ROOT, 'tools/importer/page-templates.json');
+let TEMPLATES_FILE = path.join(ROOT, 'tools/importer/page-templates.json');
 const SNAPSHOT_DIR = process.env.BD_SNAPSHOT_DIR || path.join(ROOT, 'tools/importer/bd-snapshots');
 
 function loadJsdom() {
@@ -64,8 +65,20 @@ const IGNORE_COMPONENTS = new Set([
   'Highlighter', 'ZigZag', 'HalfSpark', 'Pill', 'IconButton', 'util', 'Text',
   'Label', 'TextInput', 'Select', 'Checkbox', 'Price', 'CardBorder',
 ]);
-/** Component parts that are inline decorations of a component otherwise mapped. */
-const IGNORE_PARTS = new Set(['Highlight__Wrapper', 'Highlight__Inner']);
+/**
+ * Component parts that are inline decorations, or plain wrappers around default
+ * content (a heading / promo pill paragraph) next to a mapped block.
+ */
+const IGNORE_PARTS = new Set([
+  'Highlight__Wrapper', 'Highlight__Inner',
+  'PlansTable__CenteredHeading', // h2 "Compare features across plans" -> default content
+  'PlansCompact__PromoPillWrapper', 'PlanStackV2__PromoPillWrapper', // promo pill <p> -> default content
+]);
+/** Component elements with no text and no media are decorative (spacers, arrows). */
+const MEDIA = 'img, picture, video, iframe, svg[role="img"]:not([aria-hidden="true"])';
+function isDecorative(el) {
+  return !el.textContent.trim() && !el.matches(MEDIA) && !el.querySelector(MEDIA);
+}
 
 /**
  * Subtrees that are intentionally not mapped to a block (default content, or
@@ -80,6 +93,7 @@ const IGNORE_SUBTREES = [
   { selector: '[class^="SecondaryNavigation__"]', reason: 'secondary navigation (cleanup)' },
   { selector: '[class^="TopBar__"]', reason: 'top bar (cleanup)' },
   { selector: '[class^="Trustpilot__"]', reason: 'Trustpilot widget (cleanup)' },
+  { selector: '[class^="AnchorButton__"]', reason: 'in-page anchor button, e.g. "Back to top" (cleanup)' },
   {
     selector: '[class^="Responsive__Wrapper"]:has([class^="PlanStackV2__"])',
     reason: 'adaptive small-viewport duplicate of the desktop plans (PlanStackV2) - cleanup must remove',
@@ -96,7 +110,7 @@ const opt = { only: [], exclude: [], quiet: false, json: null };
 for (let i = 0; i < args.length; i += 1) {
   const a = args[i];
   if (a === '-t' || a === '--template') { opt.only.push(args[i + 1]); i += 1; } else if (a === '--exclude') { opt.exclude.push(args[i + 1]); i += 1; } else if (a === '-q' || a === '--quiet') opt.quiet = true;
-  else if (a === '--json') { opt.json = args[i + 1]; i += 1; } else if (a === '-h' || a === '--help') {
+  else if (a === '--json') { opt.json = args[i + 1]; i += 1; } else if (a === '--file') { TEMPLATES_FILE = path.resolve(args[i + 1]); i += 1; } else if (a === '-h' || a === '--help') {
     console.log(fs.readFileSync(__filename, 'utf8').split('*/')[0]);
     process.exit(0);
   }
@@ -225,7 +239,7 @@ templates.forEach((t) => {
       [...region.querySelectorAll('[class]')].forEach((el) => {
         const c = componentOf(el);
         if (!c || IGNORE_COMPONENTS.has(c.name) || IGNORE_PARTS.has(c.part)) return;
-        if (inBlock(el)) return;
+        if (inBlock(el) || isDecorative(el)) return;
         const ig = ignoredBy(el);
         if (ig) { ignored.add(ig.reason); return; }
         unmapped.set(c.name, (unmapped.get(c.name) || 0) + 1);

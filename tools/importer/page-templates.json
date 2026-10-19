@@ -262,8 +262,196 @@
       ],
       "representativeUrl": "https://www.xero.com/au/about/",
       "description": "To be named in naming step",
-      "blocks": [],
-      "urlPattern": "/au/*"
+      "blocks": [
+        {
+          "name": "video",
+          "instances": [
+            "[class^=\"Video__Element\"]"
+          ]
+        },
+        {
+          "name": "quote-testimonial",
+          "instances": [
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])",
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"BlockQuote__Quote\"])"
+          ]
+        },
+        {
+          "name": "cards-testimonial",
+          "instances": [
+            "[class^=\"TestimonialCards__RowWrapper\"]"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)",
+            "div[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+          ]
+        },
+        {
+          "name": "tabs-pricing",
+          "instances": [
+            "[class^=\"FinTabSet__Wrapper\"]:not([class^=\"Responsive__Wrapper\"]:has([class^=\"PlanStackV2__\"]) *)",
+            "[class^=\"PlansCompactV2__NavigationWrapper\"]"
+          ]
+        },
+        {
+          "name": "cards-directory",
+          "instances": [
+            "ul[class^=\"DetailCardList__List\"]"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            "[class^=\"PostCardList__Element\"]",
+            "ul[class*=\"Row__Element\"]:has(> li > [class^=\"ContentCardList__CardWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-logos",
+          "instances": [
+            "[class^=\"ImageBanner__ImagesContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"Block__Element\"])"
+          ]
+        },
+        {
+          "name": "columns-intro",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+          ]
+        },
+        {
+          "name": "hero-split",
+          "instances": [
+            "main header[class*=\"Region__Element\"]:has(img):not(:has([class^=\"Hero__HeroWrapper\"], [class^=\"LeftAlignedProofPoints__CopyWrapper\"]))",
+            "main header[class*=\"Region__Element\"] [class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] [class^=\"LeftAlignedProofPoints__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"Highlight__CopyWrapper\"])",
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"HighlightProofPoints__CopyWrapper\"])"
+          ]
+        }
+      ],
+      "urlPattern": "/au/*",
+      "sections": [
+        {
+          "id": "rc1",
+          "name": "Hero - We help small businesses thrive worldwide",
+          "selector": [
+            "main > div.xero-react:has(> header[class*=\"Region__Element\"] [class^=\"Hero__HeroWrapper\"])"
+          ],
+          "style": "centered",
+          "blocks": [],
+          "defaultContent": [
+            "[class^=\"Hero__HeroWrapper\"] h1[class*=\"Heading__Element\"]",
+            "[class^=\"Hero__HeroWrapper\"] p[class*=\"Typography__Paragraph\"]",
+            "[class^=\"Hero__HeroWrapper\"] img"
+          ]
+        },
+        {
+          "id": "rc2",
+          "name": "Highlight - Changing the game globally since 2006",
+          "selector": [
+            "main > div.xero-react:nth-of-type(2):has([class^=\"Highlight__CopyWrapper\"])",
+            "main > div.xero-react:nth-of-type(2)"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-feature"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc3",
+          "name": "Highlight - World-class leadership",
+          "selector": [
+            "main > div.xero-react:nth-of-type(3):has([class^=\"Highlight__CopyWrapper\"])",
+            "main > div.xero-react:nth-of-type(3)"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-feature"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc4",
+          "name": "Highlight - Here to help",
+          "selector": [
+            "main > div.xero-react:nth-of-type(4):has([class^=\"Highlight__CopyWrapper\"])",
+            "main > div.xero-react:nth-of-type(4)"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-feature"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc5",
+          "name": "Highlight - A great place to work",
+          "selector": [
+            "main > div.xero-react:nth-of-type(5):has([class^=\"Highlight__CopyWrapper\"])",
+            "main > div.xero-react:nth-of-type(5)"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-feature"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc6",
+          "name": "Customer story - Ryan (O'Flynn plumbing)",
+          "selector": [
+            "main > div.xero-react:has([class^=\"CustomerStory__Quote\"])",
+            "main > div.xero-react:nth-of-type(6)"
+          ],
+          "style": null,
+          "blocks": [
+            "quote-testimonial"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc7",
+          "name": "Find out what Xero can do",
+          "selector": [
+            "main > div.xero-react:has([class^=\"BoxSet__Content\"])",
+            "main > div.xero-react:nth-of-type(7)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": [
+            "[class*=\"Col__Element\"] > h2[class*=\"Heading__Element\"]",
+            "[class*=\"Col__Element\"] > p[class*=\"Typography__Paragraph\"]"
+          ]
+        }
+      ]
     },
     {
       "name": "about",
@@ -272,8 +460,100 @@
       ],
       "representativeUrl": "https://www.xero.com/au/about/contact/",
       "description": "To be named in naming step",
-      "blocks": [],
-      "urlPattern": "/au/about/*"
+      "blocks": [
+        {
+          "name": "video",
+          "instances": [
+            "[class^=\"Video__Element\"]"
+          ]
+        },
+        {
+          "name": "quote-testimonial",
+          "instances": [
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])",
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"BlockQuote__Quote\"])"
+          ]
+        },
+        {
+          "name": "cards-testimonial",
+          "instances": [
+            "[class^=\"TestimonialCards__RowWrapper\"]"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)",
+            "div[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+          ]
+        },
+        {
+          "name": "tabs-pricing",
+          "instances": [
+            "[class^=\"FinTabSet__Wrapper\"]:not([class^=\"Responsive__Wrapper\"]:has([class^=\"PlanStackV2__\"]) *)",
+            "[class^=\"PlansCompactV2__NavigationWrapper\"]"
+          ]
+        },
+        {
+          "name": "cards-directory",
+          "instances": [
+            "ul[class^=\"DetailCardList__List\"]"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            "[class^=\"PostCardList__Element\"]",
+            "ul[class*=\"Row__Element\"]:has(> li > [class^=\"ContentCardList__CardWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-logos",
+          "instances": [
+            "[class^=\"ImageBanner__ImagesContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"Block__Element\"])"
+          ]
+        },
+        {
+          "name": "columns-intro",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+          ]
+        },
+        {
+          "name": "hero-split",
+          "instances": [
+            "main header[class*=\"Region__Element\"]:has(img):not(:has([class^=\"Hero__HeroWrapper\"], [class^=\"LeftAlignedProofPoints__CopyWrapper\"]))",
+            "main header[class*=\"Region__Element\"] [class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] [class^=\"LeftAlignedProofPoints__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"Highlight__CopyWrapper\"])",
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"HighlightProofPoints__CopyWrapper\"])"
+          ]
+        }
+      ],
+      "urlPattern": "/au/about/*",
+      "sections": []
     },
     {
       "name": "accessibility",
@@ -282,8 +562,100 @@
       ],
       "representativeUrl": "https://www.xero.com/au/accessibility/",
       "description": "To be named in naming step",
-      "blocks": [],
-      "urlPattern": "/au/*"
+      "blocks": [
+        {
+          "name": "video",
+          "instances": [
+            "[class^=\"Video__Element\"]"
+          ]
+        },
+        {
+          "name": "quote-testimonial",
+          "instances": [
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])",
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"BlockQuote__Quote\"])"
+          ]
+        },
+        {
+          "name": "cards-testimonial",
+          "instances": [
+            "[class^=\"TestimonialCards__RowWrapper\"]"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)",
+            "div[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+          ]
+        },
+        {
+          "name": "tabs-pricing",
+          "instances": [
+            "[class^=\"FinTabSet__Wrapper\"]:not([class^=\"Responsive__Wrapper\"]:has([class^=\"PlanStackV2__\"]) *)",
+            "[class^=\"PlansCompactV2__NavigationWrapper\"]"
+          ]
+        },
+        {
+          "name": "cards-directory",
+          "instances": [
+            "ul[class^=\"DetailCardList__List\"]"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            "[class^=\"PostCardList__Element\"]",
+            "ul[class*=\"Row__Element\"]:has(> li > [class^=\"ContentCardList__CardWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-logos",
+          "instances": [
+            "[class^=\"ImageBanner__ImagesContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"Block__Element\"])"
+          ]
+        },
+        {
+          "name": "columns-intro",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+          ]
+        },
+        {
+          "name": "hero-split",
+          "instances": [
+            "main header[class*=\"Region__Element\"]:has(img):not(:has([class^=\"Hero__HeroWrapper\"], [class^=\"LeftAlignedProofPoints__CopyWrapper\"]))",
+            "main header[class*=\"Region__Element\"] [class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] [class^=\"LeftAlignedProofPoints__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"Highlight__CopyWrapper\"])",
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"HighlightProofPoints__CopyWrapper\"])"
+          ]
+        }
+      ],
+      "urlPattern": "/au/*",
+      "sections": []
     },
     {
       "name": "accounting-software-2",
@@ -296,8 +668,100 @@
       ],
       "representativeUrl": "https://www.xero.com/au/accountants-bookkeepers/accountants/",
       "description": "To be named in naming step",
-      "blocks": [],
-      "urlPattern": "/au/*"
+      "blocks": [
+        {
+          "name": "video",
+          "instances": [
+            "[class^=\"Video__Element\"]"
+          ]
+        },
+        {
+          "name": "quote-testimonial",
+          "instances": [
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])",
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"BlockQuote__Quote\"])"
+          ]
+        },
+        {
+          "name": "cards-testimonial",
+          "instances": [
+            "[class^=\"TestimonialCards__RowWrapper\"]"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)",
+            "div[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+          ]
+        },
+        {
+          "name": "tabs-pricing",
+          "instances": [
+            "[class^=\"FinTabSet__Wrapper\"]:not([class^=\"Responsive__Wrapper\"]:has([class^=\"PlanStackV2__\"]) *)",
+            "[class^=\"PlansCompactV2__NavigationWrapper\"]"
+          ]
+        },
+        {
+          "name": "cards-directory",
+          "instances": [
+            "ul[class^=\"DetailCardList__List\"]"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            "[class^=\"PostCardList__Element\"]",
+            "ul[class*=\"Row__Element\"]:has(> li > [class^=\"ContentCardList__CardWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-logos",
+          "instances": [
+            "[class^=\"ImageBanner__ImagesContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"Block__Element\"])"
+          ]
+        },
+        {
+          "name": "columns-intro",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+          ]
+        },
+        {
+          "name": "hero-split",
+          "instances": [
+            "main header[class*=\"Region__Element\"]:has(img):not(:has([class^=\"Hero__HeroWrapper\"], [class^=\"LeftAlignedProofPoints__CopyWrapper\"]))",
+            "main header[class*=\"Region__Element\"] [class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] [class^=\"LeftAlignedProofPoints__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"Highlight__CopyWrapper\"])",
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"HighlightProofPoints__CopyWrapper\"])"
+          ]
+        }
+      ],
+      "urlPattern": "/au/*",
+      "sections": []
     },
     {
       "name": "small-businesses-2",
@@ -324,8 +788,100 @@
       ],
       "representativeUrl": "https://www.xero.com/au/accountants-bookkeepers/enterprise/",
       "description": "To be named in naming step",
-      "blocks": [],
-      "urlPattern": "/au/*"
+      "blocks": [
+        {
+          "name": "video",
+          "instances": [
+            "[class^=\"Video__Element\"]"
+          ]
+        },
+        {
+          "name": "quote-testimonial",
+          "instances": [
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])",
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"BlockQuote__Quote\"])"
+          ]
+        },
+        {
+          "name": "cards-testimonial",
+          "instances": [
+            "[class^=\"TestimonialCards__RowWrapper\"]"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)",
+            "div[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+          ]
+        },
+        {
+          "name": "tabs-pricing",
+          "instances": [
+            "[class^=\"FinTabSet__Wrapper\"]:not([class^=\"Responsive__Wrapper\"]:has([class^=\"PlanStackV2__\"]) *)",
+            "[class^=\"PlansCompactV2__NavigationWrapper\"]"
+          ]
+        },
+        {
+          "name": "cards-directory",
+          "instances": [
+            "ul[class^=\"DetailCardList__List\"]"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            "[class^=\"PostCardList__Element\"]",
+            "ul[class*=\"Row__Element\"]:has(> li > [class^=\"ContentCardList__CardWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-logos",
+          "instances": [
+            "[class^=\"ImageBanner__ImagesContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"Block__Element\"])"
+          ]
+        },
+        {
+          "name": "columns-intro",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+          ]
+        },
+        {
+          "name": "hero-split",
+          "instances": [
+            "main header[class*=\"Region__Element\"]:has(img):not(:has([class^=\"Hero__HeroWrapper\"], [class^=\"LeftAlignedProofPoints__CopyWrapper\"]))",
+            "main header[class*=\"Region__Element\"] [class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] [class^=\"LeftAlignedProofPoints__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"Highlight__CopyWrapper\"])",
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"HighlightProofPoints__CopyWrapper\"])"
+          ]
+        }
+      ],
+      "urlPattern": "/au/*",
+      "sections": []
     },
     {
       "name": "accounting-software-3",
@@ -334,8 +890,100 @@
       ],
       "representativeUrl": "https://www.xero.com/au/accounting-software/all-features/",
       "description": "To be named in naming step",
-      "blocks": [],
-      "urlPattern": "/au/accounting-software/*"
+      "blocks": [
+        {
+          "name": "video",
+          "instances": [
+            "[class^=\"Video__Element\"]"
+          ]
+        },
+        {
+          "name": "quote-testimonial",
+          "instances": [
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])",
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"BlockQuote__Quote\"])"
+          ]
+        },
+        {
+          "name": "cards-testimonial",
+          "instances": [
+            "[class^=\"TestimonialCards__RowWrapper\"]"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)",
+            "div[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+          ]
+        },
+        {
+          "name": "tabs-pricing",
+          "instances": [
+            "[class^=\"FinTabSet__Wrapper\"]:not([class^=\"Responsive__Wrapper\"]:has([class^=\"PlanStackV2__\"]) *)",
+            "[class^=\"PlansCompactV2__NavigationWrapper\"]"
+          ]
+        },
+        {
+          "name": "cards-directory",
+          "instances": [
+            "ul[class^=\"DetailCardList__List\"]"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            "[class^=\"PostCardList__Element\"]",
+            "ul[class*=\"Row__Element\"]:has(> li > [class^=\"ContentCardList__CardWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-logos",
+          "instances": [
+            "[class^=\"ImageBanner__ImagesContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"Block__Element\"])"
+          ]
+        },
+        {
+          "name": "columns-intro",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+          ]
+        },
+        {
+          "name": "hero-split",
+          "instances": [
+            "main header[class*=\"Region__Element\"]:has(img):not(:has([class^=\"Hero__HeroWrapper\"], [class^=\"LeftAlignedProofPoints__CopyWrapper\"]))",
+            "main header[class*=\"Region__Element\"] [class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] [class^=\"LeftAlignedProofPoints__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"Highlight__CopyWrapper\"])",
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"HighlightProofPoints__CopyWrapper\"])"
+          ]
+        }
+      ],
+      "urlPattern": "/au/accounting-software/*",
+      "sections": []
     },
     {
       "name": "campaign",
@@ -344,8 +992,100 @@
       ],
       "representativeUrl": "https://www.xero.com/au/campaign/xero-partnership/",
       "description": "To be named in naming step",
-      "blocks": [],
-      "urlPattern": "/au/campaign/*"
+      "blocks": [
+        {
+          "name": "video",
+          "instances": [
+            "[class^=\"Video__Element\"]"
+          ]
+        },
+        {
+          "name": "quote-testimonial",
+          "instances": [
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])",
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"BlockQuote__Quote\"])"
+          ]
+        },
+        {
+          "name": "cards-testimonial",
+          "instances": [
+            "[class^=\"TestimonialCards__RowWrapper\"]"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)",
+            "div[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+          ]
+        },
+        {
+          "name": "tabs-pricing",
+          "instances": [
+            "[class^=\"FinTabSet__Wrapper\"]:not([class^=\"Responsive__Wrapper\"]:has([class^=\"PlanStackV2__\"]) *)",
+            "[class^=\"PlansCompactV2__NavigationWrapper\"]"
+          ]
+        },
+        {
+          "name": "cards-directory",
+          "instances": [
+            "ul[class^=\"DetailCardList__List\"]"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            "[class^=\"PostCardList__Element\"]",
+            "ul[class*=\"Row__Element\"]:has(> li > [class^=\"ContentCardList__CardWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-logos",
+          "instances": [
+            "[class^=\"ImageBanner__ImagesContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"Block__Element\"])"
+          ]
+        },
+        {
+          "name": "columns-intro",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+          ]
+        },
+        {
+          "name": "hero-split",
+          "instances": [
+            "main header[class*=\"Region__Element\"]:has(img):not(:has([class^=\"Hero__HeroWrapper\"], [class^=\"LeftAlignedProofPoints__CopyWrapper\"]))",
+            "main header[class*=\"Region__Element\"] [class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] [class^=\"LeftAlignedProofPoints__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"Highlight__CopyWrapper\"])",
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"HighlightProofPoints__CopyWrapper\"])"
+          ]
+        }
+      ],
+      "urlPattern": "/au/campaign/*",
+      "sections": []
     },
     {
       "name": "legal",
@@ -357,8 +1097,100 @@
       ],
       "representativeUrl": "https://www.xero.com/au/glossary/",
       "description": "To be named in naming step",
-      "blocks": [],
-      "urlPattern": "/au/*"
+      "blocks": [
+        {
+          "name": "video",
+          "instances": [
+            "[class^=\"Video__Element\"]"
+          ]
+        },
+        {
+          "name": "quote-testimonial",
+          "instances": [
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])",
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"BlockQuote__Quote\"])"
+          ]
+        },
+        {
+          "name": "cards-testimonial",
+          "instances": [
+            "[class^=\"TestimonialCards__RowWrapper\"]"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)",
+            "div[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+          ]
+        },
+        {
+          "name": "tabs-pricing",
+          "instances": [
+            "[class^=\"FinTabSet__Wrapper\"]:not([class^=\"Responsive__Wrapper\"]:has([class^=\"PlanStackV2__\"]) *)",
+            "[class^=\"PlansCompactV2__NavigationWrapper\"]"
+          ]
+        },
+        {
+          "name": "cards-directory",
+          "instances": [
+            "ul[class^=\"DetailCardList__List\"]"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            "[class^=\"PostCardList__Element\"]",
+            "ul[class*=\"Row__Element\"]:has(> li > [class^=\"ContentCardList__CardWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-logos",
+          "instances": [
+            "[class^=\"ImageBanner__ImagesContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"Block__Element\"])"
+          ]
+        },
+        {
+          "name": "columns-intro",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+          ]
+        },
+        {
+          "name": "hero-split",
+          "instances": [
+            "main header[class*=\"Region__Element\"]:has(img):not(:has([class^=\"Hero__HeroWrapper\"], [class^=\"LeftAlignedProofPoints__CopyWrapper\"]))",
+            "main header[class*=\"Region__Element\"] [class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] [class^=\"LeftAlignedProofPoints__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"Highlight__CopyWrapper\"])",
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"HighlightProofPoints__CopyWrapper\"])"
+          ]
+        }
+      ],
+      "urlPattern": "/au/*",
+      "sections": []
     },
     {
       "name": "resources",
@@ -369,8 +1201,100 @@
       ],
       "representativeUrl": "https://www.xero.com/au/resources/small-business-insights/",
       "description": "To be named in naming step",
-      "blocks": [],
-      "urlPattern": "/au/*"
+      "blocks": [
+        {
+          "name": "video",
+          "instances": [
+            "[class^=\"Video__Element\"]"
+          ]
+        },
+        {
+          "name": "quote-testimonial",
+          "instances": [
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])",
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"BlockQuote__Quote\"])"
+          ]
+        },
+        {
+          "name": "cards-testimonial",
+          "instances": [
+            "[class^=\"TestimonialCards__RowWrapper\"]"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)",
+            "div[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+          ]
+        },
+        {
+          "name": "tabs-pricing",
+          "instances": [
+            "[class^=\"FinTabSet__Wrapper\"]:not([class^=\"Responsive__Wrapper\"]:has([class^=\"PlanStackV2__\"]) *)",
+            "[class^=\"PlansCompactV2__NavigationWrapper\"]"
+          ]
+        },
+        {
+          "name": "cards-directory",
+          "instances": [
+            "ul[class^=\"DetailCardList__List\"]"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            "[class^=\"PostCardList__Element\"]",
+            "ul[class*=\"Row__Element\"]:has(> li > [class^=\"ContentCardList__CardWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-logos",
+          "instances": [
+            "[class^=\"ImageBanner__ImagesContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"Block__Element\"])"
+          ]
+        },
+        {
+          "name": "columns-intro",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+          ]
+        },
+        {
+          "name": "hero-split",
+          "instances": [
+            "main header[class*=\"Region__Element\"]:has(img):not(:has([class^=\"Hero__HeroWrapper\"], [class^=\"LeftAlignedProofPoints__CopyWrapper\"]))",
+            "main header[class*=\"Region__Element\"] [class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] [class^=\"LeftAlignedProofPoints__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"Highlight__CopyWrapper\"])",
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"HighlightProofPoints__CopyWrapper\"])"
+          ]
+        }
+      ],
+      "urlPattern": "/au/*",
+      "sections": []
     },
     {
       "name": "xero-ledger-and-cashbook",
@@ -380,8 +1304,100 @@
       ],
       "representativeUrl": "https://www.xero.com/au/xero-ledger-and-cashbook/",
       "description": "To be named in naming step",
-      "blocks": [],
-      "urlPattern": "/au/*"
+      "blocks": [
+        {
+          "name": "video",
+          "instances": [
+            "[class^=\"Video__Element\"]"
+          ]
+        },
+        {
+          "name": "quote-testimonial",
+          "instances": [
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])",
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"BlockQuote__Quote\"])"
+          ]
+        },
+        {
+          "name": "cards-testimonial",
+          "instances": [
+            "[class^=\"TestimonialCards__RowWrapper\"]"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)",
+            "div[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+          ]
+        },
+        {
+          "name": "tabs-pricing",
+          "instances": [
+            "[class^=\"FinTabSet__Wrapper\"]:not([class^=\"Responsive__Wrapper\"]:has([class^=\"PlanStackV2__\"]) *)",
+            "[class^=\"PlansCompactV2__NavigationWrapper\"]"
+          ]
+        },
+        {
+          "name": "cards-directory",
+          "instances": [
+            "ul[class^=\"DetailCardList__List\"]"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            "[class^=\"PostCardList__Element\"]",
+            "ul[class*=\"Row__Element\"]:has(> li > [class^=\"ContentCardList__CardWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-logos",
+          "instances": [
+            "[class^=\"ImageBanner__ImagesContainer\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"Block__Element\"])"
+          ]
+        },
+        {
+          "name": "columns-intro",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+          ]
+        },
+        {
+          "name": "hero-split",
+          "instances": [
+            "main header[class*=\"Region__Element\"]:has(img):not(:has([class^=\"Hero__HeroWrapper\"], [class^=\"LeftAlignedProofPoints__CopyWrapper\"]))",
+            "main header[class*=\"Region__Element\"] [class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] [class^=\"LeftAlignedProofPoints__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"Highlight__CopyWrapper\"])",
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"HighlightProofPoints__CopyWrapper\"])"
+          ]
+        }
+      ],
+      "urlPattern": "/au/*",
+      "sections": []
     }
   ]
 }

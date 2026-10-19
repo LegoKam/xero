@@ -2,7 +2,9 @@
 /* global WebImporter */
 /**
  * Parser for columns-feature.
- * Source: Row__Element containing Col > Box > Highlight__CopyWrapper (text) + Col (illustration).
+ * Source: Row__Element containing Col > Box > Highlight__CopyWrapper (text) + Col (illustration),
+ * or the HighlightProofPoints variant: Col > Box > HighlightProofPoints__CopyWrapper (text) +
+ * Col > figure.HighlightProofPoints__Figure (img + usually empty figcaption, not migrated).
  * Block structure: one row, two cells -> [text | image], or [image | text] when the source
  * shows the image on the left (copyPosition "right" in __NEXT_DATA__, or reversed DOM/style).
  * Text cell, in source order: heading, paragraphs, tick list (icon titles stripped),
@@ -259,11 +261,15 @@ function imageFirst(element, cols, textCol, imageCol, component) {
   return cols.indexOf(imageCol) < cols.indexOf(textCol);
 }
 
+const COPY_SELECTOR = '[class^="Highlight__CopyWrapper"], [class^="HighlightProofPoints__CopyWrapper"]';
+
 export default function parse(element, { document }) {
   const cols = [...element.querySelectorAll(':scope > [class*="Col__Element"]')];
-  const copy = element.querySelector('[class^="Highlight__CopyWrapper"]');
-  const textCol = cols.find((c) => c.querySelector('[class^="Highlight__CopyWrapper"]')) || null;
-  const imageCol = cols.find((c) => c !== textCol && c.querySelector('img')) || cols.find((c) => c !== textCol) || null;
+  const copy = element.querySelector(COPY_SELECTOR);
+  const textCol = cols.find((c) => c.querySelector(COPY_SELECTOR)) || null;
+  const imageCol = cols.find((c) => c !== textCol && c.querySelector('[class^="HighlightProofPoints__Figure"] img'))
+    || cols.find((c) => c !== textCol && c.querySelector('img'))
+    || cols.find((c) => c !== textCol) || null;
 
   const headingEl = copy && copy.querySelector('h1, h2, h3, h4, h5, h6');
   const objects = nextDataObjects(document);
