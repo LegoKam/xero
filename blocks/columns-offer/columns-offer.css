@@ -1,0 +1,61 @@
+.columns-offer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.columns-offer .columns-offer-text > :first-child,
+.columns-offer .columns-offer-card > :first-child {
+  margin-top: 0;
+}
+
+.columns-offer .columns-offer-card {
+  padding: 32px 24px;
+  border-radius: 8px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  text-align: center;
+}
+
+.columns-offer .columns-offer-card .columns-offer-stat {
+  margin: 8px 0;
+  font-size: var(--heading-font-size-xxl);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.columns-offer .columns-offer-card ul {
+  list-style: none;
+  padding-left: 0;
+  text-align: left;
+}
+
+.columns-offer .columns-offer-card li {
+  position: relative;
+  padding-left: 28px;
+}
+
+/* decorative tick marker */
+.columns-offer .columns-offer-card li::before {
+  content: '';
+  position: absolute;
+  top: 0.3em;
+  left: 4px;
+  width: 6px;
+  height: 11px;
+  border: solid currentcolor;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+@media (width >= 900px) {
+  .columns-offer > div {
+    flex-direction: row;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .columns-offer > div > div {
+    flex: 1;
+  }
+}

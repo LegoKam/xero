@@ -1,0 +1,357 @@
+{
+  "metadata": {
+    "projectType": "da"
+  },
+  "templates": [
+    {
+      "name": "small-businesses",
+      "urls": [
+        "https://www.xero.com/au/",
+        "https://www.xero.com/au/accountant-bookkeeper-guides/",
+        "https://www.xero.com/au/accountants-bookkeepers/",
+        "https://www.xero.com/au/accountants-bookkeepers/bookkeepers/",
+        "https://www.xero.com/au/campaign/talk-to-sales/",
+        "https://www.xero.com/au/guides/",
+        "https://www.xero.com/au/integrators/",
+        "https://www.xero.com/au/partner-programme/",
+        "https://www.xero.com/au/resources/",
+        "https://www.xero.com/au/small-businesses/landlords/",
+        "https://www.xero.com/au/small-businesses/manufacturing/",
+        "https://www.xero.com/au/small-businesses/self-employed/",
+        "https://www.xero.com/au/small-businesses/xero-for-self-employed/",
+        "https://www.xero.com/au/small-businesses/xero-for-small-business/"
+      ],
+      "representativeUrl": "https://www.xero.com/au/",
+      "description": "To be named in naming step",
+      "blocks": [
+        {
+          "name": "hero-split",
+          "instances": [
+            "main header[class*=\"Region__Element\"]"
+          ]
+        },
+        {
+          "name": "cards-logos",
+          "instances": [
+            "[class^=\"ImageBanner__ImagesContainer\"]"
+          ]
+        },
+        {
+          "name": "columns-feature",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"Highlight__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-features",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> li > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+          ]
+        },
+        {
+          "name": "tabs-pricing",
+          "instances": [
+            "[class^=\"FinTabSet__Wrapper\"]"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            "[class^=\"PostCardList__Element\"]"
+          ]
+        },
+        {
+          "name": "cards-promo",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"Block__Element\"])"
+          ]
+        },
+        {
+          "name": "columns-offer",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"SinglePlanHighlight__CopyWrapper\"])"
+          ]
+        },
+        {
+          "name": "cards-footnotes",
+          "instances": [
+            "main [class*=\"Col__Element\"]:has(> div > p[class*=\"Typography__Paragraph\"])"
+          ]
+        }
+      ],
+      "urlPattern": "/*",
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero",
+          "selector": [
+            "main > div.xero-react:has(> header[class*=\"Region__Element\"])"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-split"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Awards",
+          "selector": [
+            "main > div.xero-react:has([class^=\"ImageBanner__ImagesContainer\"])"
+          ],
+          "style": "centered",
+          "blocks": [
+            "cards-logos"
+          ],
+          "defaultContent": [
+            "[class*=\"Col__Element\"] > h2[class*=\"Heading__Element\"]",
+            "[class*=\"Col__Element\"] > p[class*=\"Typography__Paragraph\"]"
+          ]
+        },
+        {
+          "id": "section-3",
+          "name": "JAX AI feature",
+          "selector": [
+            "main > div.xero-react:has([class^=\"Highlight__CopyWrapper\"])"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-feature"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "One platform, too easy",
+          "selector": [
+            "main > div.xero-react:has([class^=\"BoxSet__Content\"])"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-features"
+          ],
+          "defaultContent": [
+            "[class*=\"Col__Element\"] > h2[class*=\"Heading__Element\"]",
+            "[class*=\"Col__Element\"] > p[class*=\"Typography__Paragraph\"]"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "Plans to suit your business",
+          "selector": [
+            "main > div.xero-react:has([class^=\"FinTabSet__Wrapper\"])"
+          ],
+          "style": null,
+          "blocks": [
+            "tabs-pricing"
+          ],
+          "defaultContent": [
+            "[class*=\"Col__Element\"] > h2[class*=\"Heading__Element\"]"
+          ]
+        },
+        {
+          "id": "section-6",
+          "name": "However you work, Xero works",
+          "selector": [
+            "main > div.xero-react:has([class^=\"PostCardList__Element\"])"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-industry"
+          ],
+          "defaultContent": [
+            "[class*=\"Col__Element\"] > h2[class*=\"Heading__Element\"]",
+            "[class*=\"Col__Element\"] > p[class*=\"Typography__Paragraph\"]"
+          ]
+        },
+        {
+          "id": "section-7",
+          "name": "Apps / Accountants / Get paid / Affiliates",
+          "selector": [
+            "main > div.xero-react:has([class^=\"Block__Element\"])"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-promo"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-8",
+          "name": "Your first month, on us",
+          "selector": [
+            "main > div.xero-react:has([class^=\"SinglePlanHighlight__CopyWrapper\"])"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-offer"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-9",
+          "name": "Footnotes / sources",
+          "selector": [
+            "main > div.xero-react:has([class*=\"Col__Element\"] > div > p[class*=\"Typography__Paragraph\"])"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-footnotes"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    {
+      "name": "accounting-software",
+      "urls": [
+        "https://www.xero.com/au/about/",
+        "https://www.xero.com/au/about/our-brands/",
+        "https://www.xero.com/au/accountants-bookkeepers/partner-hub/practice-management/",
+        "https://www.xero.com/au/accountants-bookkeepers/partner-hub/tax-and-workpapers/",
+        "https://www.xero.com/au/accounting-software/",
+        "https://www.xero.com/au/accounting-software/claim-expenses/",
+        "https://www.xero.com/au/accounting-software/claim-expenses/track-mileage/",
+        "https://www.xero.com/au/accounting-software/create-purchase-orders/",
+        "https://www.xero.com/au/accounting-software/manage-fixed-assets/",
+        "https://www.xero.com/au/accounting-software/payroll/",
+        "https://www.xero.com/au/accounting-software/track-projects/",
+        "https://www.xero.com/au/advisors/",
+        "https://www.xero.com/au/affiliate-program/",
+        "https://www.xero.com/au/ai-in-accounting/jax-vision/",
+        "https://www.xero.com/au/ai-in-accounting/jax/",
+        "https://www.xero.com/au/calculators/",
+        "https://www.xero.com/au/initiative/payday-super/",
+        "https://www.xero.com/au/pricing-plans/",
+        "https://www.xero.com/au/small-businesses/construction/",
+        "https://www.xero.com/au/small-businesses/ecommerce/",
+        "https://www.xero.com/au/sustainability/",
+        "https://www.xero.com/au/templates/",
+        "https://www.xero.com/au/versus/quickbooks-alternative/",
+        "https://www.xero.com/au/versus/reckon-alternative/"
+      ],
+      "representativeUrl": "https://www.xero.com/au/about/",
+      "description": "To be named in naming step",
+      "blocks": [],
+      "urlPattern": "/au/*"
+    },
+    {
+      "name": "about",
+      "urls": [
+        "https://www.xero.com/au/about/contact/"
+      ],
+      "representativeUrl": "https://www.xero.com/au/about/contact/",
+      "description": "To be named in naming step",
+      "blocks": [],
+      "urlPattern": "/au/about/*"
+    },
+    {
+      "name": "accessibility",
+      "urls": [
+        "https://www.xero.com/au/accessibility/"
+      ],
+      "representativeUrl": "https://www.xero.com/au/accessibility/",
+      "description": "To be named in naming step",
+      "blocks": [],
+      "urlPattern": "/au/*"
+    },
+    {
+      "name": "accounting-software-2",
+      "urls": [
+        "https://www.xero.com/au/accountants-bookkeepers/accountants/",
+        "https://www.xero.com/au/accounting-software/accept-payments/",
+        "https://www.xero.com/au/accounting-software/manage-inventory/",
+        "https://www.xero.com/au/small-businesses/farming/",
+        "https://www.xero.com/au/small-businesses/non-profit/"
+      ],
+      "representativeUrl": "https://www.xero.com/au/accountants-bookkeepers/accountants/",
+      "description": "To be named in naming step",
+      "blocks": [],
+      "urlPattern": "/au/*"
+    },
+    {
+      "name": "small-businesses-2",
+      "urls": [
+        "https://www.xero.com/au/accountants-bookkeepers/enterprise/",
+        "https://www.xero.com/au/accountants-bookkeepers/partner-hub/",
+        "https://www.xero.com/au/accounting-software/pay-bills/",
+        "https://www.xero.com/au/accounting-software/send-invoices/",
+        "https://www.xero.com/au/accounting-software/send-quotes/",
+        "https://www.xero.com/au/certifications/",
+        "https://www.xero.com/au/initiative/end-of-financial-year/",
+        "https://www.xero.com/au/investors/",
+        "https://www.xero.com/au/investors/governance/",
+        "https://www.xero.com/au/media/",
+        "https://www.xero.com/au/small-businesses/",
+        "https://www.xero.com/au/small-businesses/customers/",
+        "https://www.xero.com/au/small-businesses/real-estate/",
+        "https://www.xero.com/au/small-businesses/xero-for-medium-sized-business/",
+        "https://www.xero.com/au/templates/invoice-template/",
+        "https://www.xero.com/au/templates/payslip-template/",
+        "https://www.xero.com/au/templates/receipt-template/",
+        "https://www.xero.com/au/versus/hnry-alternative/",
+        "https://www.xero.com/au/versus/myob-alternative/"
+      ],
+      "representativeUrl": "https://www.xero.com/au/accountants-bookkeepers/enterprise/",
+      "description": "To be named in naming step",
+      "blocks": [],
+      "urlPattern": "/au/*"
+    },
+    {
+      "name": "accounting-software-3",
+      "urls": [
+        "https://www.xero.com/au/accounting-software/all-features/"
+      ],
+      "representativeUrl": "https://www.xero.com/au/accounting-software/all-features/",
+      "description": "To be named in naming step",
+      "blocks": [],
+      "urlPattern": "/au/accounting-software/*"
+    },
+    {
+      "name": "campaign",
+      "urls": [
+        "https://www.xero.com/au/campaign/xero-partnership/"
+      ],
+      "representativeUrl": "https://www.xero.com/au/campaign/xero-partnership/",
+      "description": "To be named in naming step",
+      "blocks": [],
+      "urlPattern": "/au/campaign/*"
+    },
+    {
+      "name": "legal",
+      "urls": [
+        "https://www.xero.com/au/glossary/",
+        "https://www.xero.com/au/legal/privacy/",
+        "https://www.xero.com/au/legal/terms/",
+        "https://www.xero.com/au/sitemap/"
+      ],
+      "representativeUrl": "https://www.xero.com/au/glossary/",
+      "description": "To be named in naming step",
+      "blocks": [],
+      "urlPattern": "/au/*"
+    },
+    {
+      "name": "resources",
+      "urls": [
+        "https://www.xero.com/au/resources/small-business-insights/",
+        "https://www.xero.com/au/syft-from-xero/",
+        "https://www.xero.com/au/xero-tax/"
+      ],
+      "representativeUrl": "https://www.xero.com/au/resources/small-business-insights/",
+      "description": "To be named in naming step",
+      "blocks": [],
+      "urlPattern": "/au/*"
+    },
+    {
+      "name": "xero-ledger-and-cashbook",
+      "urls": [
+        "https://www.xero.com/au/xero-ledger-and-cashbook/",
+        "https://www.xero.com/au/xero-workpapers/"
+      ],
+      "representativeUrl": "https://www.xero.com/au/xero-ledger-and-cashbook/",
+      "description": "To be named in naming step",
+      "blocks": [],
+      "urlPattern": "/au/*"
+    }
+  ]
+}

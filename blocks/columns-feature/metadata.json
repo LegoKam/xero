@@ -1,0 +1,23 @@
+{
+  "variantName": "columns-feature",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Feature section with text (heading, paragraph, tick list, link) beside an illustration",
+    "layout": "two columns side by side on desktop, image first when stacked on mobile; list items get tick markers"
+  },
+  "contentPattern": {
+    "structure": "One row with two cells: text (heading, paragraph, list, link) | image"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "columns-feature"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/",
+    "pages": [
+      "/au/index"
+    ]
+  },
+  "reuseGuidance": "Use for alternating feature/benefit sections with an illustration."
+}

@@ -1,0 +1,23 @@
+{
+  "variantName": "cards-features",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Short feature highlights, each with a decorative tick icon, bold title and description",
+    "layout": "text-only items, 1 column on mobile and 3 on desktop, tick icon drawn via CSS"
+  },
+  "contentPattern": {
+    "structure": "One row per feature; single cell with a bold title paragraph followed by a description paragraph"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "cards-features"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/",
+    "pages": [
+      "/au/index"
+    ]
+  },
+  "reuseGuidance": "Use for 2-4 short benefit statements. No images needed; the tick icon is decorative."
+}

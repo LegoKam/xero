@@ -1,0 +1,57 @@
+.cards-features > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.cards-features > ul > li {
+  position: relative;
+  padding-left: 48px;
+}
+
+.cards-features > ul > li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background-color: var(--link-color, #0078c8);
+}
+
+/* decorative tick drawn inside the square */
+.cards-features > ul > li::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  width: 7px;
+  height: 13px;
+  border: solid var(--background-color, #fff);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.cards-features .cards-features-card-body > :first-child {
+  margin-top: 0;
+}
+
+.cards-features .cards-features-card-image {
+  line-height: 0;
+}
+
+.cards-features .cards-features-card-image img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+@media (width >= 900px) {
+  .cards-features > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

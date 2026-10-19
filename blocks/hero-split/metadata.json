@@ -1,0 +1,23 @@
+{
+  "variantName": "hero-split",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Page-top hero with H1, subheading and CTA on one side and an image beside it (not behind it)",
+    "layout": "split two-column, text left and image right on desktop, stacked on mobile"
+  },
+  "contentPattern": {
+    "structure": "Row 1: image. Row 2: H1 title, subheading paragraph, CTA link. A single row with two cells (text | image) also works"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "hero-split"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/",
+    "pages": [
+      "/au/index"
+    ]
+  },
+  "reuseGuidance": "Use for top-of-page heroes where the image sits beside the copy. Use the base hero for full-bleed background images."
+}

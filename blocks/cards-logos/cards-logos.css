@@ -1,0 +1,37 @@
+.cards-logos > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  place-items: center;
+}
+
+.cards-logos > ul > li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards-logos .cards-logos-card-image {
+  line-height: 0;
+}
+
+.cards-logos .cards-logos-card-body {
+  text-align: center;
+}
+
+.cards-logos > ul > li img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+}
+
+@media (width >= 600px) {
+  .cards-logos > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

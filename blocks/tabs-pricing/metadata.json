@@ -1,0 +1,23 @@
+{
+  "variantName": "tabs-pricing",
+  "baseBlock": "tabs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Tabbed pricing panels, each tab can hold several plan cards",
+    "layout": "horizontal tab list; panel content split into plan cards at each H3; 1 column on mobile, 3 on desktop"
+  },
+  "contentPattern": {
+    "structure": "One row per tab: cell 1 tab label, cell 2 panel content. Inside a panel start each plan with an H3 plan name, then the price as a bold paragraph, notes, description, list and Buy now / Learn more links. Content before the first H3 becomes the panel intro"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "tabs-pricing"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/",
+    "pages": [
+      "/au/index"
+    ]
+  },
+  "reuseGuidance": "Use for pricing plan comparisons grouped by audience. The first tab with content is selected by default; empty tabs are allowed."
+}

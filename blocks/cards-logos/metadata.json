@@ -1,0 +1,23 @@
+{
+  "variantName": "cards-logos",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Grid of logo or award badge images with no text",
+    "layout": "image-only grid, 2 columns on mobile and 4 on tablet/desktop, logos contained and centred"
+  },
+  "contentPattern": {
+    "structure": "One row per logo; first cell is the badge image (with alt text), second cell may be left empty"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "cards-logos"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/",
+    "pages": [
+      "/au/index"
+    ]
+  },
+  "reuseGuidance": "Use for award badges, partner or customer logo walls. Always provide alt text for each logo."
+}

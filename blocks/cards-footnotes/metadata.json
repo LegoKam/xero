@@ -1,0 +1,23 @@
+{
+  "variantName": "cards-footnotes",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "List of footnotes / sources for claims made on the page",
+    "layout": "compact vertical list of small text entries"
+  },
+  "contentPattern": {
+    "structure": "One row per footnote; single cell with superscript marker and source text. A final row can hold a source link"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "cards-footnotes"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/",
+    "pages": [
+      "/au/index"
+    ]
+  },
+  "reuseGuidance": "Use at the end of a page for legal footnotes and source citations."
+}

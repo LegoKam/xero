@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accountant-bookkeeper-guides/",
+  "path": "au/accountant-bookkeeper-guides",
+  "timestamp": "2026-10-19T03:05:04.059Z",
+  "title": "Accountant and Bookkeeper Resources | Xero AU",
+  "template": "small-businesses",
+  "blocks": [
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "cards-industry",
+    "cards-industry",
+    "cards-industry",
+    "cards-industry",
+    "cards-industry",
+    "cards-industry",
+    "cards-industry"
+  ]
+}

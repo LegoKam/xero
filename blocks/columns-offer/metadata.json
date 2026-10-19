@@ -1,0 +1,23 @@
+{
+  "variantName": "columns-offer",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Offer section: heading, text and CTAs beside an offer card showing a price stat and tick list",
+    "layout": "two columns on desktop; last column rendered as a card with large price stat and tick list"
+  },
+  "contentPattern": {
+    "structure": "One row with two cells: heading, paragraph, two CTA links | label, price paragraph (e.g. $0), note, bulleted list"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "columns-offer"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/",
+    "pages": [
+      "/au/index"
+    ]
+  },
+  "reuseGuidance": "Use for promotional offer call-outs. Write the price as a plain paragraph (not a heading) so it is detected as the stat."
+}

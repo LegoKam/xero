@@ -1,0 +1,39 @@
+.cards-industry > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.cards-industry > ul > li {
+  display: flex;
+  flex-direction: column;
+}
+
+.cards-industry .cards-industry-card-image {
+  line-height: 0;
+}
+
+.cards-industry .cards-industry-card-body > :first-child {
+  margin-top: 16px;
+}
+
+.cards-industry > ul > li img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+@media (width >= 600px) {
+  .cards-industry > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .cards-industry > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

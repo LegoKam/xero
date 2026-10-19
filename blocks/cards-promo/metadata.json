@@ -1,0 +1,23 @@
+{
+  "variantName": "cards-promo",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Promotional panels with heading, text, link and an illustration below the text",
+    "layout": "centred panels, illustration rendered below text regardless of cell order; 1 column on mobile, 2 on desktop"
+  },
+  "contentPattern": {
+    "structure": "One row per promo; cell 1 illustration image, cell 2 heading, paragraph and link"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "cards-promo"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/",
+    "pages": [
+      "/au/index"
+    ]
+  },
+  "reuseGuidance": "Use for cross-promotion tiles (apps, partners, programs) with an illustration."
+}

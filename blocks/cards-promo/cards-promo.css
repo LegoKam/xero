@@ -1,0 +1,44 @@
+.cards-promo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.cards-promo > ul > li {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+/* illustration renders below the text regardless of authored cell order */
+.cards-promo .cards-promo-card-body {
+  order: 0;
+}
+
+.cards-promo .cards-promo-card-body > :first-child {
+  margin-top: 0;
+}
+
+.cards-promo .cards-promo-card-image {
+  order: 1;
+  margin-top: auto;
+  padding-top: 24px;
+  line-height: 0;
+}
+
+.cards-promo > ul > li img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (width >= 900px) {
+  .cards-promo > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,25 @@
+.cards-footnotes > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cards-footnotes .cards-footnotes-card-body p {
+  margin: 0;
+}
+
+.cards-footnotes .cards-footnotes-card-body a {
+  overflow-wrap: anywhere;
+}
+
+.cards-footnotes .cards-footnotes-card-image {
+  line-height: 0;
+}
+
+.cards-footnotes .cards-footnotes-card-image img {
+  max-height: 48px;
+  width: auto;
+}

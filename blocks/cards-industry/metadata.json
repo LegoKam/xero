@@ -1,0 +1,23 @@
+{
+  "variantName": "cards-industry",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Image cards linking to industries or segments",
+    "layout": "image on top, linked title and description below; 1/2/3 columns by breakpoint"
+  },
+  "contentPattern": {
+    "structure": "One row per card; cell 1 image, cell 2 linked title (heading or bold link) plus description"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "cards-industry"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/",
+    "pages": [
+      "/au/index"
+    ]
+  },
+  "reuseGuidance": "Use for linked category/industry tiles with a photo."
+}
