@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/small-businesses/xero-for-small-business/",
+  "path": "au/small-businesses/xero-for-small-business",
+  "timestamp": "2026-10-19T03:16:21.714Z",
+  "title": "Small Business Accounting Software Australia | Xero AU",
+  "template": "small-businesses",
+  "blocks": [
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "cards-features",
+    "tabs-pricing"
+  ]
+}

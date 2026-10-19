@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accountants-bookkeepers/bookkeepers/",
+  "path": "au/accountants-bookkeepers/bookkeepers",
+  "timestamp": "2026-10-19T03:06:50.834Z",
+  "title": "Streamline Your Bookkeeping Practice | Xero AU",
+  "template": "small-businesses",
+  "blocks": [
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "cards-industry"
+  ]
+}

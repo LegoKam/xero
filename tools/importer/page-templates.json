@@ -25,6 +25,12 @@
       "description": "To be named in naming step",
       "blocks": [
         {
+          "name": "video",
+          "instances": [
+            "[class^=\"Video__Element\"]"
+          ]
+        },
+        {
           "name": "hero-split",
           "instances": [
             "main header[class*=\"Region__Element\"]"
@@ -45,7 +51,7 @@
         {
           "name": "cards-features",
           "instances": [
-            "[class*=\"Row__Element\"]:has(> li > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
           ]
         },
         {
@@ -75,7 +81,31 @@
         {
           "name": "cards-footnotes",
           "instances": [
-            "main [class*=\"Col__Element\"]:has(> div > p[class*=\"Typography__Paragraph\"])"
+            "main [class*=\"Col__Element\"]:has(> div:not([class]) > p[class*=\"Typography__Paragraph\"]):not([class^=\"AccordionItem__\"] *)"
+          ]
+        },
+        {
+          "name": "columns-intro",
+          "instances": [
+            "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+          ]
+        },
+        {
+          "name": "quote-testimonial",
+          "instances": [
+            "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
           ]
         }
       ],

@@ -1,0 +1,32 @@
+.columns-intro .columns-intro-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.columns-intro .columns-intro-row + .columns-intro-row {
+  margin-top: 32px;
+}
+
+.columns-intro .columns-intro-heading > :first-child,
+.columns-intro .columns-intro-body > :first-child {
+  margin-top: 0;
+}
+
+.columns-intro .columns-intro-heading > :last-child,
+.columns-intro .columns-intro-body > :last-child {
+  margin-bottom: 0;
+}
+
+@media (width >= 900px) {
+  .columns-intro .columns-intro-row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+  }
+
+  .columns-intro .columns-intro-heading,
+  .columns-intro .columns-intro-body {
+    flex: 1;
+  }
+}

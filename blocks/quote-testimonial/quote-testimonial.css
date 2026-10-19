@@ -1,0 +1,53 @@
+.quote-testimonial .quote-testimonial-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0;
+}
+
+.quote-testimonial .quote-testimonial-image {
+  line-height: 0;
+}
+
+.quote-testimonial .quote-testimonial-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.quote-testimonial .quote-testimonial-quote {
+  margin: 0;
+}
+
+.quote-testimonial .quote-testimonial-quote > :first-child {
+  margin-top: 0;
+}
+
+.quote-testimonial .quote-testimonial-attribution {
+  margin-top: 16px;
+}
+
+.quote-testimonial .quote-testimonial-attribution > p {
+  margin: 0;
+}
+
+.quote-testimonial .quote-testimonial-attribution > p + p {
+  margin-top: 4px;
+}
+
+@media (width >= 900px) {
+  .quote-testimonial .quote-testimonial-figure {
+    flex-direction: row;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .quote-testimonial .quote-testimonial-image {
+    flex: 0 0 40%;
+  }
+
+  .quote-testimonial .quote-testimonial-body {
+    flex: 1;
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "variantName": "columns-intro",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Section introduction with a large heading on the left and supporting copy on the right",
+    "layout": "two equal columns on desktop, stacked on mobile; no images"
+  },
+  "contentPattern": {
+    "structure": "One row with two cells: H2 heading | paragraph(s) with optional link"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "columns-intro"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/small-businesses/manufacturing/",
+    "pages": [
+      "/au/small-businesses/manufacturing"
+    ]
+  },
+  "reuseGuidance": "Use to introduce a section (e.g. steps or features) where heading and lead copy sit side by side."
+}

@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/partner-programme/",
+  "path": "au/partner-programme",
+  "timestamp": "2026-10-19T03:10:26.008Z",
+  "title": "Partner Program | Xero AU",
+  "template": "small-businesses",
+  "blocks": [
+    "hero-split",
+    "cards-logos",
+    "columns-feature",
+    "cards-footnotes",
+    "cards-footnotes",
+    "cards-footnotes",
+    "cards-footnotes",
+    "cards-footnotes",
+    "cards-footnotes"
+  ]
+}

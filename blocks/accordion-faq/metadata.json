@@ -1,0 +1,23 @@
+{
+  "variantName": "accordion-faq",
+  "baseBlock": "accordion",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Frequently asked questions list that expands and collapses each answer",
+    "layout": "stacked full-width items separated by rules; question row with chevron toggles the answer below (native details/summary)"
+  },
+  "contentPattern": {
+    "structure": "One row per item with two cells: question text | answer rich text (paragraphs, links, lists)"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "accordion-faq"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/partner-programme/",
+    "pages": [
+      "/au/partner-programme"
+    ]
+  },
+  "reuseGuidance": "Use for any FAQ or expandable Q&A list. Prefer over the generic accordion when items are simple question/answer pairs."
+}

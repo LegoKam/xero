@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/",
+  "path": "au/index",
+  "timestamp": "2026-10-19T03:14:31.436Z",
+  "title": "Software & Solutions for Small Businesses | Xero AU",
+  "template": "small-businesses",
+  "blocks": [
+    "hero-split",
+    "cards-logos",
+    "columns-feature",
+    "cards-features",
+    "tabs-pricing",
+    "cards-industry",
+    "cards-promo",
+    "columns-offer",
+    "cards-footnotes"
+  ]
+}

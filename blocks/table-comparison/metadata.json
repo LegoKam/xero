@@ -1,0 +1,23 @@
+{
+  "variantName": "table-comparison",
+  "baseBlock": "table",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Tier or plan comparison table showing which benefits each tier includes",
+    "layout": "header row of tier names; body rows with a sticky benefit label column and tick/cross icons per tier; scrolls horizontally on narrow screens"
+  },
+  "contentPattern": {
+    "structure": "First row: empty cell then column names (e.g. Bronze | Silver | Gold | Platinum). Following rows: benefit label then one cell per column containing Included or Excluded (other text is shown as-is)"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "table-comparison"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/partner-programme/",
+    "pages": [
+      "/au/partner-programme"
+    ]
+  },
+  "reuseGuidance": "Use for feature/benefit matrices across plans or tiers. Write Included/Excluded (or Yes/No) to get icons."
+}

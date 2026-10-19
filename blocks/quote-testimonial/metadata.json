@@ -1,0 +1,23 @@
+{
+  "variantName": "quote-testimonial",
+  "baseBlock": "quote",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Customer story testimonial with photo, large quote and attribution",
+    "layout": "photo beside quote and caption on desktop, stacked on mobile"
+  },
+  "contentPattern": {
+    "structure": "Single-cell rows: image (optional) | quote text | attribution (name, business, optional link to full story)"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "quote-testimonial"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/accountants-bookkeepers/bookkeepers/",
+    "pages": [
+      "/au/accountants-bookkeepers/bookkeepers"
+    ]
+  },
+  "reuseGuidance": "Use for customer quotes and story teasers. Omit the image row for a text-only quote."
+}

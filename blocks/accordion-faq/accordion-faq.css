@@ -1,0 +1,54 @@
+.accordion-faq .accordion-faq-item {
+  border-bottom: 1px solid currentcolor;
+}
+
+.accordion-faq .accordion-faq-item:first-child {
+  border-top: 1px solid currentcolor;
+}
+
+.accordion-faq .accordion-faq-question {
+  position: relative;
+  display: block;
+  padding: 16px 40px 16px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.accordion-faq .accordion-faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-faq .accordion-faq-question > p {
+  display: inline;
+  margin: 0;
+}
+
+/* chevron indicator */
+.accordion-faq .accordion-faq-question::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border: solid currentcolor;
+  border-width: 0 2px 2px 0;
+  transform: translateY(-75%) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.accordion-faq .accordion-faq-item[open] > .accordion-faq-question::after {
+  transform: translateY(-25%) rotate(-135deg);
+}
+
+.accordion-faq .accordion-faq-answer {
+  padding: 0 0 16px;
+}
+
+.accordion-faq .accordion-faq-answer > :first-child {
+  margin-top: 0;
+}
+
+.accordion-faq .accordion-faq-answer > :last-child {
+  margin-bottom: 0;
+}

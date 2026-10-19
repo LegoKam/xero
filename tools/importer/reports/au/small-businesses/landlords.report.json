@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/small-businesses/landlords/",
+  "path": "au/small-businesses/landlords",
+  "timestamp": "2026-10-19T03:12:13.486Z",
+  "title": "Landlords Accounting Software | Xero AU",
+  "template": "small-businesses",
+  "blocks": [
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "tabs-pricing",
+    "cards-industry"
+  ]
+}

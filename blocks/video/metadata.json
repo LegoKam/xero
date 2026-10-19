@@ -1,0 +1,28 @@
+{
+  "variantName": "video",
+  "baseBlock": "video",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Embedded video (YouTube, Vimeo, Brightcove or mp4) with optional poster image",
+    "layout": "16:9 frame; poster with centred play button loads the player on click; without a poster the player lazy-loads when scrolled into view"
+  },
+  "contentPattern": {
+    "structure": "Row 1: poster image (optional); Row 2: link to the video URL. Poster and link may also share one cell"
+  },
+  "options": [
+    {
+      "class": "autoplay",
+      "label": "Autoplay"
+    }
+  ],
+  "memberVariantIds": [
+    "video"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/partner-programme/",
+    "pages": [
+      "/au/partner-programme"
+    ]
+  },
+  "reuseGuidance": "Use for any single embedded video. Add a poster image for click-to-play."
+}
