@@ -1,0 +1,18 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/versus/reckon-alternative/",
+  "path": "au/versus/reckon-alternative",
+  "timestamp": "2026-10-19T09:00:45.490Z",
+  "title": "Reckon vs Xero | A Reckon Alternative | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "cards-testimonial",
+    "tabs-pricing",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

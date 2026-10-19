@@ -1,0 +1,21 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/ai-in-accounting/jax-vision/",
+  "path": "au/ai-in-accounting/jax-vision",
+  "timestamp": "2026-10-19T08:59:53.758Z",
+  "title": "Just Ask Xero | JAX | Your AI Business Companion | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "video",
+    "accordion-faq",
+    "tabs-pricing",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

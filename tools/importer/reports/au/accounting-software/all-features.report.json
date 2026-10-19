@@ -1,0 +1,15 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accounting-software/all-features/",
+  "path": "au/accounting-software/all-features",
+  "timestamp": "2026-10-19T09:24:50.401Z",
+  "title": "All Xero Features | Xero AU",
+  "template": "accounting-software-3",
+  "blocks": [
+    "quote-testimonial",
+    "tabs-pricing",
+    "cards-industry",
+    "hero-split",
+    "columns-feature"
+  ]
+}

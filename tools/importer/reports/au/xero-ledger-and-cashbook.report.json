@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/xero-ledger-and-cashbook/",
+  "path": "au/xero-ledger-and-cashbook",
+  "timestamp": "2026-10-19T09:25:05.513Z",
+  "title": "Ledger & Cashbook Plans for Small Clients | Xero AU",
+  "template": "xero-ledger-and-cashbook",
+  "blocks": [
+    "video",
+    "accordion-faq",
+    "cards-industry",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/small-businesses/customers/",
+  "path": "au/small-businesses/customers",
+  "timestamp": "2026-10-19T09:02:28.501Z",
+  "title": "Customer Stories | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "tabs-pricing",
+    "cards-industry",
+    "cards-features"
+  ]
+}

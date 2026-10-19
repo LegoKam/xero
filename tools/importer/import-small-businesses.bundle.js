@@ -65,15 +65,22 @@ var CustomImportScript = (() => {
   function clean(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
-  function collectVideoEntries(document) {
+  var VIDEO_URL_RE = /(youtube\.com|youtu\.be|vimeo\.com|wistia\.(com|net)|brightcove|bcove\.video|\.mp4(\?|#|$))/i;
+  function readNextData(document) {
     const script = document.querySelector("#__NEXT_DATA__");
-    if (!script) return [];
-    let data;
+    if (!script) return null;
     try {
-      data = JSON.parse(script.textContent);
+      return JSON.parse(script.textContent);
     } catch (e) {
-      return [];
+      return null;
     }
+  }
+  function isVideoComponent(node) {
+    return /video/i.test(node["@type"] || "") && !/video-browser|videos-list/i.test(node["@type"] || "");
+  }
+  function collectVideoEntries(document) {
+    if (document.__xeroVideoEntries) return document.__xeroVideoEntries;
+    const data = readNextData(document);
     const found = [];
     const walk = (node) => {
       if (!node || typeof node !== "object") return;
@@ -81,30 +88,88 @@ var CustomImportScript = (() => {
         node.forEach(walk);
         return;
       }
-      if (typeof node.videoId === "string" && node.videoId) found.push(node);
+      const hasId = typeof node.videoId === "string" && node.videoId;
+      const hasUrl = ["videoUrl", "embedUrl", "videoSrc"].some((k) => typeof node[k] === "string" && node[k]);
+      if (hasId || isVideoComponent(node) || hasUrl) {
+        found.push({ node, ordered: !!hasId || isVideoComponent(node) });
+      }
       Object.keys(node).forEach((k) => walk(node[k]));
     };
-    walk(data);
+    if (data) walk(data);
+    document.__xeroVideoEntries = found;
     return found;
   }
   function srcKey(src) {
-    return (src || "").split("?")[0].replace(/\.[0-9]+(\.[a-z0-9]+)$/i, "$1").replace(/\.[a-z0-9]+$/i, "");
+    const file = (src || "").split("?")[0].split("#")[0];
+    return file.replace(/\.[0-9]+(\.[a-z0-9]+)$/i, "$1").replace(/\.[a-z0-9]+$/i, "").toLowerCase();
   }
-  function findVideoId(document, posterSrc, captionText) {
+  function entryPoster(node) {
+    const img = node.image || node.poster || node.thumbnail;
+    if (img && typeof img === "object") return img.src || img.url || "";
+    if (typeof img === "string") return img;
+    return node.imageSrc || "";
+  }
+  function absolute(url) {
+    if (/^\/\//.test(url)) return `https:${url}`;
+    if (/^\//.test(url)) return `https://www.xero.com${url}`;
+    return url;
+  }
+  function toVideoUrl(value, provider) {
+    const v = clean(value);
+    if (!v) return "";
+    if (/^(https?:)?\/\//i.test(v) || /^\/.+\.mp4(\?|#|$)/i.test(v)) {
+      return VIDEO_URL_RE.test(v) ? absolute(v) : "";
+    }
+    const p = (provider || "").toLowerCase();
+    if (/youtube/.test(p)) return `https://www.youtube.com/watch?v=${v}`;
+    if (/vimeo/.test(p)) return `https://vimeo.com/${v}`;
+    if (/^\d{6,}$/.test(v)) return `https://vimeo.com/${v}`;
+    if (/^[A-Za-z0-9_-]{11}$/.test(v) && /[A-Z_-]/.test(v)) return `https://www.youtube.com/watch?v=${v}`;
+    if (/^[A-Za-z0-9]+$/.test(v)) return `https://fast.wistia.net/embed/iframe/${v}`;
+    return "";
+  }
+  function entryUrl(node) {
+    const provider = node.videoType || node.provider || node.platform || node.source || "";
+    const candidates = [node.videoUrl, node.embedUrl, node.url, node.videoSrc, node.videoId];
+    if (isVideoComponent(node)) candidates.push(node.id);
+    for (const c of candidates) {
+      if (typeof c !== "string" || !c) continue;
+      const url = toVideoUrl(c, provider);
+      if (url) return url;
+    }
+    return "";
+  }
+  function domVideoUrl(element) {
+    const iframe = element.querySelector("iframe[src]");
+    if (iframe && VIDEO_URL_RE.test(iframe.getAttribute("src"))) return absolute(iframe.getAttribute("src"));
+    const source = element.querySelector("video[src], video source[src]");
+    if (source) return absolute(source.getAttribute("src"));
+    const holder = element.querySelector("[data-video-id], [data-wistia-id], [data-youtube-id], [data-vimeo-id]") || (element.matches("[data-video-id], [data-wistia-id]") ? element : null);
+    if (holder) {
+      if (holder.dataset.youtubeId) return toVideoUrl(holder.dataset.youtubeId, "youtube");
+      if (holder.dataset.vimeoId) return toVideoUrl(holder.dataset.vimeoId, "vimeo");
+      return toVideoUrl(holder.dataset.wistiaId || holder.dataset.videoId);
+    }
+    return "";
+  }
+  function findEntry(document, posterSrc, captionText) {
     const entries = collectVideoEntries(document);
-    if (!entries.length) return "";
+    if (!document.__xeroVideoUsed) document.__xeroVideoUsed = /* @__PURE__ */ new Set();
+    const used = document.__xeroVideoUsed;
+    const free = entries.filter((e) => !used.has(e.node));
     const key = srcKey(posterSrc);
-    const byPoster = key && entries.find((e) => {
-      const s = e.image && (e.image.src || e.image.url);
-      if (!s) return false;
-      const k = srcKey(s);
-      return k === key || k.startsWith(key) || key.startsWith(k);
+    const base = key.split("/").pop();
+    let hit = key && free.find((e) => {
+      const k = srcKey(entryPoster(e.node));
+      return k && (k === key || k.split("/").pop() === base);
     });
-    if (byPoster) return byPoster.videoId;
-    const byCaption = captionText && entries.find((e) => clean(e.captionText) === captionText);
-    if (byCaption) return byCaption.videoId;
-    const byType = entries.find((e) => /video/i.test(e["@type"] || ""));
-    return (byType || entries[0]).videoId;
+    if (!hit && captionText) {
+      hit = free.find((e) => e.ordered && [e.node.captionText, e.node.caption].some((c) => typeof c === "string" && clean(c) === captionText));
+    }
+    if (!hit) hit = free.find((e) => e.ordered && (!key || !entryPoster(e.node)));
+    if (!hit) return null;
+    used.add(hit.node);
+    return hit.node;
   }
   function parse(element, { document }) {
     const figure = element.closest("figure");
@@ -113,15 +178,15 @@ var CustomImportScript = (() => {
     const content = [];
     const srcImg = element.querySelector("img");
     const posterSrc = srcImg ? srcImg.getAttribute("src") || "" : "";
+    const entry = findEntry(document, posterSrc, captionText);
     if (posterSrc && !posterSrc.startsWith("data:")) {
       const img = document.createElement("img");
       img.src = posterSrc;
-      img.alt = clean(srcImg.getAttribute("alt")) || captionText;
+      img.alt = clean(srcImg.getAttribute("alt")) || captionText || (entry && typeof entry.heading === "string" ? clean(entry.heading.replace(/[*[\]]/g, "")) : "");
       content.push(img);
     }
-    const videoId = findVideoId(document, posterSrc, captionText);
-    if (videoId) {
-      const href = `https://fast.wistia.net/embed/iframe/${videoId}`;
+    const href = domVideoUrl(element) || (entry ? entryUrl(entry) : "");
+    if (href) {
       const link = document.createElement("a");
       link.href = href;
       link.textContent = href;
@@ -148,6 +213,21 @@ var CustomImportScript = (() => {
     const firstCell = node.querySelector("tr > th, tr > td");
     return !!firstCell && /^\s*video\b/i.test(firstCell.textContent || "");
   }
+  var clean2 = (t) => (t || "").replace(/\s+/g, " ").trim();
+  var FOREIGN = [
+    '[class*="ProofPoint"]',
+    '[class*="Rating"]',
+    '[class*="Award"]',
+    '[class*="Badge"]',
+    '[class*="Logo"]',
+    '[class*="Card"]',
+    '[class*="Caption__"]',
+    '[class*="OverlayButton"]',
+    '[class*="Video__"]',
+    "figcaption"
+  ].join(", ");
+  var EYEBROW = '[class*="Eyebrow"], [class*="Overline"], [class*="Kicker"], [class*="Label"], [class*="Tag__"]';
+  var precedes = (a, b) => !!(a.compareDocumentPosition(b) & 4);
   function parse2(element, { document }) {
     const keep = [];
     element.querySelectorAll("table").forEach((t) => {
@@ -157,18 +237,54 @@ var CustomImportScript = (() => {
       keep.push(holderOnlyVideo ? holder : t);
     });
     const rawVideo = [...element.querySelectorAll("figure")].filter((f) => f.querySelector('[class^="Video__Element"]'));
-    const skip = [...keep, ...rawVideo, ...element.querySelectorAll('[class^="Video__Element"]')];
+    const foreign = [...element.querySelectorAll(FOREIGN)].filter((c) => !c.querySelector("h1"));
+    const skip = [...keep, ...rawVideo, ...element.querySelectorAll('[class^="Video__Element"]'), ...foreign];
     const skipped = (n) => skip.some((s) => s === n || s.contains(n));
     const cells = [];
-    const image = [...element.querySelectorAll("img")].find((img) => !skipped(img));
+    const images = [...element.querySelectorAll("img")].filter((img) => !skipped(img));
+    const badgeLike = (img) => /\b(logo|badge|award|rating|stars?)\b/i.test(img.getAttribute("alt") || "");
+    const image = images.find((img) => !badgeLike(img)) || images[0];
     if (image) cells.push([image]);
     const contentCell = [];
-    const heading = [...element.querySelectorAll("h1, h2")].find((h) => !skipped(h));
-    if (heading) contentCell.push(heading);
-    const copyWrapper = element.querySelector('[class*="CopyWrapper"]') || element;
+    const headings = [...element.querySelectorAll("h1, h2")].filter((h) => !skipped(h));
+    const heading = headings.find((h) => h.tagName === "H1") || headings[0];
+    const copyWrapper = element.querySelector('[class*="CopyWrapper"]') || heading && heading.closest('[class*="Col__Element"]') || element;
+    if (heading) {
+      const eyebrows = [...copyWrapper.querySelectorAll(`${EYEBROW}, h2, h3, h4, h5, h6, p`)].filter((n) => {
+        if (n === heading || heading.contains(n) || n.contains(heading) || skipped(n)) return false;
+        if (!precedes(n, heading) || !clean2(n.textContent)) return false;
+        if (n.closest('a, button, [class*="ButtonGroup"]')) return false;
+        return !n.parentElement.closest(`${EYEBROW}, h2, h3, h4, h5, h6, p`);
+      });
+      eyebrows.forEach((n) => {
+        const p = document.createElement("p");
+        p.textContent = clean2(n.textContent);
+        contentCell.push(p);
+      });
+      contentCell.push(heading);
+    }
     copyWrapper.querySelectorAll("p").forEach((p) => {
       if (skipped(p)) return;
+      if (heading && precedes(p, heading)) return;
+      if (contentCell.some((n) => n === p || n.contains && n.contains(p))) return;
       if (p.textContent.trim()) contentCell.push(p);
+    });
+    copyWrapper.querySelectorAll("ul, ol").forEach((list) => {
+      if (skipped(list) || /ButtonGroup/.test(list.className || "")) return;
+      if (list.parentElement.closest("ul, ol")) return;
+      const items = [...list.querySelectorAll(":scope > li")].map((li) => {
+        const copy = li.cloneNode(true);
+        copy.querySelectorAll('svg, title, [class*="Icon"]').forEach((n) => n.remove());
+        return clean2(copy.textContent);
+      }).filter(Boolean);
+      if (!items.length) return;
+      const out = document.createElement(list.tagName.toLowerCase());
+      items.forEach((text) => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        out.append(li);
+      });
+      contentCell.push(out);
     });
     copyWrapper.querySelectorAll('[class*="ButtonGroup__Element"] a[href], a[class*="Button__Element"]').forEach((a) => {
       if (skipped(a)) return;
@@ -210,7 +326,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/columns-feature.js
-  function clean2(text) {
+  function clean3(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
   function buildImage(document, scope) {
@@ -248,10 +364,10 @@ var CustomImportScript = (() => {
     return objects;
   }
   function stripTags(html) {
-    return clean2(String(html || "").replace(/<[^>]*>/g, " ")).toLowerCase();
+    return clean3(String(html || "").replace(/<[^>]*>/g, " ")).toLowerCase();
   }
   function findComponent(objects, headingText) {
-    const key = clean2(headingText).toLowerCase();
+    const key = clean3(headingText).toLowerCase();
     if (!key) return null;
     return objects.find((o) => typeof o.heading === "string" && stripTags(o.heading) === key && ("copyPosition" in o || "popovers" in o)) || null;
   }
@@ -260,8 +376,8 @@ var CustomImportScript = (() => {
     return component.popovers.map((p) => p && p.popover ? p.popover : p).filter(Boolean);
   }
   function findPopover(objects, component, label) {
-    const key = clean2(label).toLowerCase();
-    const match = (p) => clean2(p.button).toLowerCase() === key;
+    const key = clean3(label).toLowerCase();
+    const match = (p) => clean3(p.button).toLowerCase() === key;
     const own = popoverList(component).find(match);
     if (own) return own;
     for (const o of objects) {
@@ -276,10 +392,10 @@ var CustomImportScript = (() => {
     return p;
   }
   function linkPara(document, href, text, primary) {
-    if (!href || !clean2(text)) return null;
+    if (!href || !clean3(text)) return null;
     const link = document.createElement("a");
     link.href = href;
-    link.textContent = clean2(text);
+    link.textContent = clean3(text);
     const p = document.createElement("p");
     if (primary) {
       const strong = document.createElement("strong");
@@ -296,10 +412,10 @@ var CustomImportScript = (() => {
   }
   function itemText(li) {
     const span = li.querySelector('[class^="Typography__Span"]');
-    if (span) return clean2(span.textContent);
+    if (span) return clean3(span.textContent);
     const copy = li.cloneNode(true);
     copy.querySelectorAll("svg, title").forEach((s) => s.remove());
-    return clean2(copy.textContent);
+    return clean3(copy.textContent);
   }
   function buildList(document, srcList) {
     const list = document.createElement(srcList.tagName === "OL" ? "ol" : "ul");
@@ -319,15 +435,15 @@ var CustomImportScript = (() => {
     return links.map((a) => linkPara(document, a.getAttribute("href"), a.textContent, a === primary)).filter(Boolean);
   }
   function domPopover(document, label) {
-    const key = clean2(label).toLowerCase();
+    const key = clean3(label).toLowerCase();
     const modals = [...document.querySelectorAll('[class*="Modal__Element"], [class*="Modal__Background"], [role="dialog"]')];
     return modals.find((m) => {
-      const text = clean2(m.textContent).toLowerCase();
+      const text = clean3(m.textContent).toLowerCase();
       return text && (m.getAttribute("aria-label") || "").toLowerCase() === key;
     }) || null;
   }
   function buildPopover(document, ctx, trigger) {
-    const label = clean2(trigger.textContent);
+    const label = clean3(trigger.textContent);
     if (!label) return [];
     const nodes = [para(document, label)];
     const modal = domPopover(document, label);
@@ -337,8 +453,8 @@ var CustomImportScript = (() => {
         if (/^(UL|OL)$/.test(n.tagName)) {
           const list = buildList(document, n);
           if (list) nodes.push(list);
-        } else if (clean2(n.textContent)) {
-          nodes.push(/^H/.test(n.tagName) ? para(document, clean2(n.textContent)) : n);
+        } else if (clean3(n.textContent)) {
+          nodes.push(/^H/.test(n.tagName) ? para(document, clean3(n.textContent)) : n);
         }
       });
       modal.querySelectorAll("a[href]").forEach((a) => {
@@ -349,26 +465,26 @@ var CustomImportScript = (() => {
     }
     const data = findPopover(ctx.objects, ctx.component, label);
     if (data) {
-      if (clean2(data.heading)) {
+      if (clean3(data.heading)) {
         const p = document.createElement("p");
         const strong = document.createElement("strong");
-        strong.textContent = clean2(data.heading);
+        strong.textContent = clean3(data.heading);
         p.append(strong);
         nodes.push(p);
       }
-      if (clean2(data.description)) nodes.push(para(document, clean2(data.description)));
-      const points = (data.proofPoints || []).filter((pp) => pp && (clean2(pp.headline) || clean2(pp.shortCopy)));
+      if (clean3(data.description)) nodes.push(para(document, clean3(data.description)));
+      const points = (data.proofPoints || []).filter((pp) => pp && (clean3(pp.headline) || clean3(pp.shortCopy)));
       if (points.length) {
         const list = document.createElement("ul");
         points.forEach((pp) => {
           const li = document.createElement("li");
-          if (clean2(pp.headline)) {
+          if (clean3(pp.headline)) {
             const strong = document.createElement("strong");
-            strong.textContent = clean2(pp.headline);
+            strong.textContent = clean3(pp.headline);
             li.append(strong);
-            if (clean2(pp.shortCopy)) li.append(document.createTextNode(` ${clean2(pp.shortCopy)}`));
+            if (clean3(pp.shortCopy)) li.append(document.createTextNode(` ${clean3(pp.shortCopy)}`));
           } else {
-            li.textContent = clean2(pp.shortCopy);
+            li.textContent = clean3(pp.shortCopy);
           }
           list.append(li);
         });
@@ -384,9 +500,9 @@ var CustomImportScript = (() => {
       const tag = child.tagName;
       const cls = typeof child.className === "string" ? child.className : "";
       if (/^H[1-6]$/.test(tag)) {
-        if (clean2(child.textContent)) out.push(cleanHeading(child));
+        if (clean3(child.textContent)) out.push(cleanHeading(child));
       } else if (tag === "P") {
-        if (clean2(child.textContent)) out.push(child);
+        if (clean3(child.textContent)) out.push(child);
       } else if (tag === "UL" || tag === "OL") {
         if (/ButtonGroup__Element/.test(cls)) {
           out.push(...buildButtonGroup(document, child));
@@ -424,11 +540,12 @@ var CustomImportScript = (() => {
     if (ot !== null || oi !== null) return (oi || 0) < (ot || 0);
     return cols.indexOf(imageCol) < cols.indexOf(textCol);
   }
+  var COPY_SELECTOR = '[class^="Highlight__CopyWrapper"], [class^="HighlightProofPoints__CopyWrapper"]';
   function parse4(element, { document }) {
     const cols = [...element.querySelectorAll(':scope > [class*="Col__Element"]')];
-    const copy = element.querySelector('[class^="Highlight__CopyWrapper"]');
-    const textCol = cols.find((c) => c.querySelector('[class^="Highlight__CopyWrapper"]')) || null;
-    const imageCol = cols.find((c) => c !== textCol && c.querySelector("img")) || cols.find((c) => c !== textCol) || null;
+    const copy = element.querySelector(COPY_SELECTOR);
+    const textCol = cols.find((c) => c.querySelector(COPY_SELECTOR)) || null;
+    const imageCol = cols.find((c) => c !== textCol && c.querySelector('[class^="HighlightProofPoints__Figure"] img')) || cols.find((c) => c !== textCol && c.querySelector("img")) || cols.find((c) => c !== textCol) || null;
     const headingEl = copy && copy.querySelector("h1, h2, h3, h4, h5, h6");
     const objects = nextDataObjects(document);
     const component = headingEl ? findComponent(objects, headingEl.textContent) : null;
@@ -443,7 +560,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/cards-features.js
-  function clean3(text) {
+  function clean4(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
   function parse5(element, { document }) {
@@ -451,7 +568,7 @@ var CustomImportScript = (() => {
     element.querySelectorAll('[class^="BoxItem__Element"]').forEach((item) => {
       const contentCell = [];
       const heading = item.querySelector("h1, h2, h3, h4, h5, h6");
-      const title = heading ? clean3(heading.textContent) : "";
+      const title = heading ? clean4(heading.textContent) : "";
       if (title) {
         const srcLink = heading.querySelector("a[href]");
         if (srcLink) {
@@ -470,7 +587,7 @@ var CustomImportScript = (() => {
         }
       }
       item.querySelectorAll("p").forEach((p) => {
-        if (clean3(p.textContent)) contentCell.push(p);
+        if (clean4(p.textContent)) contentCell.push(p);
       });
       if (contentCell.length) cells.push([contentCell]);
     });
@@ -479,15 +596,15 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/tabs-pricing.js
-  function clean4(text) {
+  function clean5(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
   function itemText2(li) {
     const span = li.querySelector('[class^="Typography__Span"]');
-    if (span) return clean4(span.textContent);
+    if (span) return clean5(span.textContent);
     const copy = li.cloneNode(true);
     copy.querySelectorAll("svg, title").forEach((s) => s.remove());
-    return clean4(copy.textContent);
+    return clean5(copy.textContent);
   }
   function findPlanCollections(document, labels) {
     const script = document.querySelector("#__NEXT_DATA__");
@@ -511,7 +628,7 @@ var CustomImportScript = (() => {
     walk(data);
     if (!found.length) return null;
     const wanted = labels.map((l) => l.toLowerCase());
-    return found.find((pc) => pc.some((c) => wanted.includes(clean4(c.collectionLabel).toLowerCase()))) || found[0];
+    return found.find((pc) => pc.some((c) => wanted.includes(clean5(c.collectionLabel).toLowerCase()))) || found[0];
   }
   function para2(document, text, bold) {
     const p = document.createElement("p");
@@ -525,10 +642,10 @@ var CustomImportScript = (() => {
     return p;
   }
   function linkPara2(document, cta, primary) {
-    if (!cta || !cta.href || !clean4(cta.text)) return null;
+    if (!cta || !cta.href || !clean5(cta.text)) return null;
     const link = document.createElement("a");
     link.href = cta.href;
-    link.textContent = clean4(cta.text);
+    link.textContent = clean5(cta.text);
     const p = document.createElement("p");
     if (primary) {
       const strong = document.createElement("strong");
@@ -541,24 +658,24 @@ var CustomImportScript = (() => {
   }
   function buildPlanFromData(document, plan) {
     const nodes = [];
-    if (clean4(plan.heading)) {
+    if (clean5(plan.heading)) {
       const h3 = document.createElement("h3");
-      h3.textContent = clean4(plan.heading);
+      h3.textContent = clean5(plan.heading);
       nodes.push(h3);
     }
     const symbol = plan.currency && plan.currency.symbol || "$";
     const discount = plan.discount && plan.discount.price ? plan.discount : null;
     const amount = discount ? discount.price : plan.price;
-    if (amount) nodes.push(para2(document, clean4(`${symbol}${amount} ${plan.priceDescription || ""}`), true));
+    if (amount) nodes.push(para2(document, clean5(`${symbol}${amount} ${plan.priceDescription || ""}`), true));
     if (discount) {
-      if (clean4(discount.savingsPeriodText)) nodes.push(para2(document, clean4(discount.savingsPeriodText)));
-      if (clean4(discount.savingsText)) nodes.push(para2(document, clean4(discount.savingsText)));
+      if (clean5(discount.savingsPeriodText)) nodes.push(para2(document, clean5(discount.savingsPeriodText)));
+      if (clean5(discount.savingsText)) nodes.push(para2(document, clean5(discount.savingsText)));
     }
-    if (clean4(plan.description)) nodes.push(para2(document, clean4(plan.description)));
+    if (clean5(plan.description)) nodes.push(para2(document, clean5(plan.description)));
     const points = plan.points && plan.points.length ? plan.points : (plan.detailedPoints || []).map((d) => d && d.text);
-    const items = points.map(clean4).filter(Boolean);
+    const items = points.map(clean5).filter(Boolean);
     if (items.length) {
-      if (clean4(plan.pointsTitle)) nodes.push(para2(document, clean4(plan.pointsTitle)));
+      if (clean5(plan.pointsTitle)) nodes.push(para2(document, clean5(plan.pointsTitle)));
       const list = document.createElement("ul");
       items.forEach((t) => {
         const li = document.createElement("li");
@@ -591,14 +708,14 @@ var CustomImportScript = (() => {
     const h3src = card.querySelector("h3");
     if (h3src) {
       const selected = h3src.querySelector("select option:checked, select option[selected]");
-      const name = selected ? clean4(selected.textContent) : clean4(h3src.textContent);
+      const name = selected ? clean5(selected.textContent) : clean5(h3src.textContent);
       const h3 = document.createElement("h3");
       h3.textContent = name;
       nodes.push(h3);
     }
     const priceRow = card.querySelector('[class^="PlanCard__PriceRow"]');
     if (priceRow) {
-      const price = clean4(priceRow.textContent);
+      const price = clean5(priceRow.textContent);
       if (price) {
         const p = document.createElement("p");
         const strong = document.createElement("strong");
@@ -610,7 +727,7 @@ var CustomImportScript = (() => {
     const top = card.querySelector('[class^="PlanCard__Top"]') || card;
     top.querySelectorAll("p").forEach((srcP) => {
       if (srcP.closest("dl")) return;
-      const text = clean4(srcP.textContent);
+      const text = clean5(srcP.textContent);
       if (!text) return;
       const p = document.createElement("p");
       p.textContent = text;
@@ -619,7 +736,7 @@ var CustomImportScript = (() => {
     const dl = top.querySelector("dl");
     if (dl) {
       const term = dl.querySelector("dt");
-      const label = term ? clean4(term.textContent) : "";
+      const label = term ? clean5(term.textContent) : "";
       if (label) {
         const p = document.createElement("p");
         p.textContent = label;
@@ -638,7 +755,7 @@ var CustomImportScript = (() => {
     const ctas = card.querySelector('[class^="PlanCard__CtasSection"]');
     if (ctas) {
       ctas.querySelectorAll("a[href]").forEach((a) => {
-        const text = clean4(a.textContent);
+        const text = clean5(a.textContent);
         if (!text) return;
         const link = document.createElement("a");
         link.href = a.getAttribute("href");
@@ -655,6 +772,16 @@ var CustomImportScript = (() => {
       });
     }
     return nodes;
+  }
+  function precedingHeading(element) {
+    const scope = element.closest('section, [class^="Region__Element"]') || element.ownerDocument.body;
+    if (!scope) return "";
+    const heads = [...scope.querySelectorAll("h1, h2, h3, h4, h5, h6")].filter((h) => !element.contains(h) && h.compareDocumentPosition(element) & 4);
+    for (let i = heads.length - 1; i >= 0; i -= 1) {
+      const text = clean5(heads[i].textContent);
+      if (text) return text;
+    }
+    return "";
   }
   function parse6(element, { document }) {
     const cells = [];
@@ -679,7 +806,7 @@ var CustomImportScript = (() => {
         });
       }
       if (activeIndex < 0) activeIndex = 0;
-      const labelTexts = labels.map((l) => clean4(l.textContent));
+      const labelTexts = labels.map((l) => clean5(l.textContent));
       const collections = findPlanCollections(document, labelTexts) || [];
       labels.forEach((label, i) => {
         const text = labelTexts[i];
@@ -688,7 +815,7 @@ var CustomImportScript = (() => {
         if (i === activeIndex) {
           content = panelContent;
         } else {
-          const collection = collections.find((c) => clean4(c.collectionLabel).toLowerCase() === text.toLowerCase()) || (collections.length === labels.length ? collections[i] : null);
+          const collection = collections.find((c) => clean5(c.collectionLabel).toLowerCase() === text.toLowerCase()) || (collections.length === labels.length ? collections[i] : null);
           const nodes = buildCollectionPanel(document, collection);
           if (nodes.length) content = nodes;
         }
@@ -696,28 +823,66 @@ var CustomImportScript = (() => {
       });
     } else if (panelContent.length) {
       cells.push(["Plans", panelContent]);
+    } else {
+      const cardContent = [];
+      element.querySelectorAll('[class^="PlanCard__Element"]').forEach((card) => {
+        cardContent.push(...buildPlan(document, card));
+      });
+      if (cardContent.length) cells.push([precedingHeading(element) || "Plans", cardContent]);
     }
     const block = WebImporter.Blocks.createBlock(document, { name: "tabs-pricing", cells });
     element.replaceWith(block);
   }
 
   // tools/importer/parsers/cards-industry.js
-  function clean5(text) {
+  function clean6(text) {
     return (text || "").replace(/\s+/g, " ").trim();
+  }
+  function buildImage2(document, srcImg) {
+    if (!srcImg || !srcImg.getAttribute("src") || srcImg.getAttribute("src").startsWith("data:")) return "";
+    const img = document.createElement("img");
+    img.src = srcImg.getAttribute("src");
+    img.alt = (srcImg.getAttribute("alt") || "").trim();
+    return img;
+  }
+  function linkedHeading(document, title, srcLink) {
+    const h3 = document.createElement("h3");
+    if (srcLink) {
+      const link = document.createElement("a");
+      link.href = srcLink.getAttribute("href");
+      link.textContent = title;
+      h3.append(link);
+    } else {
+      h3.textContent = title;
+    }
+    return h3;
+  }
+  function parseContentCard(document, card) {
+    const img = buildImage2(document, card.querySelector('[class^="ContentCard__ImageWrapper"] img, img'));
+    const contentCell = [];
+    const titleWrap = card.querySelector('[class^="ContentCard__CardTitleWrapper"]') || card;
+    const heading = titleWrap.querySelector("h1, h2, h3, h4, h5, h6");
+    const srcLink = heading && heading.querySelector("a[href]") || titleWrap.querySelector("a[href]");
+    const title = clean6((heading || srcLink || {}).textContent);
+    if (title) contentCell.push(linkedHeading(document, title, srcLink));
+    card.querySelectorAll("p").forEach((p) => {
+      if (clean6(p.textContent) && !p.contains(srcLink)) contentCell.push(p);
+    });
+    return img || contentCell.length ? [img, contentCell] : null;
   }
   function parse7(element, { document }) {
     const cells = [];
-    element.querySelectorAll('[class^="PostCard__Card"]').forEach((card) => {
-      const srcImg = card.querySelector('[class^="PostCard__ImageContainer"] img, img');
-      let img = "";
-      if (srcImg && srcImg.getAttribute("src") && !srcImg.getAttribute("src").startsWith("data:")) {
-        img = document.createElement("img");
-        img.src = srcImg.getAttribute("src");
-        img.alt = (srcImg.getAttribute("alt") || "").trim();
+    const cards = [...element.querySelectorAll('[class^="PostCard__Card"], [class^="ContentCard__Element"]')].filter((c, i, all) => !all.some((o) => o !== c && o.contains(c)));
+    cards.forEach((card) => {
+      if (/^ContentCard__Element/.test(card.className)) {
+        const row = parseContentCard(document, card);
+        if (row) cells.push(row);
+        return;
       }
+      const img = buildImage2(document, card.querySelector('[class^="PostCard__ImageContainer"] img, img'));
       const contentCell = [];
       const labelEl = card.querySelector(':scope > [class^="Typography__Span"]');
-      const label = labelEl ? clean5(labelEl.textContent) : "";
+      const label = labelEl ? clean6(labelEl.textContent) : "";
       if (label) {
         const p = document.createElement("p");
         p.textContent = label;
@@ -725,18 +890,9 @@ var CustomImportScript = (() => {
       }
       const heading = card.querySelector("h1, h2, h3, h4, h5, h6");
       if (heading) {
-        const title = clean5(heading.textContent);
+        const title = clean6(heading.textContent);
         const srcLink = heading.querySelector("a[href]") || card.querySelector("a[href]");
-        const h3 = document.createElement("h3");
-        if (srcLink) {
-          const link = document.createElement("a");
-          link.href = srcLink.getAttribute("href");
-          link.textContent = title;
-          h3.append(link);
-        } else {
-          h3.textContent = title;
-        }
-        if (title) contentCell.push(h3);
+        if (title) contentCell.push(linkedHeading(document, title, srcLink));
       }
       card.querySelectorAll("p").forEach((p) => {
         if (p.textContent.trim()) contentCell.push(p);
@@ -748,10 +904,10 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/cards-promo.js
-  function clean6(text) {
+  function clean7(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
-  function buildImage2(document, scope) {
+  function buildImage3(document, scope) {
     const srcImg = scope.querySelector("img");
     if (!srcImg) return "";
     let src = srcImg.getAttribute("src") || "";
@@ -773,12 +929,12 @@ var CustomImportScript = (() => {
     element.querySelectorAll(':scope > [class*="Col__Element"] > [class^="Block__Element"]').forEach((promo) => {
       const contentCell = [];
       const heading = promo.querySelector("h1, h2, h3, h4, h5, h6");
-      if (heading && clean6(heading.textContent)) contentCell.push(heading);
+      if (heading && clean7(heading.textContent)) contentCell.push(heading);
       promo.querySelectorAll("p").forEach((p) => {
         if (p.textContent.trim()) contentCell.push(p);
       });
       promo.querySelectorAll('[class^="Block__ButtonWrapper"] a[href]').forEach((a) => {
-        const text = clean6(a.textContent);
+        const text = clean7(a.textContent);
         if (!text) return;
         const link = document.createElement("a");
         link.href = a.getAttribute("href");
@@ -788,7 +944,7 @@ var CustomImportScript = (() => {
         contentCell.push(p);
       });
       const imageScope = promo.querySelector('[class^="Block__ImageWrapper"]') || promo;
-      const img = buildImage2(document, imageScope);
+      const img = buildImage3(document, imageScope);
       if (img || contentCell.length) cells.push([img, contentCell]);
     });
     const block = WebImporter.Blocks.createBlock(document, { name: "cards-promo", cells });
@@ -796,7 +952,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/columns-offer.js
-  function clean7(text) {
+  function clean8(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
   function textParagraph(document, text, bold = false) {
@@ -816,12 +972,12 @@ var CustomImportScript = (() => {
     const textCell = [];
     if (copy) {
       const heading = copy.querySelector("h1, h2, h3, h4, h5, h6");
-      if (heading && clean7(heading.textContent)) textCell.push(heading);
+      if (heading && clean8(heading.textContent)) textCell.push(heading);
       copy.querySelectorAll(":scope > p").forEach((p) => {
         if (p.textContent.trim()) textCell.push(p);
       });
       copy.querySelectorAll("a[href]").forEach((a) => {
-        const text = clean7(a.textContent);
+        const text = clean8(a.textContent);
         if (!text) return;
         const link = document.createElement("a");
         link.href = a.getAttribute("href");
@@ -840,9 +996,9 @@ var CustomImportScript = (() => {
     const cardCell = [];
     if (plan) {
       const label = plan.querySelector("h1, h2, h3, h4, h5, h6");
-      if (label && clean7(label.textContent)) cardCell.push(textParagraph(document, clean7(label.textContent)));
+      if (label && clean8(label.textContent)) cardCell.push(textParagraph(document, clean8(label.textContent)));
       plan.querySelectorAll("p").forEach((p) => {
-        const text = clean7(p.textContent);
+        const text = clean8(p.textContent);
         if (!text) return;
         const isPrice = /PriceDetails/.test(p.className) || !!p.querySelector("strong");
         cardCell.push(isPrice ? textParagraph(document, text.replace(/\s+/g, ""), true) : textParagraph(document, text));
@@ -854,7 +1010,7 @@ var CustomImportScript = (() => {
           const span = li.querySelector('[class^="Typography__Span"]');
           const copy2 = li.cloneNode(true);
           copy2.querySelectorAll("svg, title").forEach((s) => s.remove());
-          const text = clean7(span ? span.textContent : copy2.textContent);
+          const text = clean8(span ? span.textContent : copy2.textContent);
           if (!text) return;
           const item = document.createElement("li");
           item.textContent = text;
@@ -869,7 +1025,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/cards-footnotes.js
-  function clean8(text) {
+  function clean9(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
   function parse10(element, { document }) {
@@ -877,11 +1033,11 @@ var CustomImportScript = (() => {
     element.querySelectorAll(":scope > div").forEach((item) => {
       const contentCell = [];
       item.querySelectorAll("p").forEach((p) => {
-        if (clean8(p.textContent)) contentCell.push(p);
+        if (clean9(p.textContent)) contentCell.push(p);
       });
       item.querySelectorAll("a[href]").forEach((a) => {
         if (a.closest("p")) return;
-        const text = clean8(a.textContent);
+        const text = clean9(a.textContent);
         if (!text) return;
         const link = document.createElement("a");
         link.href = a.getAttribute("href");
@@ -897,7 +1053,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/columns-intro.js
-  function clean9(text) {
+  function clean10(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
   function nextDataObjects2(document) {
@@ -923,16 +1079,16 @@ var CustomImportScript = (() => {
     return objects;
   }
   function stripTags2(html) {
-    return clean9(String(html || "").replace(/<[^>]*>/g, " ")).toLowerCase();
+    return clean10(String(html || "").replace(/<[^>]*>/g, " ")).toLowerCase();
   }
   function popoverList2(o) {
     if (!o || !Array.isArray(o.popovers)) return [];
     return o.popovers.map((p) => p && p.popover ? p.popover : p).filter(Boolean);
   }
   function findPopover2(objects, headingText, label) {
-    const key = clean9(label).toLowerCase();
-    const match = (p) => clean9(p.button).toLowerCase() === key;
-    const hk = clean9(headingText).toLowerCase();
+    const key = clean10(label).toLowerCase();
+    const match = (p) => clean10(p.button).toLowerCase() === key;
+    const hk = clean10(headingText).toLowerCase();
     const component = objects.find((o) => typeof o.heading === "string" && stripTags2(o.heading) === hk && Array.isArray(o.popovers));
     const own = popoverList2(component).find(match);
     if (own) return own;
@@ -954,10 +1110,10 @@ var CustomImportScript = (() => {
     return p;
   }
   function linkPara3(document, href, text, primary) {
-    if (!href || !clean9(text)) return null;
+    if (!href || !clean10(text)) return null;
     const link = document.createElement("a");
     link.href = href;
-    link.textContent = clean9(text);
+    link.textContent = clean10(text);
     const p = document.createElement("p");
     if (primary) {
       const strong = document.createElement("strong");
@@ -969,25 +1125,25 @@ var CustomImportScript = (() => {
     return p;
   }
   function buildPopover2(document, objects, headingText, trigger) {
-    const label = clean9(trigger.textContent);
+    const label = clean10(trigger.textContent);
     if (!label) return [];
     const nodes = [para3(document, label)];
     const data = findPopover2(objects, headingText, label);
     if (!data) return nodes;
-    if (clean9(data.heading)) nodes.push(para3(document, clean9(data.heading), true));
-    if (clean9(data.description)) nodes.push(para3(document, clean9(data.description)));
-    const points = (data.proofPoints || []).filter((pp) => pp && (clean9(pp.headline) || clean9(pp.shortCopy)));
+    if (clean10(data.heading)) nodes.push(para3(document, clean10(data.heading), true));
+    if (clean10(data.description)) nodes.push(para3(document, clean10(data.description)));
+    const points = (data.proofPoints || []).filter((pp) => pp && (clean10(pp.headline) || clean10(pp.shortCopy)));
     if (points.length) {
       const list = document.createElement("ul");
       points.forEach((pp) => {
         const li = document.createElement("li");
-        if (clean9(pp.headline)) {
+        if (clean10(pp.headline)) {
           const strong = document.createElement("strong");
-          strong.textContent = clean9(pp.headline);
+          strong.textContent = clean10(pp.headline);
           li.append(strong);
-          if (clean9(pp.shortCopy)) li.append(document.createTextNode(` ${clean9(pp.shortCopy)}`));
+          if (clean10(pp.shortCopy)) li.append(document.createTextNode(` ${clean10(pp.shortCopy)}`));
         } else {
-          li.textContent = clean9(pp.shortCopy);
+          li.textContent = clean10(pp.shortCopy);
         }
         list.append(li);
       });
@@ -1003,7 +1159,7 @@ var CustomImportScript = (() => {
       const cls = typeof child.className === "string" ? child.className : "";
       if (/StepsHeading__ArrowWrapper/.test(cls) || tag === "svg" || tag === "SVG") return;
       if (/^H[1-6]$/.test(tag) || tag === "P" || tag === "UL" || tag === "OL") {
-        if (clean9(child.textContent)) out.push(child);
+        if (clean10(child.textContent)) out.push(child);
       } else if (/IconButton__Wrapper/.test(cls)) {
         out.push(...buildPopover2(document, ctx.objects, ctx.heading, child));
       } else if (/ButtonGroup__Element/.test(cls)) {
@@ -1027,7 +1183,7 @@ var CustomImportScript = (() => {
     const headingCol = cols.find((c) => c.querySelector('[class^="StepsHeading__ArrowWrapper"]')) || cols[0] || element;
     const bodyCols = cols.filter((c) => c !== headingCol);
     const h2 = headingCol.querySelector("h1, h2, h3");
-    const headingText = h2 ? clean9(h2.textContent) : "";
+    const headingText = h2 ? clean10(h2.textContent) : "";
     const ctx = { objects: nextDataObjects2(document), heading: headingText };
     const headingCell = [];
     collect(document, headingCol, ctx, headingCell);
@@ -1039,7 +1195,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/quote-testimonial.js
-  function clean10(text) {
+  function clean11(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
   function textParagraph2(document, text) {
@@ -1058,7 +1214,7 @@ var CustomImportScript = (() => {
           if (c.tagName === "EM" || c.tagName === "STRONG" || c.tagName === "B" || c.tagName === "I") {
             const em = document.createElement(c.tagName === "STRONG" || c.tagName === "B" ? "strong" : "em");
             walk(c, em);
-            if (clean10(em.textContent)) {
+            if (clean11(em.textContent)) {
               target.append(document.createTextNode(" "));
               target.append(em);
               target.append(document.createTextNode(" "));
@@ -1076,7 +1232,7 @@ var CustomImportScript = (() => {
     });
     if (p.firstChild && p.firstChild.nodeType === 3) p.firstChild.textContent = p.firstChild.textContent.replace(/^\s+/, "");
     if (p.lastChild && p.lastChild.nodeType === 3) p.lastChild.textContent = p.lastChild.textContent.replace(/\s+$/, "");
-    return clean10(p.textContent) ? p : null;
+    return clean11(p.textContent) ? p : null;
   }
   function parse12(element, { document }) {
     const cells = [];
@@ -1084,16 +1240,26 @@ var CustomImportScript = (() => {
     if (srcImg && srcImg.getAttribute("src") && !srcImg.getAttribute("src").startsWith("data:")) {
       const img = document.createElement("img");
       img.src = srcImg.getAttribute("src");
-      img.alt = clean10(srcImg.getAttribute("alt"));
+      img.alt = clean11(srcImg.getAttribute("alt"));
       cells.push([img]);
     }
-    const quoteEl = ['q[class^="CustomerStory__Quote"]', '[class^="CustomerStoryV2__Quote"]', "blockquote h2", "q", "h2", "h3"].map((s) => element.querySelector(s)).find(Boolean);
+    const quoteEl = [
+      'q[class^="CustomerStory__Quote"]',
+      '[class^="CustomerStoryV2__Quote"]',
+      "blockquote h2",
+      '[class^="BlockQuote__Quote"] p',
+      '[class^="BlockQuote__Quote"]',
+      "q",
+      "h2",
+      "h3",
+      "blockquote p"
+    ].map((s) => element.querySelector(s)).find(Boolean);
     const quote = quoteEl ? buildQuote(document, quoteEl) : null;
     if (quote) cells.push([quote]);
     const attribution = [];
     const seen = /* @__PURE__ */ new Set();
     const addText = (text) => {
-      const t = clean10(text);
+      const t = clean11(text);
       if (!t || seen.has(t)) return;
       seen.add(t);
       attribution.push(textParagraph2(document, t));
@@ -1110,8 +1276,13 @@ var CustomImportScript = (() => {
       if (parts.length) parts.forEach((p) => addText(p.textContent));
       else addText(caption.textContent);
     }
+    element.querySelectorAll("p").forEach((p) => {
+      if (quoteEl && quoteEl.contains(p) || footer && footer.contains(p) || caption && caption.contains(p) || p.closest("blockquote")) return;
+      if (p.querySelector("a") && clean11(p.textContent) === clean11(p.querySelector("a").textContent)) return;
+      addText(p.textContent);
+    });
     element.querySelectorAll("a[href]").forEach((a) => {
-      const text = clean10(a.textContent);
+      const text = clean11(a.textContent);
       if (!text || seen.has(text)) return;
       seen.add(text);
       const link = document.createElement("a");
@@ -1127,18 +1298,54 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/table-comparison.js
-  function clean11(text) {
+  var MAX_TOOLTIP_LENGTH = 200;
+  function clean12(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
-  function cellValue(cell) {
+  var BLOCK_TAGS = /* @__PURE__ */ new Set(["P", "DIV", "LI", "UL", "OL", "H1", "H2", "H3", "H4", "H5", "H6", "BR", "DL", "DT", "DD"]);
+  function textBlocks(node) {
+    const blocks = [];
+    let buffer = "";
+    const flush = () => {
+      const text = clean12(buffer);
+      if (text) blocks.push(text);
+      buffer = "";
+    };
+    const walk = (n) => {
+      n.childNodes.forEach((child) => {
+        if (child.nodeType === 3) {
+          buffer += child.textContent;
+        } else if (child.nodeType === 1) {
+          const tag = child.tagName.toUpperCase();
+          if (tag === "SVG" || tag === "TITLE") return;
+          if (BLOCK_TAGS.has(tag)) {
+            flush();
+            walk(child);
+            flush();
+          } else {
+            walk(child);
+          }
+        }
+      });
+    };
+    walk(node);
+    flush();
+    return blocks;
+  }
+  function para4(document, text) {
+    const p = document.createElement("p");
+    p.textContent = text;
+    return p;
+  }
+  function cellValue(document, cell) {
     const svg = cell.querySelector("svg");
     if (svg) {
       const title = svg.querySelector("title");
-      let label = clean11(title && title.textContent) || clean11(svg.getAttribute("aria-label"));
+      let label = clean12(title && title.textContent) || clean12(svg.getAttribute("aria-label"));
       if (!label) {
         const ref = svg.getAttribute("aria-labelledby");
         const refEl = ref && cell.ownerDocument.getElementById(ref);
-        label = clean11(refEl && refEl.textContent);
+        label = clean12(refEl && refEl.textContent);
       }
       if (/^(included|tick|yes|check)/i.test(label)) return "Included";
       if (/^(excluded|cross|no|not included)/i.test(label)) return "Excluded";
@@ -1146,11 +1353,51 @@ var CustomImportScript = (() => {
     }
     const copy = cell.cloneNode(true);
     copy.querySelectorAll("svg").forEach((s) => s.remove());
-    return clean11(copy.textContent);
+    const blocks = textBlocks(copy);
+    if (blocks.length > 1) return blocks.map((t) => para4(document, t));
+    return clean12(copy.textContent);
   }
-  function labelValue(document, cell) {
+  function findTooltips(document) {
+    const map = /* @__PURE__ */ new Map();
+    const script = document.querySelector("#__NEXT_DATA__");
+    if (!script) return map;
+    let data;
+    try {
+      data = JSON.parse(script.textContent);
+    } catch (e) {
+      return map;
+    }
+    const walk = (node) => {
+      if (!node || typeof node !== "object") return;
+      if (Array.isArray(node)) {
+        node.forEach(walk);
+        return;
+      }
+      const pop = node.popover;
+      if (pop && typeof pop === "object" && typeof pop.button === "string") {
+        const key = clean12(pop.button).toLowerCase();
+        if (key && !map.has(key)) map.set(key, clean12(pop.description));
+      }
+      Object.keys(node).forEach((k) => walk(node[k]));
+    };
+    walk(data);
+    return map;
+  }
+  function labelValue(document, cell, tooltips) {
+    const button = cell.querySelector("button");
+    if (button) {
+      const textEl = button.querySelector('[class^="IconButton__ChildrenWrapper"]') || button;
+      const copy = textEl.cloneNode(true);
+      copy.querySelectorAll("svg").forEach((s) => s.remove());
+      const text2 = clean12(copy.textContent);
+      if (text2) {
+        const tip = tooltips().get(text2.toLowerCase());
+        if (tip && tip.length < MAX_TOOLTIP_LENGTH) return [para4(document, text2), para4(document, tip)];
+        return text2;
+      }
+    }
     const link = cell.querySelector("a[href]");
-    const text = clean11(cell.textContent);
+    const text = clean12(cell.textContent);
     if (link && text) {
       const a = document.createElement("a");
       a.href = link.getAttribute("href");
@@ -1159,35 +1406,66 @@ var CustomImportScript = (() => {
     }
     return text;
   }
+  function headingValue(cell) {
+    const copy = cell.cloneNode(true);
+    copy.querySelectorAll("a, button, svg").forEach((n) => n.remove());
+    const blocks = textBlocks(copy).filter((t, i, all) => all.indexOf(t) === i);
+    return blocks.join(" ");
+  }
   function parse13(element, { document }) {
     const cells = [];
     const table = element.querySelector("table");
     const rows = table ? [...table.querySelectorAll("tr")] : [];
+    let tooltipMap = null;
+    const tooltips = () => {
+      if (!tooltipMap) tooltipMap = findTooltips(document);
+      return tooltipMap;
+    };
     let width = 0;
     rows.forEach((tr) => {
       width = Math.max(width, tr.querySelectorAll(":scope > th, :scope > td").length);
     });
-    rows.forEach((tr, rowIndex) => {
-      const srcCells = [...tr.querySelectorAll(":scope > th, :scope > td")];
-      if (!srcCells.length) return;
-      const isHead = !!tr.closest("thead") || rowIndex === 0 && !tr.closest("tbody");
-      const row = srcCells.map((cell, i) => {
-        if (isHead) return i === 0 && !clean11(cell.textContent) ? "" : clean11(cell.textContent);
-        return i === 0 ? labelValue(document, cell) : cellValue(cell);
+    const cellsOf = (tr) => [...tr.querySelectorAll(":scope > th, :scope > td")];
+    const isHeadRow = (tr, rowIndex) => !!tr.closest("thead") || rowIndex === 0 && !tr.closest("tbody");
+    const headRows = rows.filter((tr, i) => isHeadRow(tr, i) && cellsOf(tr).length);
+    let headerRow = null;
+    if (headRows.length > 1) {
+      let best = -1;
+      headRows.forEach((tr) => {
+        const named = cellsOf(tr).filter((c) => headingValue(c)).length;
+        if (named >= best) {
+          best = named;
+          headerRow = tr;
+        }
       });
+    }
+    rows.forEach((tr, rowIndex) => {
+      const srcCells = cellsOf(tr);
+      if (!srcCells.length) return;
+      const isHead = isHeadRow(tr, rowIndex);
+      let row;
+      if (isHead && headerRow) {
+        if (tr !== headerRow) return;
+        row = srcCells.map((cell) => headingValue(cell));
+      } else {
+        row = srcCells.map((cell, i) => {
+          if (isHead) return i === 0 && !clean12(cell.textContent) ? "" : clean12(cell.textContent);
+          return i === 0 ? labelValue(document, cell, tooltips) : cellValue(document, cell);
+        });
+      }
       while (row.length < width) row.push("");
-      if (row.some((c) => c)) cells.push(row);
+      if (row.some((c) => Array.isArray(c) ? c.length : c)) cells.push(row);
     });
     const block = WebImporter.Blocks.createBlock(document, { name: "table-comparison", cells });
     element.replaceWith(block);
   }
 
   // tools/importer/parsers/accordion-faq.js
-  function clean12(text) {
+  function clean13(text) {
     return (text || "").replace(/\s+/g, " ").trim();
   }
   function linkParagraph(document, a) {
-    const text = clean12(a.textContent);
+    const text = clean13(a.textContent);
     if (!text) return null;
     const link = document.createElement("a");
     link.href = a.getAttribute("href");
@@ -1203,7 +1481,7 @@ var CustomImportScript = (() => {
       [...parent.children].forEach((child) => {
         const tag = child.tagName;
         if (/^(P|UL|OL|H[1-6]|TABLE|BLOCKQUOTE)$/.test(tag)) {
-          const text = clean12(child.textContent);
+          const text = clean13(child.textContent);
           if (!text || seenText.has(text)) return;
           seenText.add(text);
           nodes.push(child);
@@ -1213,7 +1491,7 @@ var CustomImportScript = (() => {
         } else if (child.querySelector && child.querySelector("a[href], p, ul, ol, h1, h2, h3, h4, h5, h6")) {
           walk(child);
         } else {
-          const text = clean12(child.textContent);
+          const text = clean13(child.textContent);
           if (text && !seenText.has(text) && !/^(SVG|BUTTON)$/i.test(tag)) {
             seenText.add(text);
             const p = document.createElement("p");
@@ -1228,19 +1506,24 @@ var CustomImportScript = (() => {
   }
   function parse14(element, { document }) {
     const cells = [];
-    element.querySelectorAll(":scope > dt").forEach((dt) => {
-      const titleEl = dt.querySelector('[class^="AccordionItem__Title"] [class^="Typography__Span"]') || dt.querySelector('[class^="AccordionItem__Title"]') || dt;
-      const question = clean12(titleEl.textContent);
+    const isTerm = (n) => n.tagName === "DT" || /^AccordionItem__Term/.test(n.className || "");
+    const isDetail = (n) => n.tagName === "DD" || /^AccordionItem__Detail/.test(n.className || "");
+    const kids = [...element.children];
+    const terms = kids.some(isTerm) ? kids.filter(isTerm) : [...element.querySelectorAll(':scope > * > dt, :scope > * > [class^="AccordionItem__Term"]')];
+    const details = [...element.querySelectorAll('dd, [class^="AccordionItem__Detail"]')].filter((d, i, all) => !all.some((o) => o !== d && o.contains(d)));
+    terms.forEach((dt) => {
+      const titleEl = dt.querySelector('[class^="AccordionItem__Title"] [class^="Typography__Span"]') || dt.querySelector('[class^="AccordionItem__Title"] b, [class^="AccordionItem__Title"] strong') || dt.querySelector('[class^="AccordionItem__Title"]') || dt;
+      const question = clean13(titleEl.textContent);
       const btn = dt.querySelector("[aria-controls]");
       let dd = null;
       const controls = btn && btn.getAttribute("aria-controls");
       if (controls) {
-        dd = [...element.querySelectorAll(":scope > dd")].find((d) => d.id === controls) || null;
+        dd = details.find((d) => d.id === controls) || null;
       }
       if (!dd) {
         let n = dt.nextElementSibling;
-        while (n && n.tagName !== "DD" && n.tagName !== "DT") n = n.nextElementSibling;
-        if (n && n.tagName === "DD") dd = n;
+        while (n && !isDetail(n) && !isTerm(n)) n = n.nextElementSibling;
+        if (n && isDetail(n)) dd = n;
       }
       let answer = [];
       if (dd) {
@@ -1254,6 +1537,34 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/transformers/xero-cleanup.js
+  var SVG_RASTER_MAP = {
+    "https://www.xero.com/content/dam/xero/pilot-images/core-page-assets/features/features-tiles/1-1/claim-expenses.1788841017567.svg": "https://content.da.live/legokam/xero/media/svg-raster/claim-expenses.1788841017567.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/core-page-assets/features/features-tiles/16-9/claim-expenses.1788841004140.svg": "https://content.da.live/legokam/xero/media/svg-raster/claim-expenses.1788841004140.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/expenses/expenses_photograph-receipts.1646877469870.svg": "https://content.da.live/legokam/xero/media/svg-raster/expenses_photograph-receipts.1646877469870.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/product-pages/xero-tax/tax_returns.1646877528364.svg": "https://content.da.live/legokam/xero/media/svg-raster/tax_returns.1646877528364.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/inventory/inventory_add-items-to-invoices.1646877464423.svg": "https://content.da.live/legokam/xero/media/svg-raster/inventory_add-items-to-invoices.1646877464423.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/expenses/expenses_use-our-app.1646877469276.svg": "https://content.da.live/legokam/xero/media/svg-raster/expenses_use-our-app.1646877469276.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/expenses/expenses_monitor-spending.1646877466834.svg": "https://content.da.live/legokam/xero/media/svg-raster/expenses_monitor-spending.1646877466834.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/invoicing/invoicing_customise-your-invoices.1646877462358.svg": "https://content.da.live/legokam/xero/media/svg-raster/invoicing_customise-your-invoices.1646877462358.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/bank-reconciliation/bank-reconciliation_dashboard.1646877466055.svg": "https://content.da.live/legokam/xero/media/svg-raster/bank-reconciliation_dashboard.1646877466055.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/product-pages/xero-cashbook-ledger/cashbook-ledger_bank-transactions.1646877529631.svg": "https://content.da.live/legokam/xero/media/svg-raster/cashbook-ledger_bank-transactions.1646877529631.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/invoicing/invoicing_send-from-phone.1646877461215.svg": "https://content.da.live/legokam/xero/media/svg-raster/invoicing_send-from-phone.1646877461215.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/purchase-orders/purchase-orders_convert-orders-into-bills.1646877468965.svg": "https://content.da.live/legokam/xero/media/svg-raster/purchase-orders_convert-orders-into-bills.1646877468965.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/purchase-orders/purchase-orders_customise.1646877469911.svg": "https://content.da.live/legokam/xero/media/svg-raster/purchase-orders_customise.1646877469911.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/quotes/quotes_click-to-accept.1646877474398.svg": "https://content.da.live/legokam/xero/media/svg-raster/quotes_click-to-accept.1646877474398.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/inventory/inventory_track-stocked-items.1646877459996.svg": "https://content.da.live/legokam/xero/media/svg-raster/inventory_track-stocked-items.1646877459996.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/audience/ecommerce/audience-ecommerce-pay-bills-on-time-every-time.1646877656494.svg": "https://content.da.live/legokam/xero/media/svg-raster/audience-ecommerce-pay-bills-on-time-every-time.1646877656494.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/audience/farming/audience-farming-automate-everyday-tasks.1646877643351.svg": "https://content.da.live/legokam/xero/media/svg-raster/audience-farming-automate-everyday-tasks.1646877643351.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/quotes/quotes_convert-to-invoice.1646877476536.svg": "https://content.da.live/legokam/xero/media/svg-raster/quotes_convert-to-invoice.1646877476536.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/quotes/quotes_create-online.1646877478613.svg": "https://content.da.live/legokam/xero/media/svg-raster/quotes_create-online.1646877478613.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/inventory/inventory_track-sales.1646877466396.svg": "https://content.da.live/legokam/xero/media/svg-raster/inventory_track-sales.1646877466396.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/expenses/expenses_reimburse-expenses-promptly.1646877461100.svg": "https://content.da.live/legokam/xero/media/svg-raster/expenses_reimburse-expenses-promptly.1646877461100.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/purchase-orders/purchase-orders_create-orders-online.1646877470320.svg": "https://content.da.live/legokam/xero/media/svg-raster/purchase-orders_create-orders-online.1646877470320.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/features/bank-reconciliation/bank-reconciliation_suggest-matches.1646877460618.svg": "https://content.da.live/legokam/xero/media/svg-raster/bank-reconciliation_suggest-matches.1646877460618.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/core-page-assets/jax-hero-homepage.1785468700971.svg": "https://content.da.live/legokam/xero/media/svg-raster/jax-hero-homepage.1785468700971.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/core-page-assets/features/features-tiles/1-1/bank-reconciliation.1788841017170.svg": "https://content.da.live/legokam/xero/media/svg-raster/bank-reconciliation.1788841017170.png",
+    "https://www.xero.com/content/dam/xero/pilot-images/core-page-assets/au/au-home-7-1.1785293388650.svg": "https://content.da.live/legokam/xero/media/svg-raster/au-home-7-1.1785293388650.png"
+  };
   var REGION_SELECTOR = "main > div.xero-react";
   var NEXT_DATA_STASH_ID = "xero-next-data-stash";
   var CONTENT_SELECTOR = "img, picture, video, iframe, table, embed, object";
@@ -1308,6 +1619,41 @@ var CustomImportScript = (() => {
   }
   function outermost(root, selector) {
     return [...root.querySelectorAll(selector)].filter((el) => !el.parentElement || !el.parentElement.closest(selector));
+  }
+  function removeAndPrune(el) {
+    const region = el.closest(REGION_SELECTOR);
+    let parent = el.parentElement;
+    el.remove();
+    while (parent && parent !== region && parent.tagName !== "MAIN" && !hasContent(parent)) {
+      const next = parent.parentElement;
+      parent.remove();
+      parent = next;
+    }
+    if (region && region.parentNode && !hasContent(region)) region.remove();
+  }
+  function unwrap(el) {
+    el.replaceWith(...el.childNodes);
+  }
+  var TOP_TEXT = /^back to (the )?top$/i;
+  var TOP_HREF = /^#(top|page-top|main|main-content|__next)?$/i;
+  function isBackToTop(el) {
+    const links = [...el.querySelectorAll("a[href]")];
+    if (!links.length) return false;
+    return links.every((a) => {
+      const href = (a.getAttribute("href") || "").trim();
+      if (!href.startsWith("#")) return false;
+      const text = a.textContent.replace(/\s+/g, " ").trim();
+      return TOP_TEXT.test(text) || TOP_HREF.test(href);
+    });
+  }
+  function unwrapHighlight(wrapper, document) {
+    wrapper.querySelectorAll('[aria-hidden="true"], svg').forEach((n) => n.remove());
+    wrapper.querySelectorAll('[class^="Highlight__Inner"]').forEach(unwrap);
+    const tag = wrapper.tagName === "STRONG" || wrapper.tagName === "B" ? "strong" : "em";
+    const clean14 = document.createElement(tag);
+    clean14.append(...wrapper.childNodes);
+    if (clean14.textContent.trim()) wrapper.replaceWith(clean14);
+    else wrapper.remove();
   }
   function blockElements(element, payload) {
     const blocks = payload && payload.template && payload.template.blocks || [];
@@ -1382,8 +1728,57 @@ var CustomImportScript = (() => {
         const target = nav && nav.closest(REGION_SELECTOR) !== nav ? nav : bc;
         removeWithRegion(target, false);
       });
+      outermost(element, 'main [class^="Crumb__"]').forEach((crumb) => {
+        if (!crumb.parentNode) return;
+        const nav = crumb.closest("nav");
+        const list = crumb.closest("ol, ul");
+        let target = crumb;
+        if (nav && nav.closest(REGION_SELECTOR) !== nav) target = nav;
+        else if (list) target = list;
+        removeWithRegion(target, false);
+      });
       outermost(element, '[class^="Trustpilot__Wrapper"]').forEach((tp) => {
         if (tp.parentNode) removeWithRegion(tp, true);
+      });
+      outermost(element, '[class^="G2StarRatingWidget__"]').forEach((g2) => {
+        if (g2.parentNode) removeAndPrune(g2);
+      });
+      outermost(element, 'main [class^="Responsive__Wrapper"]:has([class^="PlanStackV2__"])').forEach((rw) => {
+        if (rw.parentNode) removeAndPrune(rw);
+      });
+      outermost(element, 'main [class^="SecondaryNavigation__"]').forEach((sn) => {
+        if (!sn.parentNode) return;
+        const nav = sn.closest("nav");
+        const target = nav && nav.closest("main") && nav.closest(REGION_SELECTOR) !== nav ? nav : sn;
+        removeAndPrune(target);
+      });
+      outermost(element, 'main [class^="TopBar__Element"]').forEach((tb) => {
+        if (!tb.parentNode) return;
+        tb.querySelectorAll('button, [class^="IconButton__"]').forEach((b) => b.remove());
+        tb.querySelectorAll('[class^="TopBar__ChildWrapper"]').forEach((w) => {
+          w.before(" ");
+          unwrap(w);
+        });
+        const paras = [...tb.querySelectorAll("p, h1, h2, h3, h4, h5, h6")].filter((p) => p.textContent.trim());
+        if (paras.length) tb.replaceWith(...paras);
+        else removeWithRegion(tb, false);
+      });
+      outermost(element, 'main [class^="AnchorButton__"]').forEach((ab) => {
+        if (ab.parentNode && isBackToTop(ab)) removeAndPrune(ab);
+      });
+      outermost(element, "main form").forEach((form) => {
+        if (form.parentNode) removeAndPrune(form);
+      });
+      outermost(element, 'main [class^="ProgressiveForm__"], main [class^="InlineForm__"]').forEach((fw) => {
+        if (!fw.parentNode) return;
+        fw.querySelectorAll("input, select, textarea, button, label, fieldset").forEach((c) => c.remove());
+        if (!hasContent(fw)) removeAndPrune(fw);
+      });
+      element.querySelectorAll('main [class^="Highlight__Wrapper"]').forEach((hw) => {
+        if (hw.parentNode) unwrapHighlight(hw, document);
+      });
+      element.querySelectorAll('main [class^="ZigZag__"], main [class^="HalfSpark__"], main [class^="Highlighter__Accessory"]').forEach((acc) => {
+        if (acc.parentNode && !acc.textContent.trim()) acc.remove();
       });
       element.querySelectorAll(":scope > img").forEach((img) => img.remove());
       WebImporter.DOMUtils.remove(element, ['[id^="batBeacon"]', "#db_lr_pixel_ad", "#podscribe-request"]);
@@ -1418,6 +1813,11 @@ var CustomImportScript = (() => {
       ]);
       element.querySelectorAll("img").forEach((img) => {
         if (isTrackingSrc(img.getAttribute("src"))) img.remove();
+      });
+      element.querySelectorAll('img[src*=".svg"]').forEach((img) => {
+        let key = img.getAttribute("src").split("?")[0];
+        if (key.startsWith("/")) key = `https://www.xero.com${key}`;
+        if (SVG_RASTER_MAP[key]) img.setAttribute("src", SVG_RASTER_MAP[key]);
       });
       element.querySelectorAll("*").forEach((el) => {
         [...el.attributes].forEach((attr) => {

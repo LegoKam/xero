@@ -1,0 +1,21 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/initiative/end-of-financial-year/",
+  "path": "au/initiative/end-of-financial-year",
+  "timestamp": "2026-10-19T09:02:03.491Z",
+  "title": "End of Financial Year 2026: EOFY Guide | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "accordion-faq",
+    "table-comparison",
+    "tabs-pricing",
+    "cards-industry",
+    "cards-features",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

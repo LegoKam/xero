@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/small-businesses/",
+  "path": "au/small-businesses",
+  "timestamp": "2026-10-19T09:02:22.749Z",
+  "title": "Why Choose Xero for Your Small Business | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "accordion-faq",
+    "tabs-pricing",
+    "cards-industry",
+    "cards-industry",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

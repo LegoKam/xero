@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/about/",
+  "path": "au/about",
+  "timestamp": "2026-10-19T09:19:51.856Z",
+  "title": "About Xero | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "quote-testimonial",
+    "cards-features",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

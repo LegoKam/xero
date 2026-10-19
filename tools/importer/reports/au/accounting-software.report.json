@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accounting-software/",
+  "path": "au/accounting-software",
+  "timestamp": "2026-10-19T09:23:55.782Z",
+  "title": "Accounting Software for Australian Small Businesses | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "cards-testimonial",
+    "accordion-faq",
+    "tabs-pricing",
+    "cards-industry",
+    "cards-features",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

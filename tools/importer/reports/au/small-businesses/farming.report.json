@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/small-businesses/farming/",
+  "path": "au/small-businesses/farming",
+  "timestamp": "2026-10-19T09:24:31.557Z",
+  "title": "Farm Accounting Software | Agricultural Accounting | Xero AU",
+  "template": "accounting-software-2",
+  "blocks": [
+    "cards-testimonial",
+    "tabs-pricing",
+    "cards-industry",
+    "columns-intro",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

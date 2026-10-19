@@ -1,0 +1,25 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/small-businesses/construction/",
+  "path": "au/small-businesses/construction",
+  "timestamp": "2026-10-19T09:00:19.230Z",
+  "title": "Construction & Trades Accounting Software | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "cards-testimonial",
+    "accordion-faq",
+    "tabs-pricing",
+    "cards-industry",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

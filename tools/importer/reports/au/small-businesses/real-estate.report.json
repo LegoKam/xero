@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/small-businesses/real-estate/",
+  "path": "au/small-businesses/real-estate",
+  "timestamp": "2026-10-19T09:20:38.371Z",
+  "title": "Real Estate Accounting & Bookkeeping Software | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "quote-testimonial",
+    "tabs-pricing",
+    "cards-industry",
+    "columns-intro",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

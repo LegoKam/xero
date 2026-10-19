@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/certifications/",
+  "path": "au/certifications",
+  "timestamp": "2026-10-19T09:01:57.679Z",
+  "title": "Get Xero Certified & Step Up Your Expertise | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "accordion-faq",
+    "cards-directory",
+    "columns-intro",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "hero-split"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/small-businesses/xero-for-medium-sized-business/",
+  "path": "au/small-businesses/xero-for-medium-sized-business",
+  "timestamp": "2026-10-19T09:02:39.690Z",
+  "title": "Accounting Software for Medium-Sized Business AU | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "accordion-faq",
+    "cards-industry",
+    "cards-features",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

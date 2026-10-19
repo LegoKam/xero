@@ -101,6 +101,15 @@ export default function parse(element, { document }) {
     else addText(caption.textContent);
   }
 
+  // Story description paragraphs outside the quote/attribution (e.g. CustomerStoryV2
+  // "Work smarter with..." copy beside the quote); link-only paragraphs are handled below.
+  element.querySelectorAll('p').forEach((p) => {
+    if ((quoteEl && quoteEl.contains(p)) || (footer && footer.contains(p))
+      || (caption && caption.contains(p)) || p.closest('blockquote')) return;
+    if (p.querySelector('a') && clean(p.textContent) === clean(p.querySelector('a').textContent)) return;
+    addText(p.textContent);
+  });
+
   element.querySelectorAll('a[href]').forEach((a) => {
     const text = clean(a.textContent);
     if (!text || seen.has(text)) return;

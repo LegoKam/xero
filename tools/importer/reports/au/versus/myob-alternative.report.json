@@ -1,0 +1,23 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/versus/myob-alternative/",
+  "path": "au/versus/myob-alternative",
+  "timestamp": "2026-10-19T09:03:03.131Z",
+  "title": "MYOB vs Xero: Choosing the right software for you | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "cards-testimonial",
+    "accordion-faq",
+    "table-comparison",
+    "tabs-pricing",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

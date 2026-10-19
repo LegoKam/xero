@@ -1,0 +1,18 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accountants-bookkeepers/partner-hub/tax-and-workpapers/",
+  "path": "au/accountants-bookkeepers/partner-hub/tax-and-workpapers",
+  "timestamp": "2026-10-19T08:59:02.862Z",
+  "title": "Tax and Workpapers | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "accordion-faq",
+    "accordion-faq",
+    "cards-features",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

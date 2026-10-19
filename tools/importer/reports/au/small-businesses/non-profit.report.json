@@ -1,0 +1,25 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/small-businesses/non-profit/",
+  "path": "au/small-businesses/non-profit",
+  "timestamp": "2026-10-19T09:20:20.470Z",
+  "title": "Accounting software for non-profit organisations | Xero AU",
+  "template": "accounting-software-2",
+  "blocks": [
+    "quote-testimonial",
+    "accordion-faq",
+    "tabs-pricing",
+    "cards-industry",
+    "cards-industry",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

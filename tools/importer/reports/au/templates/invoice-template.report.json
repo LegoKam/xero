@@ -1,0 +1,26 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/templates/invoice-template/",
+  "path": "au/templates/invoice-template",
+  "timestamp": "2026-10-19T09:02:44.400Z",
+  "title": "Free Invoice Template – Download a Customisable Invoice Format | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "video",
+    "accordion-faq",
+    "accordion-faq",
+    "accordion-faq",
+    "accordion-faq",
+    "columns-intro",
+    "columns-intro",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

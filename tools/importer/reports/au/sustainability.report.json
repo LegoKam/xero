@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/sustainability/",
+  "path": "au/sustainability",
+  "timestamp": "2026-10-19T09:00:29.707Z",
+  "title": "Sustainability at Xero | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "accordion-faq",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

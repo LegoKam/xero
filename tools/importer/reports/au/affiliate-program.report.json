@@ -1,0 +1,15 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/affiliate-program/",
+  "path": "au/affiliate-program",
+  "timestamp": "2026-10-19T08:59:48.739Z",
+  "title": "Become a Xero Affiliate | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "accordion-faq",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/xero-tax/",
+  "path": "au/xero-tax",
+  "timestamp": "2026-10-19T09:24:57.701Z",
+  "title": "Tax Software for BAS & Accounting Firms | Xero AU",
+  "template": "resources",
+  "blocks": [
+    "video",
+    "accordion-faq",
+    "cards-industry",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accounting-software/claim-expenses/",
+  "path": "au/accounting-software/claim-expenses",
+  "timestamp": "2026-10-19T09:24:01.357Z",
+  "title": "Expense Tracking App and Software | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "video",
+    "quote-testimonial",
+    "accordion-faq",
+    "accordion-faq",
+    "tabs-pricing",
+    "cards-industry",
+    "cards-promo",
+    "cards-promo",
+    "cards-promo",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

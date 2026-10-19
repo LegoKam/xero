@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accounting-software/create-purchase-orders/",
+  "path": "au/accounting-software/create-purchase-orders",
+  "timestamp": "2026-10-19T09:24:10.022Z",
+  "title": "Purchase Order Software for Small Business | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "cards-testimonial",
+    "accordion-faq",
+    "tabs-pricing",
+    "cards-industry",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

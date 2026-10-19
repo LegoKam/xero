@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/syft-from-xero/",
+  "path": "au/syft-from-xero",
+  "timestamp": "2026-10-19T09:03:53.445Z",
+  "title": "Syft Analytics Generates Actionable Insights Faster | Xero AU",
+  "template": "resources",
+  "blocks": [
+    "video",
+    "accordion-faq",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

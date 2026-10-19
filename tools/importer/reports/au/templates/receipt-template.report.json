@@ -1,0 +1,18 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/templates/receipt-template/",
+  "path": "au/templates/receipt-template",
+  "timestamp": "2026-10-19T09:02:53.218Z",
+  "title": "Free Receipt Template Australia | Download Free PDF | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "accordion-faq",
+    "cards-industry",
+    "columns-intro",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

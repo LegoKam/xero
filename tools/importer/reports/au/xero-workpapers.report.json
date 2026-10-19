@@ -1,0 +1,18 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/xero-workpapers/",
+  "path": "au/xero-workpapers",
+  "timestamp": "2026-10-19T09:04:10.963Z",
+  "title": "Workpapers for Accountants | Powered by Xero | Xero AU",
+  "template": "xero-ledger-and-cashbook",
+  "blocks": [
+    "video",
+    "accordion-faq",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/pricing-plans/",
+  "path": "au/pricing-plans",
+  "timestamp": "2026-10-19T09:00:13.729Z",
+  "title": "Pricing Plans | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "accordion-faq",
+    "accordion-faq",
+    "table-comparison",
+    "tabs-pricing",
+    "cards-logos",
+    "columns-feature"
+  ]
+}

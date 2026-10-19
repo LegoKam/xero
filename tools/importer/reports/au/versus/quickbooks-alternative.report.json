@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/versus/quickbooks-alternative/",
+  "path": "au/versus/quickbooks-alternative",
+  "timestamp": "2026-10-19T09:00:40.084Z",
+  "title": "A QuickBooks Alternative for Your Small Business | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "cards-testimonial",
+    "table-comparison",
+    "tabs-pricing",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

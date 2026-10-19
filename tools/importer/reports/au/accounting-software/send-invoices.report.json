@@ -1,0 +1,23 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accounting-software/send-invoices/",
+  "path": "au/accounting-software/send-invoices",
+  "timestamp": "2026-10-19T09:24:38.918Z",
+  "title": "Invoicing Software for Australia | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "video",
+    "cards-testimonial",
+    "accordion-faq",
+    "tabs-pricing",
+    "cards-industry",
+    "cards-logos",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

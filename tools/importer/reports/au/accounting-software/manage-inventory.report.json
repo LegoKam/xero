@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accounting-software/manage-inventory/",
+  "path": "au/accounting-software/manage-inventory",
+  "timestamp": "2026-10-19T09:24:26.854Z",
+  "title": "Inventory Management Software | Xero AU",
+  "template": "accounting-software-2",
+  "blocks": [
+    "cards-testimonial",
+    "accordion-faq",
+    "tabs-pricing",
+    "cards-industry",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/media/",
+  "path": "au/media",
+  "timestamp": "2026-10-19T09:02:17.650Z",
+  "title": "Media | Media Releases, Contacts & Downloads | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

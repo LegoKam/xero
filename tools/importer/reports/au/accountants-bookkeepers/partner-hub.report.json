@@ -1,0 +1,21 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accountants-bookkeepers/partner-hub/",
+  "path": "au/accountants-bookkeepers/partner-hub",
+  "timestamp": "2026-10-19T09:20:33.072Z",
+  "title": "Partner Hub | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "video",
+    "quote-testimonial",
+    "accordion-faq",
+    "accordion-faq",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

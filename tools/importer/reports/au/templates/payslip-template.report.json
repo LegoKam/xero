@@ -1,0 +1,23 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/templates/payslip-template/",
+  "path": "au/templates/payslip-template",
+  "timestamp": "2026-10-19T09:02:49.082Z",
+  "title": "Payslip Template | Free and Fair Work Compliant | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "accordion-faq",
+    "cards-features",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

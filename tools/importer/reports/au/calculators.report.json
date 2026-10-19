@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/calculators/",
+  "path": "au/calculators",
+  "timestamp": "2026-10-19T09:00:03.463Z",
+  "title": "Calculators | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "cards-features",
+    "cards-features",
+    "cards-features"
+  ]
+}

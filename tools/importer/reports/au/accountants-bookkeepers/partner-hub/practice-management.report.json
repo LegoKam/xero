@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accountants-bookkeepers/partner-hub/practice-management/",
+  "path": "au/accountants-bookkeepers/partner-hub/practice-management",
+  "timestamp": "2026-10-19T08:58:57.533Z",
+  "title": "Practice Management | Xero AU",
+  "template": "accounting-software",
+  "blocks": [
+    "video",
+    "accordion-faq",
+    "accordion-faq",
+    "cards-features",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

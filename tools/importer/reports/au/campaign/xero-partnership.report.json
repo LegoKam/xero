@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/campaign/xero-partnership/",
+  "path": "au/campaign/xero-partnership",
+  "timestamp": "2026-10-19T09:03:18.689Z",
+  "title": "Become a Xero Channel Partner | Xero AU",
+  "template": "campaign",
+  "blocks": [
+    "cards-industry",
+    "cards-features",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

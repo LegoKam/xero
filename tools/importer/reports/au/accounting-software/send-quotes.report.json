@@ -1,0 +1,24 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accounting-software/send-quotes/",
+  "path": "au/accounting-software/send-quotes",
+  "timestamp": "2026-10-19T09:24:43.501Z",
+  "title": "Quotation Software & Online Quotes | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "video",
+    "cards-testimonial",
+    "accordion-faq",
+    "accordion-faq",
+    "tabs-pricing",
+    "cards-industry",
+    "cards-features",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

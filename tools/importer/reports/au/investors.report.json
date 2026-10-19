@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/investors/",
+  "path": "au/investors",
+  "timestamp": "2026-10-19T09:02:08.665Z",
+  "title": "Information for Investors | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "columns-intro",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

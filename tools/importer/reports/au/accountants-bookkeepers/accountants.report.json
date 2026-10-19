@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/accountants-bookkeepers/accountants/",
+  "path": "au/accountants-bookkeepers/accountants",
+  "timestamp": "2026-10-19T09:20:14.986Z",
+  "title": "Xero AU for Accountants | Collaborate, Report & Grow | Xero AU",
+  "template": "accounting-software-2",
+  "blocks": [
+    "quote-testimonial",
+    "cards-industry",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

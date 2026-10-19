@@ -1,0 +1,21 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/versus/hnry-alternative/",
+  "path": "au/versus/hnry-alternative",
+  "timestamp": "2026-10-19T09:02:57.828Z",
+  "title": "Hnry vs Xero | What’s best for your business? | Xero AU",
+  "template": "small-businesses-2",
+  "blocks": [
+    "cards-testimonial",
+    "table-comparison",
+    "tabs-pricing",
+    "columns-intro",
+    "columns-intro",
+    "cards-features",
+    "hero-split",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature",
+    "columns-feature"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "status": "success",
+  "url": "https://www.xero.com/au/resources/small-business-insights/",
+  "path": "au/resources/small-business-insights",
+  "timestamp": "2026-10-19T09:03:48.270Z",
+  "title": "Xero Small Business Insights | Xero AU",
+  "template": "resources",
+  "blocks": [
+    "video",
+    "cards-industry",
+    "cards-industry",
+    "cards-industry",
+    "hero-split"
+  ]
+}
