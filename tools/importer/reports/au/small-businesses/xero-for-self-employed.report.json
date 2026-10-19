@@ -2,7 +2,7 @@
   "status": "success",
   "url": "https://www.xero.com/au/small-businesses/xero-for-self-employed/",
   "path": "au/small-businesses/xero-for-self-employed",
-  "timestamp": "2026-10-19T03:15:27.208Z",
+  "timestamp": "2026-10-19T05:48:51.878Z",
   "title": "Self-Employed Accounting Software in Australia | Xero AU",
   "template": "small-businesses",
   "blocks": [
@@ -14,6 +14,8 @@
     "columns-feature",
     "columns-feature",
     "cards-features",
-    "tabs-pricing"
+    "cards-features",
+    "tabs-pricing",
+    "accordion-faq"
   ]
 }

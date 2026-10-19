@@ -1,0 +1,24 @@
+{
+  "variantName": "cards-directory",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Directory/detail cards with a heading, short description and a list of links (e.g. regions linking to the advisor directory, certification learning paths)",
+    "layout": "cards stacked; on desktop text and links on the left, optional image on the right; links flow in 1/2/3 columns by breakpoint"
+  },
+  "contentPattern": {
+    "structure": "One row per card; cell 1 optional image; cell 2 heading, optional description paragraph, then links (a bulleted list of links or one link per paragraph)"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "cards-directory"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/advisors/",
+    "pages": [
+      "/au/advisors",
+      "/au/certifications"
+    ]
+  },
+  "reuseGuidance": "Use for cards whose main content is a group of navigational links under a heading. For image tiles with a single link use cards-industry."
+}

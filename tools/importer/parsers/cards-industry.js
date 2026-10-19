@@ -3,7 +3,7 @@
 /**
  * Parser for cards-industry.
  * Source: [class^="PostCardList__Element"] > ul.Row > li.Col > Box > PostCard__Card.
- * Block structure (2 columns): one row per card -> [image | linked H3 title + description].
+ * Block structure (2 columns): one row per card -> [image | optional label paragraph, linked H3 title, description].
  */
 function clean(text) {
   return (text || '').replace(/\s+/g, ' ').trim();
@@ -22,6 +22,16 @@ export default function parse(element, { document }) {
     }
 
     const contentCell = [];
+
+    // Category label above the title (e.g. "App"); empty on most card lists.
+    const labelEl = card.querySelector(':scope > [class^="Typography__Span"]');
+    const label = labelEl ? clean(labelEl.textContent) : '';
+    if (label) {
+      const p = document.createElement('p');
+      p.textContent = label;
+      contentCell.push(p);
+    }
+
     const heading = card.querySelector('h1, h2, h3, h4, h5, h6');
     if (heading) {
       const title = clean(heading.textContent);

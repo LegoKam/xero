@@ -2,7 +2,7 @@
   "status": "success",
   "url": "https://www.xero.com/au/small-businesses/manufacturing/",
   "path": "au/small-businesses/manufacturing",
-  "timestamp": "2026-10-19T03:13:07.974Z",
+  "timestamp": "2026-10-19T05:48:40.658Z",
   "title": "Accounting Software for Manufacturers | Xero AU",
   "template": "small-businesses",
   "blocks": [
@@ -10,7 +10,12 @@
     "columns-feature",
     "columns-feature",
     "columns-feature",
+    "cards-features",
+    "cards-features",
+    "cards-features",
     "tabs-pricing",
-    "cards-industry"
+    "cards-industry",
+    "columns-intro",
+    "quote-testimonial"
   ]
 }

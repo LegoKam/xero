@@ -1,0 +1,23 @@
+{
+  "variantName": "cards-testimonial",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Star-rated customer review cards from review sites (e.g. Trustpilot, Capterra)",
+    "layout": "review-site logo and label on top, star rating, quote, reviewer name and business; 1/2/3 columns by breakpoint"
+  },
+  "contentPattern": {
+    "structure": "One row per card; cell 1 optional review-site logo image with optional source label paragraph (e.g. Trustpilot); cell 2 rating paragraph (\"5 out of 5 stars\", rendered as stars), quote paragraph(s), bold reviewer name paragraph, optional business/role paragraph"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "cards-testimonial"
+  ],
+  "usage": {
+    "sourceUrl": "https://www.xero.com/au/accounting-software/",
+    "pages": [
+      "/au/accounting-software"
+    ]
+  },
+  "reuseGuidance": "Use for grids of short star-rated customer reviews. For a single large featured testimonial use quote-testimonial instead."
+}

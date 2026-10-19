@@ -1,6 +1,7 @@
 /* eslint-disable */
 /* global WebImporter */
 
+import videoParser from './parsers/video.js';
 import heroSplitParser from './parsers/hero-split.js';
 import cardsLogosParser from './parsers/cards-logos.js';
 import columnsFeatureParser from './parsers/columns-feature.js';
@@ -10,6 +11,10 @@ import cardsIndustryParser from './parsers/cards-industry.js';
 import cardsPromoParser from './parsers/cards-promo.js';
 import columnsOfferParser from './parsers/columns-offer.js';
 import cardsFootnotesParser from './parsers/cards-footnotes.js';
+import columnsIntroParser from './parsers/columns-intro.js';
+import quoteTestimonialParser from './parsers/quote-testimonial.js';
+import tableComparisonParser from './parsers/table-comparison.js';
+import accordionFaqParser from './parsers/accordion-faq.js';
 import xeroCleanupTransformer from './transformers/xero-cleanup.js';
 import xeroSectionsTransformer from './transformers/xero-sections.js';
 
@@ -35,6 +40,12 @@ const PAGE_TEMPLATE = {
   "description": "To be named in naming step",
   "blocks": [
     {
+      "name": "video",
+      "instances": [
+        "[class^=\"Video__Element\"]"
+      ]
+    },
+    {
       "name": "hero-split",
       "instances": [
         "main header[class*=\"Region__Element\"]"
@@ -55,7 +66,7 @@ const PAGE_TEMPLATE = {
     {
       "name": "cards-features",
       "instances": [
-        "[class*=\"Row__Element\"]:has(> li > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
+        "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class*=\"Box\"] > [class^=\"BoxSet__Content\"] > [class^=\"BoxItem__Element\"])"
       ]
     },
     {
@@ -85,7 +96,31 @@ const PAGE_TEMPLATE = {
     {
       "name": "cards-footnotes",
       "instances": [
-        "main [class*=\"Col__Element\"]:has(> div > p[class*=\"Typography__Paragraph\"])"
+        "main [class*=\"Col__Element\"]:has(> div:not([class]) > p[class*=\"Typography__Paragraph\"]):not([class^=\"AccordionItem__\"] *)"
+      ]
+    },
+    {
+      "name": "columns-intro",
+      "instances": [
+        "[class*=\"Row__Element\"]:has(> [class*=\"Col__Element\"] > [class^=\"StepsHeading__ArrowWrapper\"])"
+      ]
+    },
+    {
+      "name": "quote-testimonial",
+      "instances": [
+        "[class^=\"Region__Background\"] > [class^=\"Grid__Element\"]:has([class^=\"CustomerStory\"])"
+      ]
+    },
+    {
+      "name": "table-comparison",
+      "instances": [
+        "[class^=\"Table__Wrapper\"]:has(table[class^=\"Table__Element\"])"
+      ]
+    },
+    {
+      "name": "accordion-faq",
+      "instances": [
+        "dl[class^=\"Accordion__Element\"]:not([class^=\"FinTabSet__Wrapper\"] *, [class^=\"PlanCard__\"] *)"
       ]
     }
   ],
@@ -214,6 +249,7 @@ const PAGE_TEMPLATE = {
 };
 
 const parsers = {
+  'video': videoParser,
   'hero-split': heroSplitParser,
   'cards-logos': cardsLogosParser,
   'columns-feature': columnsFeatureParser,
@@ -223,6 +259,10 @@ const parsers = {
   'cards-promo': cardsPromoParser,
   'columns-offer': columnsOfferParser,
   'cards-footnotes': cardsFootnotesParser,
+  'columns-intro': columnsIntroParser,
+  'quote-testimonial': quoteTestimonialParser,
+  'table-comparison': tableComparisonParser,
+  'accordion-faq': accordionFaqParser,
 };
 
 const transformers = [xeroCleanupTransformer, xeroSectionsTransformer];
@@ -248,6 +288,17 @@ function findBlocksOnPage(document, template) {
 }
 
 export default {
+  // html2md strips <script> tags before transform; stash the Next.js page data
+  // (pricing plans, video IDs, popovers) so the cleanup transformer can restore it.
+  onLoad: async ({ document }) => {
+    const data = document.getElementById('__NEXT_DATA__');
+    if (!data || document.getElementById('xero-next-data-stash')) return;
+    const stash = document.createElement('div');
+    stash.id = 'xero-next-data-stash';
+    stash.setAttribute('data-json', data.textContent);
+    document.body.append(stash);
+  },
+
   transform: (payload) => {
     const { document, url, params } = payload;
     const main = document.body;

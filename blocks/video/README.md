@@ -1,6 +1,6 @@
 # video
 
-Custom **video** block. Purpose: Embedded video (YouTube, Vimeo, Brightcove or mp4) with optional poster image.
+Custom **video** block. Purpose: Embedded video (YouTube, Vimeo, Wistia, Brightcove or mp4) with optional poster image.
 
 ## Authoring (Document Authoring)
 

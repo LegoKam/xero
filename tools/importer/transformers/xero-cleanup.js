@@ -10,10 +10,12 @@
  *
  * NOTE: the hero section inside <main> uses a <header class="Region__Element...">
  * which is authorable content - only headers OUTSIDE <main> are removed.
- * NOTE: <script id="__NEXT_DATA__"> and body-level modals are kept until
- * afterTransform because parsers read them (pricing tabs, video IDs, popovers).
+ * NOTE: <script id="__NEXT_DATA__"> (restored from the onLoad stash) and
+ * body-level modals are kept until afterTransform because parsers read them
+ * (pricing tabs, video IDs, popovers).
  */
 const REGION_SELECTOR = 'main > div.xero-react';
+const NEXT_DATA_STASH_ID = 'xero-next-data-stash';
 const CONTENT_SELECTOR = 'img, picture, video, iframe, table, embed, object';
 
 const TRACKING_HOSTS = [
@@ -126,6 +128,19 @@ export default function transform(hookName, element, payload) {
   const document = element.ownerDocument;
 
   if (hookName === 'beforeTransform') {
+    // The importer strips <script> tags before transform; the import script's
+    // onLoad hook stashes the __NEXT_DATA__ JSON in a data attribute so it can
+    // be restored here for parsers (pricing tabs, video IDs, popovers).
+    const stash = document.getElementById(NEXT_DATA_STASH_ID);
+    if (stash && !document.getElementById('__NEXT_DATA__')) {
+      const script = document.createElement('script');
+      script.id = '__NEXT_DATA__';
+      script.type = 'application/json';
+      script.textContent = stash.getAttribute('data-json') || '';
+      element.append(script);
+    }
+    if (stash) stash.remove();
+
     // OneTrust cookie banner / preference centre
     WebImporter.DOMUtils.remove(element, [
       '#onetrust-consent-sdk',

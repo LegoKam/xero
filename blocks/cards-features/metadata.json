@@ -16,8 +16,15 @@
   "usage": {
     "sourceUrl": "https://www.xero.com/au/",
     "pages": [
-      "/au/index"
-    ]
+      "/au/index",
+      "/au/about"
+    ],
+    "pagesUsing": [
+      "/au/index",
+      "/au/about"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-19"
   },
   "reuseGuidance": "Use for 2-4 short benefit statements. No images needed; the tick icon is decorative."
 }

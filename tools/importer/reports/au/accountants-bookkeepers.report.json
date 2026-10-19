@@ -2,7 +2,7 @@
   "status": "success",
   "url": "https://www.xero.com/au/accountants-bookkeepers/",
   "path": "au/accountants-bookkeepers",
-  "timestamp": "2026-10-19T03:05:57.084Z",
+  "timestamp": "2026-10-19T05:47:59.249Z",
   "title": "Accounting Practice Management Software | Xero AU",
   "template": "small-businesses",
   "blocks": [
@@ -10,6 +10,8 @@
     "columns-feature",
     "columns-feature",
     "columns-feature",
-    "cards-features"
+    "cards-features",
+    "cards-features",
+    "quote-testimonial"
   ]
 }

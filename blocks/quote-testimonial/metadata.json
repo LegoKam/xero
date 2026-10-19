@@ -16,8 +16,15 @@
   "usage": {
     "sourceUrl": "https://www.xero.com/au/accountants-bookkeepers/bookkeepers/",
     "pages": [
-      "/au/accountants-bookkeepers/bookkeepers"
-    ]
+      "/au/accountants-bookkeepers/bookkeepers",
+      "/au/about"
+    ],
+    "pagesUsing": [
+      "/au/accountants-bookkeepers/bookkeepers",
+      "/au/about"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-19"
   },
   "reuseGuidance": "Use for customer quotes and story teasers. Omit the image row for a text-only quote."
 }

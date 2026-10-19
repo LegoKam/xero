@@ -1,7 +1,7 @@
 /*
  * Video Block
  * Shows a video referenced by a link, with an optional poster image.
- * Supports YouTube, Vimeo, Brightcove players and direct video files (mp4/webm).
+ * Supports YouTube, Vimeo, Wistia, Brightcove players and direct video files (mp4/webm).
  */
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
@@ -10,12 +10,13 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 /**
  * Determines the video source type from a URL.
  * @param {URL} url
- * @returns {'youtube'|'vimeo'|'brightcove'|'file'}
+ * @returns {'youtube'|'vimeo'|'wistia'|'brightcove'|'file'}
  */
 function getVideoSource(url) {
   const host = url.hostname;
   if (host.includes('youtube') || host.includes('youtu.be')) return 'youtube';
   if (host.includes('vimeo')) return 'vimeo';
+  if (host.includes('wistia')) return 'wistia';
   if (host.includes('brightcove')) return 'brightcove';
   return 'file';
 }
@@ -23,6 +24,7 @@ function getVideoSource(url) {
 const LABELS = {
   youtube: 'YouTube video',
   vimeo: 'Vimeo video',
+  wistia: 'Wistia video',
   brightcove: 'video',
   file: 'video',
 };
@@ -55,6 +57,18 @@ function getEmbedUrl(url, source, autoplay, background) {
     if (autoplay) params.set('autoplay', '1');
     if (background) params.set('background', '1');
     return `https://player.vimeo.com/video/${encodeURIComponent(vid)}${params.size ? `?${params}` : ''}`;
+  }
+  if (source === 'wistia') {
+    // accepts fast.wistia.net/embed/iframe/<id> and <account>.wistia.com/medias/<id>
+    const vid = url.pathname.split('/').filter(Boolean).pop();
+    const params = new URLSearchParams();
+    if (autoplay) params.set('autoPlay', 'true');
+    if (background) {
+      params.set('muted', 'true');
+      params.set('endVideoBehavior', 'loop');
+      params.set('playbar', 'false');
+    }
+    return `https://fast.wistia.net/embed/iframe/${encodeURIComponent(vid)}${params.size ? `?${params}` : ''}`;
   }
   // brightcove: use the player URL as authored, adding autoplay when requested
   const embed = new URL(url.href);

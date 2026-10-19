@@ -2,11 +2,12 @@
   "status": "success",
   "url": "https://www.xero.com/au/guides/",
   "path": "au/guides",
-  "timestamp": "2026-10-19T03:08:37.187Z",
+  "timestamp": "2026-10-19T05:48:14.807Z",
   "title": "Small Business Accounting Tips & Guides | Xero AU",
   "template": "small-businesses",
   "blocks": [
     "hero-split",
+    "cards-features",
     "cards-industry",
     "cards-industry",
     "cards-industry",

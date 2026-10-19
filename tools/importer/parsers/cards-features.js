@@ -2,10 +2,18 @@
 /* global WebImporter */
 /**
  * Parser for cards-features.
- * Source: ul.Row__Element > li.Col > Box > BoxSet__Content > BoxItem__Element (tick + title + text).
- * Block structure (1 column): one row per feature -> [bold title paragraph + description].
+ * Source: Row__Element > Col > Box > BoxSet__Content > BoxItem__Element. Two shapes:
+ *  - homepage: ul.Row > li.Col, item = tick icon + h2 title + p description;
+ *  - manufacturing / guides: div.Row > div.Col, item = h2 (often linked) + p (+ link p).
+ * Block structure (1 column): one row per feature -> [title + description (+ link)].
+ * Unlinked titles become a bold paragraph (block contract). Linked titles keep their
+ * heading element and link (a bold linked paragraph would be decorated as a button).
  * The tick icon is decorative (added by block CSS) and is not migrated.
  */
+function clean(text) {
+  return (text || '').replace(/\s+/g, ' ').trim();
+}
+
 export default function parse(element, { document }) {
   const cells = [];
 
@@ -13,17 +21,27 @@ export default function parse(element, { document }) {
     const contentCell = [];
 
     const heading = item.querySelector('h1, h2, h3, h4, h5, h6');
-    const title = heading ? heading.textContent.replace(/\s+/g, ' ').trim() : '';
+    const title = heading ? clean(heading.textContent) : '';
     if (title) {
-      const p = document.createElement('p');
-      const strong = document.createElement('strong');
-      strong.textContent = title;
-      p.append(strong);
-      contentCell.push(p);
+      const srcLink = heading.querySelector('a[href]');
+      if (srcLink) {
+        const h = document.createElement(heading.tagName.toLowerCase());
+        const link = document.createElement('a');
+        link.href = srcLink.getAttribute('href');
+        link.textContent = title;
+        h.append(link);
+        contentCell.push(h);
+      } else {
+        const p = document.createElement('p');
+        const strong = document.createElement('strong');
+        strong.textContent = title;
+        p.append(strong);
+        contentCell.push(p);
+      }
     }
 
     item.querySelectorAll('p').forEach((p) => {
-      if (p.textContent.trim()) contentCell.push(p);
+      if (clean(p.textContent)) contentCell.push(p);
     });
 
     if (contentCell.length) cells.push([contentCell]);

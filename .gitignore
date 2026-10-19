@@ -8,6 +8,9 @@ helix-importer-ui
 *.bak
 .idea
 
+# Migration page captures (large, regenerable)
+tools/importer/bd-snapshots/
+
 # Ensure these files are tracked
 !CLAUDE.md
 !AGENTS.md

@@ -76,7 +76,11 @@ export default function parse(element, { document }) {
     if (srcList) {
       const list = document.createElement('ul');
       srcList.querySelectorAll(':scope > li').forEach((li) => {
-        const text = clean(li.textContent);
+        // Skip the tick icon's hidden svg <title> ("Included").
+        const span = li.querySelector('[class^="Typography__Span"]');
+        const copy = li.cloneNode(true);
+        copy.querySelectorAll('svg, title').forEach((s) => s.remove());
+        const text = clean(span ? span.textContent : copy.textContent);
         if (!text) return;
         const item = document.createElement('li');
         item.textContent = text;

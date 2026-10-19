@@ -16,8 +16,15 @@
   "usage": {
     "sourceUrl": "https://www.xero.com/au/",
     "pages": [
-      "/au/index"
-    ]
+      "/au/index",
+      "/au/about"
+    ],
+    "pagesUsing": [
+      "/au/index",
+      "/au/about"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-19"
   },
   "reuseGuidance": "Use for alternating feature/benefit sections with an illustration."
 }
