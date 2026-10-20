@@ -14,3 +14,6 @@ tools/importer/bd-snapshots/
 # Ensure these files are tracked
 !CLAUDE.md
 !AGENTS.md
+
+# nav/footer validation infrastructure
+migration-work/navigation-validation/
