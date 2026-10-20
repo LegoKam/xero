@@ -1,6 +1,6 @@
 import { toClassName } from '../../scripts/aem.js';
 
-// desktop navigation applies from 1024px (source breakpoint); below that a mobile menu is planned
+// desktop nav applies from 1024px (source breakpoint); below it the Menu button opens a drawer
 const isDesktop = window.matchMedia('(min-width: 1024px)');
 
 const OPEN_DELAY = 120; // hover-intent before a panel opens
@@ -12,6 +12,13 @@ const DISMISS_STORAGE_KEY = 'nav-banner-dismissed';
 const NEW_TAB_TEXT = '(opens in a new tab)';
 const DISMISS_LABEL = 'Dismiss offer banner';
 const NAV_LABEL = 'Main navigation';
+const MENU_ID = 'nav-menu';
+// Menu button: visible label + accessible name per state (matches the source control)
+const MENU_LABELS = {
+  closed: { text: 'Menu', aria: 'Open menu' },
+  open: { text: 'Close', aria: 'Close menu' },
+};
+const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?$/;
 
 const state = {
@@ -19,6 +26,8 @@ const state = {
   openTimer: null,
   closeTimer: null,
   hoverOpenedAt: 0,
+  menuOpen: false,
+  lockedScrollY: 0,
 };
 
 /* ---------------------------------------------------------------- fragment */
@@ -461,6 +470,112 @@ function closeAll(block, options) {
   if (state.open) closeDrop(block, state.open, options);
 }
 
+/* ---------------------------------------------------------- mobile menu */
+
+/** expands/collapses a dropdown in place (mobile accordion) */
+function setExpanded(drop, expanded) {
+  drop.classList.toggle('is-expanded', expanded);
+  drop.querySelector('.nav-trigger').setAttribute('aria-expanded', String(expanded));
+}
+
+function collapseAll(block) {
+  block.querySelectorAll('.nav-drop.is-expanded').forEach((drop) => setExpanded(drop, false));
+}
+
+function setMenuButton(button, open) {
+  const labels = open ? MENU_LABELS.open : MENU_LABELS.closed;
+  button.setAttribute('aria-expanded', String(open));
+  button.setAttribute('aria-label', labels.aria);
+  button.querySelector('.nav-hamburger-label').textContent = labels.text;
+}
+
+/** freezes page scroll behind the open menu and keeps the current scroll position */
+function lockScroll(locked) {
+  const { body, documentElement: html } = document;
+  if (locked) {
+    state.lockedScrollY = window.scrollY;
+    Object.assign(body.style, {
+      position: 'fixed',
+      top: `-${state.lockedScrollY}px`,
+      left: '0',
+      right: '0',
+      width: '100%',
+      overflow: 'hidden',
+      overscrollBehavior: 'none',
+    });
+    html.style.overflow = 'hidden';
+    return;
+  }
+  ['position', 'top', 'left', 'right', 'width', 'overflow', 'overscrollBehavior'].forEach((prop) => {
+    body.style[prop] = '';
+  });
+  html.style.overflow = '';
+  window.scrollTo({ top: state.lockedScrollY, behavior: 'instant' });
+}
+
+function openMenu(block) {
+  if (state.menuOpen) return;
+  state.menuOpen = true;
+  updateNavBottom(block);
+  lockScroll(true);
+  block.classList.add('nav-menu-open');
+  setMenuButton(block.querySelector('.nav-hamburger'), true);
+}
+
+/**
+ * Closes the mobile menu, collapses its sections and resets the Menu button.
+ * @param {Element} block
+ * @param {{restoreFocus?: boolean}} options
+ */
+function closeMenu(block, { restoreFocus = false } = {}) {
+  if (!state.menuOpen) return;
+  state.menuOpen = false;
+  block.classList.remove('nav-menu-open');
+  const button = block.querySelector('.nav-hamburger');
+  setMenuButton(button, false);
+  collapseAll(block);
+  lockScroll(false);
+  if (restoreFocus) button.focus();
+}
+
+/** visible focusable elements of the open menu, Menu button last (source tab order) */
+function menuFocusables(block) {
+  const menu = block.querySelector('.nav-menu');
+  const items = [...menu.querySelectorAll(FOCUSABLE)]
+    .filter((node) => (node.checkVisibility
+      ? node.checkVisibility({ checkVisibilityCSS: true })
+      : node.getClientRects().length > 0));
+  return [...items, block.querySelector('.nav-hamburger')];
+}
+
+/** keeps Tab / Shift+Tab cycling through the open menu and the Menu button */
+function trapFocus(block, e) {
+  const focusables = menuFocusables(block);
+  const index = focusables.indexOf(document.activeElement);
+  const step = e.shiftKey ? -1 : 1;
+  let next;
+  if (index === -1) next = e.shiftKey ? focusables.length - 1 : 0;
+  else next = (index + step + focusables.length) % focusables.length;
+  e.preventDefault();
+  focusables[next].focus();
+}
+
+function buildMenuButton(block) {
+  const button = el('button', 'nav-hamburger', [
+    el('span', 'nav-hamburger-label'),
+    el('span', 'nav-hamburger-icon'),
+  ]);
+  button.type = 'button';
+  button.setAttribute('aria-controls', MENU_ID);
+  button.querySelector('.nav-hamburger-icon').setAttribute('aria-hidden', 'true');
+  setMenuButton(button, false);
+  button.addEventListener('click', () => {
+    if (state.menuOpen) closeMenu(block);
+    else openMenu(block);
+  });
+  return button;
+}
+
 /**
  * Wires hover-intent, click toggle and keyboard handling for a dropdown.
  * @param {Element} block header block
@@ -495,6 +610,11 @@ function bindDropdown(block, drop) {
   });
 
   trigger.addEventListener('click', () => {
+    if (!isDesktop.matches) {
+      // mobile: the whole row toggles its section in place; several can be open at once
+      setExpanded(drop, !drop.classList.contains('is-expanded'));
+      return;
+    }
     clearTimeout(state.openTimer);
     if (state.open === drop) {
       if (Date.now() - state.hoverOpenedAt < CLICK_GRACE) return;
@@ -506,7 +626,7 @@ function bindDropdown(block, drop) {
   });
 
   trigger.addEventListener('keydown', (e) => {
-    if (e.key !== 'ArrowDown') return;
+    if (e.key !== 'ArrowDown' || !isDesktop.matches) return;
     e.preventDefault();
     openDrop(block, drop, { instant: true });
     state.hoverOpenedAt = 0;
@@ -597,10 +717,43 @@ function buildNavList(section, block) {
   return list;
 }
 
+/**
+ * Callout content authored after the nav list (heading + text + link) is the
+ * menu callout card shown at the end of the mobile menu.
+ */
+function buildMenuCallout(section) {
+  const nodes = [...section.children].filter((node) => !(node.tagName === 'UL' && node.querySelector(':scope > li')));
+  const cards = groupByHeading(nodes).filter((group) => group.heading).map(buildCallout);
+  return cards.length ? el('div', 'nav-menu-callout', cards) : null;
+}
+
 function buildTools(section) {
   const tools = el('div', 'nav-tools');
   section.querySelectorAll('a').forEach((link) => tools.append(toButtonLink(link)));
   return tools;
+}
+
+/**
+ * Secondary tool links (e.g. Log in) move into a CTA bar at the bottom of the mobile menu.
+ * The copies are hidden at desktop; the originals are hidden in the mobile header bar.
+ */
+function buildMenuTools(tools) {
+  const links = [...tools.querySelectorAll('.nav-btn:not(.nav-btn-primary)')];
+  if (!links.length) return null;
+  return el('div', 'nav-menu-tools', links.map((link) => link.cloneNode(true)));
+}
+
+/**
+ * Mobile drawer: nav list + menu callout in a scroll area, secondary CTAs pinned at the bottom.
+ * At desktop the drawer wrappers are display: contents, so the nav list sits in the bar.
+ */
+function buildMenu(navList, callout, menuTools) {
+  const menu = el('div', 'nav-menu', [
+    el('div', 'nav-menu-body', [navList, callout]),
+    menuTools,
+  ]);
+  menu.id = MENU_ID;
+  return menu;
 }
 
 /* ------------------------------------------------------------ sticky nav */
@@ -631,12 +784,16 @@ function bindSticky(block, placeholder, bar) {
 /* ------------------------------------------------------- viewport modes */
 
 /**
- * Applies desktop or mobile behaviour. Mobile menu (hamburger) will hook in here.
+ * Applies desktop or mobile behaviour. Crossing the breakpoint closes whatever was open
+ * in the other mode (desktop panels / mobile menu + accordions) and resets the Menu button;
+ * desktop hover handlers check isDesktop on every event, so they resume immediately.
  * @param {Element} block
  * @param {boolean} desktop
  */
 function applyViewportMode(block, desktop) {
   closeAll(block, { instant: true });
+  closeMenu(block);
+  collapseAll(block);
   block.classList.toggle('is-desktop', desktop);
   block.classList.toggle('is-mobile', !desktop);
 }
@@ -663,18 +820,32 @@ export default async function decorate(block) {
   nav.id = 'nav';
   nav.setAttribute('aria-label', NAV_LABEL);
   if (roles.brand) nav.append(buildBrand(roles.brand));
-  if (roles.sections) nav.append(buildNavList(roles.sections, block));
-  if (roles.tools) nav.append(buildTools(roles.tools));
+  const tools = roles.tools ? buildTools(roles.tools) : null;
+  if (roles.sections) {
+    nav.append(buildMenu(
+      buildNavList(roles.sections, block),
+      buildMenuCallout(roles.sections),
+      tools && buildMenuTools(tools),
+    ));
+  }
+  // right-hand group: tool links + Menu button (the button is hidden at desktop)
+  const actions = el('div', 'nav-actions', [tools, roles.sections && buildMenuButton(block)]);
+  if (actions.children.length) nav.append(actions);
 
   const bar = el('div', 'nav-bar', [nav]);
   const placeholder = el('div', 'nav-bar-placeholder', [bar]);
   const overlay = el('div', 'nav-overlay');
   overlay.setAttribute('aria-hidden', 'true');
-  overlay.addEventListener('click', () => closeAll(block));
+  overlay.addEventListener('click', () => {
+    closeAll(block);
+    closeMenu(block);
+  });
   block.append(placeholder, overlay);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && state.open) closeAll(block, { restoreFocus: true });
+    if (e.key === 'Escape' && state.menuOpen) closeMenu(block, { restoreFocus: true });
+    if (e.key === 'Tab' && state.menuOpen) trapFocus(block, e);
   });
 
   refreshLayout = bindSticky(block, placeholder, bar);

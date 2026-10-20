@@ -1,8 +1,9 @@
 /*
- * Header: promo banner (navy, countdown) + sticky white nav bar with full-width dropdown panels.
- * Values measured on https://www.xero.com/au/ at 1440px (see migration-work/navigation-validation).
- * Mobile-first: base rules are a simple stacked fallback; the desktop nav applies from 1024px.
- * The real mobile menu (hamburger) is added in a later step.
+ * Header: promo banner (navy, countdown) + sticky white nav bar.
+ * Values measured on https://www.xero.com/au/ (see migration-work/navigation-validation).
+ * Mobile-first: base rules = mobile header (Menu button + slide-in drawer with accordion
+ * sections), 600px = tablet (half-width drawer + overlay, row banner), 1024px = desktop nav
+ * with full-width hover/click dropdown panels.
  */
 
 /*
@@ -12,7 +13,7 @@
  */
 header:has(.header) {
   height: auto;
-  min-height: var(--nav-height);
+  min-height: 50px; /* mobile nav bar; desktop uses --nav-height */
   background-color: var(--xero-white);
   font-size: 12px;
   line-height: normal;
@@ -23,8 +24,8 @@ header .header {
   --nav-ink-soft: #33395e;
   --nav-highlight: var(--xero-mist);
   --nav-outline: #e1e2e5;
-  --nav-gutter: 22px;
-  --nav-bar-height: var(--nav-height);
+  --nav-gutter: 8.33vw;
+  --nav-bar-height: 50px;
   --nav-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   position: relative;
@@ -65,19 +66,19 @@ header .header .nav-sr-only {
   border: 0;
 }
 
-/* buttons (banner CTA, nav tools, callout CTA) */
+/* buttons (banner CTA, nav tools, callout CTAs) */
 header .header .nav-btn {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 36px;
+  height: 40px;
   border: 2px solid transparent;
-  border-radius: var(--button-radius);
-  padding: 0 14px;
-  font-size: 15px;
+  border-radius: 5px;
+  padding: 0 11px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 32px;
+  line-height: 36px;
   white-space: nowrap;
   cursor: pointer;
   transition: background-color 0.3s var(--nav-ease), border-color 0.3s var(--nav-ease);
@@ -125,6 +126,8 @@ header .header .nav-btn-accent:hover {
 }
 
 /* ------------------------------------------------------------ promo banner */
+
+/* mobile: centered column, countdown below the copy */
 header .header .nav-banner {
   position: relative;
   background-color: var(--xero-navy);
@@ -134,33 +137,35 @@ header .header .nav-banner {
 header .header .nav-banner-inner {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  padding: 48px var(--nav-gutter);
+  align-items: center;
+  gap: 55px;
+  padding: 49px 8.33vw 55px;
+  text-align: center;
 }
 
 header .header .nav-banner-heading {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: -1px;
+  line-height: 30.72px;
 }
 
 header .header .nav-banner-text {
-  margin-top: 12px;
-  font-size: 15.6px;
-  line-height: 19.5px;
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 18.75px;
 }
 
 header .header .nav-banner-cta {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 9px;
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 header .header .nav-countdown {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 header .header .nav-countdown-unit {
@@ -174,30 +179,29 @@ header .header .nav-countdown-value {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 67.2px;
-  height: 60px;
-  border-radius: 6px;
-  padding: 9.6px 0;
+  width: 52px;
+  height: 46.8px;
+  border-radius: 5px;
+  padding: 8px;
   background-color: var(--xero-white);
-  box-shadow: 0 3px 12px 0 rgb(0 0 0 / 15%);
+  box-shadow: 0 2.5px 10px 0 rgb(0 0 0 / 15%);
   color: var(--xero-navy);
-  font-size: 42px;
+  font-size: 28px;
   font-weight: 700;
-  line-height: 48.3px;
-  letter-spacing: -0.84px;
+  line-height: 30.8px;
   font-variant-numeric: tabular-nums;
 }
 
 header .header .nav-countdown-label {
-  margin-top: 9px;
-  font-size: 15px;
-  line-height: 18px;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 18.2px;
 }
 
 header .header .nav-banner-close {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 15px;
+  right: 21px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -225,22 +229,30 @@ header .header .nav-bar-placeholder {
   min-height: var(--nav-bar-height);
 }
 
-/* full-width white bar (sticky); the <nav> inside is the gutter-inset content box */
+/* full-width white bar (sticky) around the <nav> */
 header .header .nav-bar {
   position: relative;
   z-index: 200;
   box-sizing: border-box;
-  padding: 0 var(--nav-gutter);
   background-color: var(--xero-white);
 }
 
+/*
+ * mobile bar: logo left, CTA + Menu button right, 50px with a gutter-inset hairline below.
+ * The <nav> spans the viewport (it contains the full-width drawer) and insets its content
+ * with padding; the hairline is painted inset to match the source.
+ */
 header .header .nav-bar-content {
+  box-sizing: border-box;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  min-height: var(--nav-bar-height);
-  background-color: var(--xero-white);
+  height: var(--nav-bar-height);
+  padding: 0 var(--nav-gutter) 1px;
+  background:
+    linear-gradient(var(--nav-highlight), var(--nav-highlight))
+    center bottom / calc(100% - 2 * var(--nav-gutter)) 1px no-repeat
+    var(--xero-white);
 }
 
 header .header .nav-bar.is-fixed {
@@ -248,10 +260,6 @@ header .header .nav-bar.is-fixed {
   top: 0;
   right: 0;
   left: 0;
-}
-
-header .header .nav-brand {
-  margin-right: 12px;
 }
 
 header .header .nav-brand-link {
@@ -269,45 +277,138 @@ header .header .nav-brand-link:focus-visible {
 header .header .nav-brand img {
   display: block;
   width: auto;
-  height: 24px;
+  height: 20px;
+}
+
+header .header .nav-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 header .header .nav-tools {
   display: flex;
   gap: 9px;
-  margin-left: auto;
 }
 
-/* stacked fallback: nav items scroll horizontally on their own row */
-header .header .nav-sections {
+/* secondary tools (Log in) live in the menu's bottom CTA bar on mobile */
+header .header .nav-tools .nav-btn:not(.nav-btn-primary) {
+  display: none;
+}
+
+/* Menu button: label + hamburger icon, swapped to "Close" + cross while open (no animation) */
+header .header .nav-hamburger {
   display: flex;
-  flex-basis: 100%;
-  order: 3;
-  margin: 0 calc(var(--nav-gutter) * -1);
-  overflow-x: auto;
-}
-
-header .header .nav-item {
   flex: none;
+  align-items: center;
+  gap: 3.75px;
+  height: 34px;
+  margin-left: 7.5px;
+  border: 0;
+  padding: 5px 0;
+  background: none;
+  color: var(--nav-ink);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  cursor: pointer;
 }
 
+header .header .nav-hamburger:focus-visible {
+  outline: 2px solid var(--nav-ink);
+  outline-offset: 2px;
+}
+
+header .header .nav-hamburger-icon {
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  background: url('../../icons/menu.svg') center / 18px 18px no-repeat;
+}
+
+header .header .nav-hamburger[aria-expanded='true'] .nav-hamburger-icon {
+  background-image: url('../../icons/menu-close.svg');
+}
+
+/* ------------------------------------------------------------ mobile drawer */
+
+/* fixed below the bar, slides in from the right (source: 0.3s ease) */
+header .header .nav-menu {
+  position: fixed;
+  top: var(--nav-bottom, var(--nav-bar-height));
+  bottom: 0;
+  left: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--xero-white);
+  visibility: hidden;
+  transform: translateX(100%);
+
+  /* visibility flips instantly both ways: the drawer slides in, and vanishes at once on close */
+  transition: transform 0.3s ease, visibility 0s;
+}
+
+header .header.nav-menu-open .nav-menu {
+  visibility: visible;
+  transform: none;
+}
+
+header .header .nav-menu-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+header .header .nav-menu-tools {
+  display: flex;
+  flex: none;
+  justify-content: center;
+  padding: 30px;
+  border-top: 1px solid var(--nav-highlight);
+  background-color: var(--xero-white);
+  box-shadow: rgb(0 0 0 / 10%) 0 -2px 8px 0;
+}
+
+/* outline button, full width (same treatment as the desktop Log in) */
+header .header .nav-menu-tools a {
+  width: 100%;
+  border-color: var(--nav-outline);
+  background-color: transparent;
+  color: var(--nav-ink);
+}
+
+header .header .nav-menu-tools a:hover {
+  background-color: var(--nav-outline);
+}
+
+/* full-width rows; dropdown rows are one button (label + plus icon) that expands in place */
 header .header .nav-link,
 header .header .nav-trigger {
   position: relative;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  height: 48px;
+  justify-content: space-between;
+  width: 100%;
   border: 0;
-  padding: 0 16px;
+  border-bottom: 1px solid var(--nav-highlight);
+  padding: 20px;
   background-color: transparent;
   color: var(--nav-ink);
-  font-size: 15px;
+  font-family: inherit;
+  font-size: 18px;
   font-weight: 500;
-  line-height: 16.5px;
-  white-space: nowrap;
+  line-height: 19.8px;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+
+header .header .nav-link {
+  line-height: 24px;
 }
 
 header .header .nav-link:hover,
@@ -319,6 +420,10 @@ header .header .nav-trigger[aria-expanded='true'] {
 header .header .nav-link:focus-visible,
 header .header .nav-trigger:focus-visible {
   outline: none;
+}
+
+header .header .nav-drop.is-expanded .nav-trigger {
+  border-bottom-width: 0;
 }
 
 header .header .nav-link::after,
@@ -338,88 +443,91 @@ header .header .nav-trigger:focus-visible::after {
 }
 
 header .header .nav-caret {
-  width: 7.5px;
-  height: 7.5px;
-  margin-left: 6px;
-  background: url('../../icons/chevron-down.svg') center / contain no-repeat;
-  transition: transform 0.2s;
+  flex: none;
+  width: 15px;
+  height: 15px;
+  margin-left: 12px;
+  background: url('../../icons/plus.svg') center / contain no-repeat;
 }
 
 header .header .nav-trigger[aria-expanded='true'] .nav-caret {
-  transform: rotate(180deg);
+  background-image: url('../../icons/minus.svg');
 }
 
 /* ------------------------------------------------------------------ panels */
+
+/*
+ * mobile: accordion body, height animates 0 -> content (source: height 0.3s ease).
+ * Collapsed bodies are display: none (out of layout and tab order); display flips
+ * discretely after the collapse animation and before the expand animation.
+ */
 header .header .nav-panel {
-  position: fixed;
-  top: var(--nav-bottom, var(--nav-bar-height));
-  right: 0;
-  left: 0;
-  z-index: 201;
-  max-height: calc(100vh - var(--nav-bottom, var(--nav-bar-height)));
-  overflow-y: auto;
-  background-color: var(--nav-highlight);
-  box-shadow: rgb(0 8 86 / 20%) 0 18px 10px -10px;
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(-12px);
-  pointer-events: none;
-  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  display: none;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease, display 0.3s allow-discrete;
 }
 
-header .header .nav-drop.is-open .nav-panel {
-  visibility: visible;
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
+/* the row drops its hairline while expanded; the section body carries it instead */
+header .header .nav-drop.is-expanded .nav-panel {
+  display: grid;
+  grid-template-rows: 1fr;
+  border-bottom: 1px solid var(--nav-highlight);
 }
 
-header .header .nav-drop.is-instant .nav-panel {
-  transition: none;
+@starting-style {
+  header .header .nav-drop.is-expanded .nav-panel {
+    grid-template-rows: 0fr;
+  }
 }
 
 header .header .nav-panel-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 24px var(--nav-gutter) 48px;
+  min-height: 0;
+  overflow: hidden;
 }
 
 header .header .nav-panel-sections {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 36px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px 0;
+}
+
+header .header .nav-panel-intro {
+  padding: 0 20px;
 }
 
 header .header .nav-panel-columns {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 30px;
 }
 
 header .header .nav-panel-heading {
-  padding-bottom: 24px;
+  padding: 0 20px 20px;
   color: var(--nav-ink-soft);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
-  line-height: 15.6px;
+  line-height: 18px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
 header .header .nav-panel-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-header .header .nav-panel-list-icons {
-  gap: 18px;
+  gap: 20px;
 }
 
 header .header .nav-panel-item,
 header .header .nav-panel-link {
-  font-size: 15px;
-  line-height: 23.4px;
+  font-size: 16px;
+  line-height: 20.8px;
+}
+
+/* plain link rows sit on a 23.2px line box on mobile (icon-item titles stay at 20.8px) */
+header .header .nav-panel-item {
+  line-height: 23.2px;
 }
 
 header .header .nav-underline {
@@ -448,16 +556,11 @@ header .header .nav-external-icon {
   background: url('../../icons/external-link.svg') center / contain no-repeat;
 }
 
-header .header .nav-icon-item {
-  display: flex;
-  gap: 15px;
-  min-height: 62.4px;
-}
-
-header .header .nav-icon-item-icon {
-  flex: none;
-  width: 50px;
-  height: 50px;
+/* mobile: icon items collapse to their title link (icon + description hidden, as on source) */
+header .header .nav-icon-item-icon,
+header .header .nav-icon-item-description,
+header .header .nav-panel-aside {
+  display: none;
 }
 
 header .header .nav-icon-item-icon img {
@@ -471,19 +574,7 @@ header .header .nav-icon-item-title {
   font-weight: 500;
 }
 
-header .header .nav-icon-item-description {
-  margin-top: 3px;
-  color: var(--nav-ink-soft);
-  font-size: 15px;
-  line-height: 18px;
-}
-
-header .header .nav-panel-aside {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
+/* desktop panel callout card (navy) */
 header .header .nav-callout {
   box-sizing: border-box;
   display: flex;
@@ -514,11 +605,45 @@ header .header .nav-callout-cta {
   margin-top: 24px;
 }
 
-/* page overlay behind an open panel */
+/* mobile menu callout card (light), below the list */
+header .header .nav-menu-callout {
+  margin: 20px;
+}
+
+header .header .nav-menu-callout .nav-callout {
+  border-radius: 10px;
+  padding: 20px;
+  background-color: var(--nav-highlight);
+  color: var(--nav-ink);
+}
+
+header .header .nav-menu-callout .nav-callout-title {
+  font-size: 18.3px;
+  line-height: 20.13px;
+  letter-spacing: normal;
+}
+
+header .header .nav-menu-callout .nav-callout-text {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 18.75px;
+}
+
+header .header .nav-menu-callout .nav-callout-cta {
+  margin-top: 20px;
+}
+
+/* the card text is navy; keep the blue CTA's label white */
+header .header .nav-menu-callout .nav-btn-accent {
+  color: var(--xero-white);
+}
+
+/* page overlay: desktop panels and the tablet drawer (none on phones, as on source) */
 header .header .nav-overlay {
   position: fixed;
   inset: var(--nav-bottom, var(--nav-bar-height)) 0 0;
   z-index: 199;
+  display: none;
   background-color: rgb(0 8 86 / 20%);
   backdrop-filter: blur(4px);
   visibility: hidden;
@@ -531,28 +656,71 @@ header .header.nav-is-open .nav-overlay {
   opacity: 1;
 }
 
+/* tablet: half-width drawer on the right over a blurred overlay; row banner */
 @media (width >= 600px) {
-  header .header .nav-panel-sections,
-  header .header .nav-panel-columns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  header .header {
+    --nav-gutter: 2.35vw;
   }
 
   header .header .nav-banner-inner {
-    padding-inline: 8.33vw;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 45px 10.42vw;
+    text-align: start;
+  }
+
+  header .header .nav-banner-copy {
+    flex: 0 1 300px;
+  }
+
+  header .header .nav-banner-cta {
+    justify-content: normal;
+  }
+
+  header .header .nav-banner-close {
+    top: 10px;
+    right: 13px;
+  }
+
+  header .header .nav-menu {
+    right: 0;
+    left: auto;
+    width: 50%;
+  }
+
+  header .header .nav-overlay {
+    display: block;
+  }
+
+  header .header.nav-menu-open .nav-overlay {
+    visibility: visible;
+    opacity: 1;
   }
 }
 
 /* breakpoint-exception: source switches to desktop nav at 1024px */
 @media (width >= 1024px) {
+  header:has(.header) {
+    min-height: var(--nav-height);
+  }
+
   header .header {
     --nav-gutter: 3vw;
+    --nav-bar-height: var(--nav-height);
+  }
+
+  header .header .nav-btn {
+    height: 36px;
+    border-radius: var(--button-radius);
+    padding: 0 14px;
+    font-size: 15px;
+    line-height: 32px;
   }
 
   /* banner: copy left, countdown right, 11vw content inset */
   header .header .nav-banner-inner {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     padding: 60px 11vw;
   }
 
@@ -563,43 +731,170 @@ header .header.nav-is-open .nav-overlay {
   header .header .nav-banner-heading {
     font-size: 51.6px;
     line-height: 51.6px;
+    letter-spacing: -1px;
+  }
+
+  header .header .nav-banner-text {
+    margin-top: 12px;
+    font-size: 15.6px;
+    line-height: 19.5px;
+  }
+
+  header .header .nav-banner-cta {
+    margin-top: 24px;
+  }
+
+  header .header .nav-countdown {
+    gap: 10px;
+  }
+
+  header .header .nav-countdown-value {
+    width: 67.2px;
+    height: 60px;
+    border-radius: 6px;
+    padding: 9.6px 0;
+    box-shadow: 0 3px 12px 0 rgb(0 0 0 / 15%);
+    font-size: 42px;
+    line-height: 48.3px;
+    letter-spacing: -0.84px;
+  }
+
+  header .header .nav-countdown-label {
+    margin-top: 9px;
+    font-size: 15px;
+    line-height: 18px;
   }
 
   header .header .nav-banner-close {
+    top: 12px;
     right: 29px;
   }
 
-  /* nav bar: logo + items left, tools right, one 60px row */
+  /* nav bar: logo + items left, tools right, one 60px row; the <nav> is the inset content box */
+  header .header .nav-bar {
+    padding: 0 var(--nav-gutter);
+  }
+
   header .header .nav-bar-content {
-    flex-wrap: nowrap;
-    height: var(--nav-bar-height);
+    padding: 0;
+    background-image: none;
+  }
+
+  header .header .nav-brand {
+    margin-right: 12px;
+  }
+
+  header .header .nav-brand img {
+    height: 24px;
+  }
+
+  header .header .nav-tools .nav-btn:not(.nav-btn-primary) {
+    display: inline-flex;
+  }
+
+  header .header .nav-hamburger,
+  header .header .nav-menu-tools,
+  header .header .nav-menu-callout {
+    display: none;
+  }
+
+  /* the drawer wrappers dissolve so the nav list is a flex item of the bar */
+  header .header .nav-menu,
+  header .header.nav-menu-open .nav-menu,
+  header .header .nav-menu-body {
+    position: static;
+    display: contents;
+    visibility: visible;
+    transform: none;
+    transition: none;
   }
 
   header .header .nav-sections {
-    flex-basis: auto;
-    order: 0;
-    margin: 0;
-    overflow: visible;
+    display: flex;
+  }
+
+  header .header .nav-item {
+    flex: none;
   }
 
   header .header .nav-link,
   header .header .nav-trigger {
+    justify-content: normal;
+    width: auto;
     height: var(--nav-bar-height);
+    border-bottom: 0;
     padding: 0 24px;
+    font-size: 15px;
+    line-height: 16.5px;
+    white-space: nowrap;
+  }
+
+  header .header .nav-caret {
+    width: 7.5px;
+    height: 7.5px;
+    margin-left: 6px;
+    background-image: url('../../icons/chevron-down.svg');
+    transition: transform 0.2s;
+  }
+
+  header .header .nav-trigger[aria-expanded='true'] .nav-caret {
+    background-image: url('../../icons/chevron-down.svg');
+    transform: rotate(180deg);
+  }
+
+  /* panels: full-width fixed dropdown below the bar (resets the mobile accordion) */
+  header .header .nav-panel,
+  header .header .nav-drop.is-expanded .nav-panel {
+    position: fixed;
+    top: var(--nav-bottom, var(--nav-bar-height));
+    right: 0;
+    left: 0;
+    z-index: 201;
+    display: block;
+    grid-template-rows: none;
+    max-height: calc(100vh - var(--nav-bottom, var(--nav-bar-height)));
+    overflow-y: auto;
+    border-bottom: 0;
+    background-color: var(--nav-highlight);
+    box-shadow: rgb(0 8 86 / 20%) 0 18px 10px -10px;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-12px);
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    animation: none;
+  }
+
+  header .header .nav-drop.is-open .nav-panel {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  header .header .nav-drop.is-instant .nav-panel {
+    transition: none;
   }
 
   /* panels: sections grid on the left, 285px callout column on the right */
   header .header .nav-panel-inner {
+    display: flex;
     flex-direction: row;
+    gap: 24px;
+    min-height: auto;
     margin: 0 2%;
     padding: 24px 1% 60px;
+    overflow: visible;
   }
 
   header .header .nav-panel-sections {
+    display: grid;
     flex: 1 1 auto;
+    flex-direction: row;
     grid-template-columns: repeat(var(--nav-panel-tracks, 3), minmax(0, 1fr));
     gap: 48px 2vw;
     align-content: start;
+    padding: 0;
   }
 
   header .header .nav-panel-section {
@@ -608,15 +903,64 @@ header .header.nav-is-open .nav-overlay {
 
   header .header .nav-panel-intro {
     grid-column: 1 / -1;
+    padding: 0;
   }
 
   header .header .nav-panel-columns {
+    display: grid;
+    flex-direction: row;
     grid-template-columns: repeat(var(--nav-section-span, 1), minmax(0, 1fr));
-    column-gap: 2vw;
+    gap: 18px 2vw;
+    padding: 0;
+  }
+
+  header .header .nav-panel-heading {
+    padding: 0 0 24px;
+    font-size: 13px;
+    line-height: 15.6px;
+    letter-spacing: normal;
+  }
+
+  header .header .nav-panel-list {
+    gap: 12px;
+  }
+
+  header .header .nav-panel-list-icons {
+    gap: 18px;
+  }
+
+  header .header .nav-panel-item,
+  header .header .nav-panel-link {
+    font-size: 15px;
+    line-height: 23.4px;
+  }
+
+  header .header .nav-icon-item {
+    display: flex;
+    gap: 15px;
+    min-height: 62.4px;
+  }
+
+  header .header .nav-icon-item-icon {
+    display: block;
+    flex: none;
+    width: 50px;
+    height: 50px;
+  }
+
+  header .header .nav-icon-item-description {
+    display: block;
+    margin-top: 3px;
+    color: var(--nav-ink-soft);
+    font-size: 15px;
+    line-height: 18px;
   }
 
   header .header .nav-panel-aside {
+    display: flex;
     flex: 0 0 285px;
+    flex-direction: column;
+    gap: 24px;
     margin-left: 24px;
   }
 
