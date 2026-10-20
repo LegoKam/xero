@@ -5,10 +5,17 @@
  * The real mobile menu (hamburger) is added in a later step.
  */
 
-/* the header block owns its height: banner + nav bar (styles.css reserves only the nav bar) */
+/*
+ * the header block owns its height: banner + nav bar (styles.css reserves only the nav bar).
+ * Solid background (source header is opaque, never transparent over content) and the
+ * source's base metrics (root 12px / normal); every header text element sets its own size.
+ */
 header:has(.header) {
   height: auto;
   min-height: var(--nav-height);
+  background-color: var(--xero-white);
+  font-size: 12px;
+  line-height: normal;
 }
 
 header .header {
@@ -218,15 +225,21 @@ header .header .nav-bar-placeholder {
   min-height: var(--nav-bar-height);
 }
 
+/* full-width white bar (sticky); the <nav> inside is the gutter-inset content box */
 header .header .nav-bar {
   position: relative;
   z-index: 200;
   box-sizing: border-box;
+  padding: 0 var(--nav-gutter);
+  background-color: var(--xero-white);
+}
+
+header .header .nav-bar-content {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   min-height: var(--nav-bar-height);
-  padding: 0 var(--nav-gutter);
   background-color: var(--xero-white);
 }
 
@@ -557,7 +570,7 @@ header .header.nav-is-open .nav-overlay {
   }
 
   /* nav bar: logo + items left, tools right, one 60px row */
-  header .header .nav-bar {
+  header .header .nav-bar-content {
     flex-wrap: nowrap;
     height: var(--nav-bar-height);
   }

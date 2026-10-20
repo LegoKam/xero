@@ -86,8 +86,23 @@ function isExternal(link) {
   }
 }
 
+/**
+ * Removes an authored new-tab hint, i.e. a trailing "(…)" in an external link's text,
+ * so it can be rendered for screen readers only.
+ * @returns {string|null} the hint text
+ */
+function takeNewTabHint(link) {
+  if (!isExternal(link)) return null;
+  const last = link.lastChild;
+  if (!last || last.nodeType !== Node.TEXT_NODE) return null;
+  const match = last.textContent.match(/\s*(\([^()]+\))\s*$/);
+  if (!match) return null;
+  last.textContent = last.textContent.slice(0, match.index);
+  return match[1];
+}
+
 /** opens external links in a new tab with the external-link icon and a screen reader hint */
-function decorateExternalLink(link) {
+function decorateExternalLink(link, hintText) {
   if (!isExternal(link)) return;
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
@@ -95,7 +110,7 @@ function decorateExternalLink(link) {
   const icon = el('span', 'nav-external-icon');
   icon.setAttribute('aria-hidden', 'true');
   const hint = el('span', 'nav-sr-only');
-  hint.textContent = ` ${NEW_TAB_TEXT}`;
+  hint.textContent = ` ${hintText || NEW_TAB_TEXT}`;
   link.append(icon, hint);
 }
 
@@ -279,12 +294,13 @@ function buildIconItem(li) {
 
   const body = el('div', 'nav-icon-item-body');
   if (link) {
+    const hint = takeNewTabHint(link);
     const labelNodes = [...link.childNodes];
     const strong = link.querySelector('strong');
     link.textContent = '';
     underlineLabel(link, strong ? [...strong.childNodes] : labelNodes);
     link.className = 'nav-panel-link nav-icon-item-title';
-    decorateExternalLink(link);
+    decorateExternalLink(link, hint);
     body.append(link);
   }
   const description = [...li.childNodes]
@@ -308,9 +324,10 @@ function buildLinkItem(li) {
     item.append(...li.childNodes);
     return item;
   }
+  const hint = takeNewTabHint(link);
   underlineLabel(link, [...link.childNodes]);
   link.className = 'nav-panel-link';
-  decorateExternalLink(link);
+  decorateExternalLink(link, hint);
   item.append(link);
   return item;
 }
@@ -343,8 +360,9 @@ function buildCallout(group) {
     if (links.length) {
       const cta = el('p', 'nav-callout-cta');
       links.forEach((link) => {
+        const hint = takeNewTabHint(link);
         link.className = 'nav-btn nav-btn-accent';
-        decorateExternalLink(link);
+        decorateExternalLink(link, hint);
         cta.append(link);
       });
       card.append(cta);
@@ -511,7 +529,18 @@ function buildBrand(section) {
   if (link) {
     link.className = 'nav-brand-link';
     const img = link.querySelector('img');
-    if (img && !link.getAttribute('aria-label')) link.setAttribute('aria-label', img.alt);
+    const textNodes = [...link.childNodes]
+      .filter((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
+    if (textNodes.length) {
+      // authored link text names the link (like the source's SVG <title>): keep it for
+      // assistive tech only and make the image decorative so the name is not read twice
+      const label = el('span', 'nav-sr-only');
+      label.append(...textNodes);
+      link.append(label);
+      if (img) img.alt = '';
+    } else if (img && !link.getAttribute('aria-label')) {
+      link.setAttribute('aria-label', img.alt);
+    }
     brand.append(link);
   }
   return brand;
@@ -629,14 +658,16 @@ export default async function decorate(block) {
     if (banner) block.append(banner);
   }
 
-  const nav = el('nav', 'nav-bar');
+  // full-width bar (background, sticky) around the gutter-inset <nav> content box
+  const nav = el('nav', 'nav-bar-content');
   nav.id = 'nav';
   nav.setAttribute('aria-label', NAV_LABEL);
   if (roles.brand) nav.append(buildBrand(roles.brand));
   if (roles.sections) nav.append(buildNavList(roles.sections, block));
   if (roles.tools) nav.append(buildTools(roles.tools));
 
-  const placeholder = el('div', 'nav-bar-placeholder', [nav]);
+  const bar = el('div', 'nav-bar', [nav]);
+  const placeholder = el('div', 'nav-bar-placeholder', [bar]);
   const overlay = el('div', 'nav-overlay');
   overlay.setAttribute('aria-hidden', 'true');
   overlay.addEventListener('click', () => closeAll(block));
@@ -646,7 +677,7 @@ export default async function decorate(block) {
     if (e.key === 'Escape' && state.open) closeAll(block, { restoreFocus: true });
   });
 
-  refreshLayout = bindSticky(block, placeholder, nav);
+  refreshLayout = bindSticky(block, placeholder, bar);
   applyViewportMode(block, isDesktop.matches);
   isDesktop.addEventListener('change', (e) => {
     applyViewportMode(block, e.matches);
