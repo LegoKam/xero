@@ -17,3 +17,4 @@ tools/importer/bd-snapshots/
 
 # nav/footer validation infrastructure
 migration-work/navigation-validation/
+migration-work/footer-validation/
