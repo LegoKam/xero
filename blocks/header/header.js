@@ -349,12 +349,20 @@ function buildColumnList(list) {
   return ul;
 }
 
-/** heading + one or more lists: each list is one column, the section spans one track per list */
+/**
+ * heading + one or more lists: each list is one column, the section spans one track per list.
+ * On desktop the lists share one grid (column flow), so side-by-side items share row heights.
+ */
 function buildLinkSection(group, lists) {
   const section = el('div', 'nav-panel-section');
   if (group.heading) section.append(headingToParagraph(group.heading, 'nav-panel-heading'));
   const columns = el('div', 'nav-panel-columns');
-  lists.forEach((list) => columns.append(buildColumnList(list)));
+  lists.forEach((list, index) => {
+    const ul = buildColumnList(list);
+    ul.style.setProperty('--nav-col', index + 1);
+    columns.append(ul);
+  });
+  columns.style.setProperty('--nav-rows', Math.max(...lists.map((list) => list.children.length)));
   section.append(columns);
   section.style.setProperty('--nav-section-span', lists.length);
   return { node: section, span: lists.length };

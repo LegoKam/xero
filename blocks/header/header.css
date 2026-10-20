@@ -906,12 +906,28 @@ header .header.nav-is-open .nav-overlay {
     padding: 0;
   }
 
+  /* source: one grid per section, lists are display:contents and flow down their own
+     column, so items side by side share a content-sized row */
   header .header .nav-panel-columns {
     display: grid;
     flex-direction: row;
+    grid-auto-flow: column;
     grid-template-columns: repeat(var(--nav-section-span, 1), minmax(0, 1fr));
-    gap: 18px 2vw;
+    grid-template-rows: repeat(var(--nav-rows, 1), auto);
+    gap: 12px 2vw;
     padding: 0;
+  }
+
+  header .header .nav-panel-columns:has(> .nav-panel-list-icons) {
+    row-gap: 18px;
+  }
+
+  header .header .nav-panel-columns > .nav-panel-list {
+    display: contents;
+  }
+
+  header .header .nav-panel-columns > .nav-panel-list > li {
+    grid-column: var(--nav-col, 1);
   }
 
   header .header .nav-panel-heading {
@@ -919,14 +935,6 @@ header .header.nav-is-open .nav-overlay {
     font-size: 13px;
     line-height: 15.6px;
     letter-spacing: normal;
-  }
-
-  header .header .nav-panel-list {
-    gap: 12px;
-  }
-
-  header .header .nav-panel-list-icons {
-    gap: 18px;
   }
 
   header .header .nav-panel-item,
