@@ -64,6 +64,7 @@
   --content-max-width: 1440px;
   --content-padding: 22px;
   --section-spacing: 45px;
+  --panel-section-spacing: 5px;
   --nav-height: 60px;
 
   /* source content column inset from the viewport edge (8.33vw / 10.42vw / 11vw, measured);
@@ -106,6 +107,7 @@
     --heading-font-size-xs: 14px;
     --content-padding: 40px;
     --section-spacing: 72px;
+    --panel-section-spacing: 12px;
   }
 }
 

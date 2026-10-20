@@ -283,6 +283,21 @@ main > .section:first-of-type {
   padding-top: 0;
 }
 
+/* the hero block carries its own vertical padding (source hero region has no outer spacing) */
+main > .section.hero-split-container {
+  padding-bottom: 0;
+}
+
+/* full-width panel blocks (navy pricing/offer panels, grey promo cards) sit tight to their
+   neighbours on the source: ~24px between two panels, ~96px to a text section */
+main > .section:is(.tabs-pricing-container, .cards-promo-container, .columns-offer-container) {
+  padding-bottom: var(--panel-section-spacing);
+}
+
+main > .section:is(.cards-promo-container, .columns-offer-container):not(:has(> .default-content-wrapper)) {
+  padding-top: var(--panel-section-spacing);
+}
+
 main > .section > .default-content-wrapper > :first-child {
   margin-top: 0;
 }

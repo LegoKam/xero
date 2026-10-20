@@ -1,7 +1,7 @@
 /* cards-footnotes: survey sources / legal footnotes at the end of a page */
 .cards-footnotes {
   margin-inline: 3.125%;
-  padding-block: 27px 6px;
+  padding-block: 20px 6px;
   color: var(--xero-navy);
 }
 
@@ -56,7 +56,7 @@
   .cards-footnotes {
     width: 81.25%;
     margin-inline: 9.375% 0;
-    padding-block: 36px 12px;
+    padding-block: 24px 12px;
   }
 
   .cards-footnotes > ul {
