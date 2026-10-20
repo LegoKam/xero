@@ -266,9 +266,10 @@ main img {
   width: 100%;
 }
 
-/* sections */
+/* sections: source regions pad 72px above and below (≈156px between content on desktop) */
 main > .section {
-  margin: var(--section-spacing) 0;
+  margin: 0;
+  padding: var(--section-spacing) 0;
 }
 
 main > .section > div {
@@ -279,16 +280,25 @@ main > .section > div {
 }
 
 main > .section:first-of-type {
-  margin-top: 0;
+  padding-top: 0;
 }
 
 main > .section > .default-content-wrapper > :first-child {
   margin-top: 0;
 }
 
-/* default content: intro heading + lead paragraph before a block */
+/* default content: intro heading + lead paragraph before a block.
+   Inset to the source's content column (8.33vw mobile, 10.42vw tablet, 11vw desktop,
+   measured on xero.com/au) so it lines up with the inset blocks below it. */
 main > .section > .default-content-wrapper {
   margin-bottom: 32px;
+  padding-inline: var(--content-inset);
+}
+
+@media (width >= 1024px) {
+  main > .section > .default-content-wrapper {
+    margin-bottom: 36px;
+  }
 }
 
 main > .section > .default-content-wrapper p {

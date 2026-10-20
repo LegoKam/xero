@@ -1,6 +1,11 @@
 /* cards-industry: PostCard list (photo, linked title, description) and
    ContentCard tiles (linked title above a square image, no description). */
 
+/* sit in the source's inset content column (shared with default content) */
+.cards-industry {
+  margin-inline: var(--block-inset);
+}
+
 .cards-industry > ul {
   list-style: none;
   margin: 0;

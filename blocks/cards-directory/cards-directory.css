@@ -1,37 +1,74 @@
+/* source: DetailCardList__List / Item (xero.com/au/advisors, /au/certifications) */
 .cards-directory > ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
 }
 
 .cards-directory > ul > li {
+  margin: 0;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0 10.8333px;
 }
 
-.cards-directory .cards-directory-card-body > :first-child {
-  margin-top: 0;
+.cards-directory .cards-directory-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding-bottom: 10px;
 }
 
-.cards-directory .cards-directory-card-body > :last-child {
-  margin-bottom: 0;
+.cards-directory .cards-directory-card-body > * {
+  margin: 0;
+  max-width: 100%;
+}
+
+.cards-directory .cards-directory-card-body > * + * {
+  margin-top: 10px;
+}
+
+.cards-directory .cards-directory-card-body h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: normal;
+  color: var(--xero-navy);
+}
+
+.cards-directory .cards-directory-card-body p {
+  font-size: 16px;
+  line-height: 20.8px;
+  color: var(--xero-navy);
 }
 
 .cards-directory .cards-directory-links {
   list-style: none;
-  margin: 16px 0 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.cards-directory .cards-directory-links li {
+  margin: 0;
+}
+
+.cards-directory .cards-directory-links a:any-link {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20.8px;
+  color: var(--xero-navy);
 }
 
 .cards-directory .cards-directory-card-image {
+  display: none;
   line-height: 0;
 }
 
@@ -40,23 +77,68 @@
 }
 
 .cards-directory .cards-directory-card-image img {
+  display: block;
   width: 100%;
   height: auto;
-  object-fit: contain;
 }
 
+/* tablet+: 12-column row, image cols 4-5, text cols 6-9 */
 @media (width >= 600px) {
-  .cards-directory .cards-directory-links {
-    grid-template-columns: repeat(2, 1fr);
+  .cards-directory > ul > li {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 1.437%;
+    padding: 0 0.7185%;
+  }
+
+  .cards-directory .cards-directory-card-body {
+    grid-column: 6 / span 4;
+    grid-row: 1;
+  }
+
+  .cards-directory .cards-directory-card-image {
+    display: block;
+    grid-column: 4 / span 2;
+    grid-row: 1;
+    align-self: start;
   }
 }
 
 @media (width >= 900px) {
-  .cards-directory > ul > li.cards-directory-has-image {
-    grid-template-columns: 7fr 5fr;
+  .cards-directory > ul {
+    gap: 60px;
   }
 
-  .cards-directory .cards-directory-links {
-    grid-template-columns: repeat(3, 1fr);
+  .cards-directory > ul > li {
+    column-gap: 2.084%;
+    padding: 0 1.042%;
+  }
+
+  .cards-directory .cards-directory-card-body {
+    padding-bottom: 12px;
+  }
+
+  .cards-directory .cards-directory-card-body > * + * {
+    margin-top: 12px;
+  }
+
+  .cards-directory .cards-directory-card-body > .cards-directory-links {
+    margin-top: 24px;
+    gap: 12px;
+  }
+
+  .cards-directory .cards-directory-card-body h3 {
+    font-size: 32.04px;
+    line-height: 36.846px;
+    letter-spacing: -0.64px;
+  }
+
+  .cards-directory .cards-directory-card-body p {
+    font-size: 18px;
+    line-height: 23.4px;
+  }
+
+  .cards-directory .cards-directory-links a:any-link {
+    font-size: 18px;
+    line-height: 23.4px;
   }
 }

@@ -1,48 +1,111 @@
-.accordion-faq .accordion-faq-item {
-  border-bottom: 1px solid currentcolor;
+/* accordion-faq: values from xero.com/au/partner-programme (Accordion__Element) computed styles */
+
+.accordion-faq {
+  width: 100%;
+  margin: 0;
 }
 
-.accordion-faq .accordion-faq-item:first-child {
-  border-top: 1px solid currentcolor;
+/* items overlap by the 2px rule so adjacent dividers collapse into one */
+.accordion-faq .accordion-faq-item + .accordion-faq-item {
+  margin-top: -2px;
 }
 
+/* question row */
 .accordion-faq .accordion-faq-question {
   position: relative;
-  display: block;
-  padding: 16px 40px 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 6px 11px 10px;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid #d6dade;
+  background: none;
+  color: var(--xero-navy);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-align: left;
   cursor: pointer;
   list-style: none;
+}
+
+.accordion-faq .accordion-faq-question:focus {
+  outline: none;
+}
+
+.accordion-faq .accordion-faq-question:hover {
+  border-top-color: var(--xero-sand);
+  border-bottom-color: var(--xero-sand);
+  background: var(--xero-sand);
+}
+
+.accordion-faq .accordion-faq-item:first-child > .accordion-faq-question {
+  border-top-color: #d6dade;
+}
+
+.accordion-faq .accordion-faq-item:first-child > .accordion-faq-question:hover {
+  border-top-color: var(--xero-sand);
 }
 
 .accordion-faq .accordion-faq-question::-webkit-details-marker {
   display: none;
 }
 
-.accordion-faq .accordion-faq-question > p {
-  display: inline;
+.accordion-faq .accordion-faq-question > * {
+  flex: 1 1 0%;
+  max-width: 100%;
   margin: 0;
+  font: inherit;
+  color: inherit;
 }
 
-/* chevron indicator */
+/* hand-drawn plus / minus indicator (source SVG, stroke #0078c8) */
 .accordion-faq .accordion-faq-question::after {
   content: '';
-  position: absolute;
-  top: 50%;
-  right: 8px;
-  width: 8px;
-  height: 8px;
-  border: solid currentcolor;
-  border-width: 0 2px 2px 0;
-  transform: translateY(-75%) rotate(45deg);
-  transition: transform 0.2s ease;
+  flex: none;
+  width: 21px;
+  height: 20px;
+  margin: 0 10px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='20' viewBox='0 0 21 20' fill='none' stroke='%230078c8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11.6179 1C10.7899 6.89958 10.1179 12.5732 10.1179 18.5'/%3E%3Cpath d='M1.99997 9.57983C7.79966 10.1618 14.0711 9.17061 19.7354 10.4201'/%3E%3C/svg%3E") center / 21px 20px no-repeat;
 }
 
 .accordion-faq .accordion-faq-item[open] > .accordion-faq-question::after {
-  transform: translateY(-25%) rotate(-135deg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='20' viewBox='0 0 21 20' fill='none' stroke='%230078c8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1.99997 9.57983C7.79966 10.1618 14.0711 9.17061 19.7354 10.4201'/%3E%3C/svg%3E");
+}
+
+/* focus ring: 2px navy, offset 5px, 5px radius (source :focus::after) */
+.accordion-faq .accordion-faq-question:focus-visible::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border: 2px solid var(--xero-navy);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+/* open item: the answer carries the bottom rule */
+.accordion-faq .accordion-faq-item[open] > .accordion-faq-question:not(:hover) {
+  border-bottom-color: transparent;
 }
 
 .accordion-faq .accordion-faq-answer {
-  padding: 0 0 16px;
+  padding: 30px 0 30px 10px;
+  border-bottom: 2px solid #d6dade;
+  color: var(--xero-navy);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.accordion-faq .accordion-faq-answer p,
+.accordion-faq .accordion-faq-answer ul,
+.accordion-faq .accordion-faq-answer ol {
+  max-width: 100%;
+  margin: 10px 0 0;
+  font: inherit;
+  color: inherit;
 }
 
 .accordion-faq .accordion-faq-answer > :first-child {
@@ -51,4 +114,69 @@
 
 .accordion-faq .accordion-faq-answer > :last-child {
   margin-bottom: 0;
+}
+
+/* answer links: weight 500 with 2px Xero-blue gradient underline */
+.accordion-faq .accordion-faq-answer a:any-link,
+main .accordion-faq .accordion-faq-answer a.button:any-link {
+  display: inline;
+  min-height: 0;
+  padding: 0 0 3.33px;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(to right, var(--xero-blue) 0%, var(--xero-blue) 100%) 0 18px / 1px 2px repeat-x;
+  color: var(--xero-navy);
+  font-size: inherit;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: inherit;
+  text-decoration: none;
+  white-space: normal;
+  overflow: visible;
+  transition: background 0.05s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.accordion-faq .accordion-faq-answer a:any-link:hover,
+main .accordion-faq .accordion-faq-answer a.button:any-link:hover {
+  background-position: 0 20px;
+}
+
+.accordion-faq .accordion-faq-answer .button-wrapper,
+.accordion-faq .accordion-faq-answer .button-container {
+  margin: 10px 0 0;
+}
+
+@media (width >= 900px) {
+  .accordion-faq .accordion-faq-question {
+    padding: 25px 6px 25px 12px;
+    font-size: 27.6px;
+  }
+
+  .accordion-faq .accordion-faq-answer {
+    padding: 24px 0 36px 12px;
+    font-size: 18px;
+  }
+
+  .accordion-faq .accordion-faq-answer p,
+  .accordion-faq .accordion-faq-answer ul,
+  .accordion-faq .accordion-faq-answer ol,
+  .accordion-faq .accordion-faq-answer .button-wrapper,
+  .accordion-faq .accordion-faq-answer .button-container {
+    margin-top: 24px;
+  }
+
+  .accordion-faq .accordion-faq-answer > :first-child {
+    margin-top: 0;
+  }
+
+  .accordion-faq .accordion-faq-answer a:any-link,
+  main .accordion-faq .accordion-faq-answer a.button:any-link {
+    padding-bottom: 4px;
+    background-position: 0 20px;
+  }
+
+  .accordion-faq .accordion-faq-answer a:any-link:hover,
+  main .accordion-faq .accordion-faq-answer a.button:any-link:hover {
+    background-position: 0 22px;
+  }
 }

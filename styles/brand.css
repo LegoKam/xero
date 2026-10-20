@@ -63,8 +63,25 @@
   /* layout */
   --content-max-width: 1440px;
   --content-padding: 22px;
-  --section-spacing: 48px;
+  --section-spacing: 45px;
   --nav-height: 60px;
+
+  /* source content column inset from the viewport edge (8.33vw / 10.42vw / 11vw, measured);
+     --block-inset is the same column measured inside a section's padded content box */
+  --content-inset: 8.333vw;
+  --block-inset: max(0px, calc(var(--content-inset) - var(--content-padding)));
+}
+
+@media (width >= 768px) {
+  :root {
+    --content-inset: 10.42vw;
+  }
+}
+
+@media (width >= 1024px) {
+  :root {
+    --content-inset: min(11vw, 158.4px);
+  }
 }
 
 @media (width >= 600px) {
