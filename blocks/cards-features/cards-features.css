@@ -1,43 +1,89 @@
+/* cards-features: Xero BoxItem rows (tick icon + bold title + description,
+   or linked title + description). Values from www.xero.com/au computed styles.
+   Source column is inset: 8.333% / 10.4167% / 11% of the page width from the
+   left, 83.333% / 79.1667% / 78% wide (mobile / >=768 / >=1024). The page width
+   is the section wrapper content box (100%) plus its side padding. */
+
+.cards-features {
+  container-type: inline-size;
+  box-sizing: border-box;
+  margin-left: calc((100% + 2 * var(--content-padding)) / 12 - var(--content-padding));
+  width: calc((100% + 2 * var(--content-padding)) * 10 / 12);
+  color: var(--xero-navy);
+}
+
 .cards-features > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 20px;
 }
 
+/* items are top-aligned; a trailing link paragraph sits on the row's baseline */
 .cards-features > ul > li {
-  position: relative;
-  padding-left: 48px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
-.cards-features > ul > li::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  background-color: var(--link-color, #0078c8);
+.cards-features .cards-features-card-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
 }
 
-/* decorative tick drawn inside the square */
-.cards-features > ul > li::after {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: 12px;
-  width: 7px;
-  height: 13px;
-  border: solid var(--background-color, #fff);
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
+.cards-features .cards-features-card-body > p:last-child:not(:first-child):has(> a:only-child) {
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.cards-features .cards-features-card-body > * {
+  margin: 10px 0 0;
+  font-size: 16px;
+  line-height: 20.8px;
+  color: var(--xero-navy);
 }
 
 .cards-features .cards-features-card-body > :first-child {
   margin-top: 0;
+}
+
+/* title: bold paragraph or (linked) heading */
+.cards-features .cards-features-card-body > .cards-features-card-title {
+  font-family: var(--heading-font-family);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 17.6px;
+  letter-spacing: normal;
+}
+
+.cards-features .cards-features-card-title strong {
+  font-weight: inherit;
+}
+
+.cards-features .cards-features-card-title a:any-link {
+  font-weight: 400;
+  color: var(--xero-navy);
+}
+
+/* tick icon: 18px tick in a blue rounded square, inline with the title */
+.cards-features.ticks .cards-features-card-title {
+  display: flex;
+  align-items: center;
+  gap: 6.6667cqi;
+}
+
+.cards-features.ticks .cards-features-card-title::before {
+  content: '';
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 2.5px;
+  background: var(--xero-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5C4.33115 11.5286 5.37037 12.7132 6.59722 13.8333C7.27501 14.4522 7.40203 14.5441 7.65278 13.7083C8.83956 9.7524 12.3985 6.0745 15 3'/%3E%3C/svg%3E") center / 18px 18px no-repeat;
+  box-shadow: rgb(0 8 86 / 15%) 0 2.5px 10px 0;
 }
 
 .cards-features .cards-features-card-image {
@@ -50,8 +96,82 @@
   object-fit: contain;
 }
 
-@media (width >= 900px) {
+@media (width >= 768px) {
+  .cards-features {
+    margin-left: calc((100% + 2 * var(--content-padding)) * 5 / 48 - var(--content-padding));
+    width: calc((100% + 2 * var(--content-padding)) * 38 / 48);
+  }
+
   .cards-features > ul {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 1.7544cqi;
+  }
+
+  .cards-features.cards-features-cols-4 > ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 20px;
+  }
+
+  .cards-features > ul > li {
+    padding-right: 2.193cqi;
+  }
+
+  .cards-features .cards-features-card-body > * {
+    margin-top: 20px;
+  }
+
+  .cards-features .cards-features-card-body > p:last-child:not(:first-child):has(> a:only-child) {
+    padding-top: 20px;
+  }
+
+  .cards-features.ticks .cards-features-card-title {
+    gap: 20px;
+  }
+}
+
+@media (width >= 1024px) {
+  .cards-features {
+    margin-left: calc((100% + 2 * var(--content-padding)) * 0.11 - var(--content-padding));
+    width: calc((100% + 2 * var(--content-padding)) * 0.78);
+  }
+
+  .cards-features > ul {
+    column-gap: 2.5641cqi;
+  }
+
+  .cards-features.cards-features-cols-4 > ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .cards-features > ul > li {
+    padding-right: 3.2051cqi;
+  }
+
+  .cards-features .cards-features-card-body > * {
+    margin-top: 24px;
+    font-size: 18px;
+    line-height: 23.4px;
+  }
+
+  .cards-features .cards-features-card-body > p:last-child:not(:first-child):has(> a:only-child) {
+    padding-top: 24px;
+  }
+
+  .cards-features .cards-features-card-body > .cards-features-card-title {
+    font-size: 20.04px;
+    line-height: 23.046px;
+    letter-spacing: -0.4px;
+  }
+
+  .cards-features.ticks .cards-features-card-title {
+    gap: 2.5641cqi;
+  }
+
+  .cards-features.ticks .cards-features-card-title::before {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    box-shadow: rgb(0 8 86 / 15%) 0 3px 12px 0;
   }
 }

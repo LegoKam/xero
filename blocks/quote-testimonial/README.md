@@ -10,7 +10,11 @@ Single block table. Content: Single-cell rows: image (optional) | quote text | a
 
 ## Supported variations
 
-No variations.
+No authored variations required; layout is inferred from content (or forced with a `stacked`, `split` or `text` block option):
+
+- `stacked` — image + one-line attribution: grey-blue rounded panel, quote centred above the photo, caption with arrow beside the photo.
+- `split` — image + multi-paragraph attribution (name | photo caption | description... | link): photo left, quote right.
+- `text` — no image: quote with large blue closing mark, caption beside it.
 
 ## Universal Editor fields
 

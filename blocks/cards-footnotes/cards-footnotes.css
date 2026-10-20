@@ -1,18 +1,46 @@
+/* cards-footnotes: survey sources / legal footnotes at the end of a page */
+.cards-footnotes {
+  margin-inline: 3.125%;
+  padding-block: 27px 6px;
+  color: var(--xero-navy);
+}
+
 .cards-footnotes > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+}
+
+/* reset global `li + li` spacing; the list gap carries the rhythm */
+.cards-footnotes > ul > li {
+  margin: 0;
+}
+
+/* a trailing link-only row (source link) sits one extra gap below the footnotes */
+.cards-footnotes > ul > li:last-child:has(.cards-footnotes-card-body > p:only-child > a:only-child) {
+  margin-top: 10px;
 }
 
 .cards-footnotes .cards-footnotes-card-body p {
   margin: 0;
+  font-size: 15px;
+  line-height: 1.25;
+  color: var(--xero-navy);
 }
 
-.cards-footnotes .cards-footnotes-card-body a {
+.cards-footnotes .cards-footnotes-card-body a:any-link {
+  padding-bottom: 3.33px;
+  color: var(--xero-navy);
+  font-weight: 500;
+  text-decoration: none;
   overflow-wrap: anywhere;
+  background-image: linear-gradient(to right, var(--xero-blue) 0%, var(--xero-blue) 100%);
+  background-position: 0 17px;
+  background-repeat: repeat-x;
+  background-size: 1px 2px;
 }
 
 .cards-footnotes .cards-footnotes-card-image {
@@ -22,4 +50,28 @@
 .cards-footnotes .cards-footnotes-card-image img {
   max-height: 48px;
   width: auto;
+}
+
+@media (width >= 900px) {
+  .cards-footnotes {
+    width: 81.25%;
+    margin-inline: 9.375% 0;
+    padding-block: 36px 12px;
+  }
+
+  .cards-footnotes > ul {
+    gap: 12px;
+  }
+
+  .cards-footnotes > ul > li:last-child:has(.cards-footnotes-card-body > p:only-child > a:only-child) {
+    margin-top: 12px;
+  }
+
+  .cards-footnotes .cards-footnotes-card-body p {
+    font-size: 15.6px;
+  }
+
+  .cards-footnotes .cards-footnotes-card-body a:any-link {
+    padding-bottom: 4px;
+  }
 }

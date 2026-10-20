@@ -1,61 +1,270 @@
+/* source: SinglePlanHighlight (navy Region__Background panel + white Plan card) */
+.columns-offer {
+  box-sizing: border-box;
+  padding: 45px 10.83px;
+  border-radius: 10px;
+  background-color: var(--xero-navy);
+}
+
 .columns-offer > div {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 45px;
 }
 
-.columns-offer .columns-offer-text > :first-child,
+/* text column */
+.columns-offer .columns-offer-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.columns-offer .columns-offer-text h2 {
+  margin: 0;
+  color: var(--xero-white);
+  font-size: var(--heading-font-size-xl);
+  line-height: 1.1;
+  letter-spacing: normal;
+}
+
+.columns-offer .columns-offer-text > p {
+  margin: 30px 0 0;
+  color: var(--xero-white);
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.columns-offer .columns-offer-text > :first-child {
+  margin-top: 0;
+}
+
+/* CTA row: button + text link */
+.columns-offer .columns-offer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 20px 10px;
+  margin-top: 30px;
+}
+
+.columns-offer .columns-offer-actions p {
+  margin: 0;
+}
+
+main .columns-offer .columns-offer-actions a.button:any-link {
+  min-height: 40px;
+  border-radius: 5px;
+  padding: 0 11px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 36px;
+}
+
+/* source CTA is the Xero blue button (rgb(31, 101, 214)) */
+main .columns-offer .columns-offer-actions a.button.primary:any-link {
+  border-color: var(--button-accent-bg);
+  background-color: var(--button-accent-bg);
+  color: var(--button-accent-color);
+}
+
+main .columns-offer .columns-offer-actions a.button.primary:hover,
+main .columns-offer .columns-offer-actions a.button.primary:focus-visible {
+  border-color: var(--button-accent-bg-hover);
+  background-color: var(--button-accent-bg-hover);
+  color: var(--button-accent-color);
+}
+
+.columns-offer .columns-offer-actions a:any-link:not(.button) {
+  color: var(--xero-white);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18.2px;
+  text-decoration-color: rgb(0 120 200);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.columns-offer .columns-offer-actions a:not(.button):hover {
+  color: var(--xero-white);
+}
+
+/* offer card */
+.columns-offer .columns-offer-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 20px;
+  border-radius: 5px;
+  background-color: var(--xero-white);
+  color: var(--xero-navy);
+  text-align: center;
+}
+
+.columns-offer .columns-offer-card > p {
+  margin: 10px 0 0;
+}
+
 .columns-offer .columns-offer-card > :first-child {
   margin-top: 0;
 }
 
-.columns-offer .columns-offer-card {
-  padding: 32px 24px;
-  border-radius: 8px;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  text-align: center;
+.columns-offer .columns-offer-card .columns-offer-label {
+  font-size: 18.3px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .columns-offer .columns-offer-card .columns-offer-stat {
-  margin: 8px 0;
-  font-size: var(--heading-font-size-xxl);
   font-weight: 700;
-  line-height: 1;
 }
 
+.columns-offer .columns-offer-card .columns-offer-stat strong {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.columns-offer .columns-offer-card .columns-offer-currency {
+  align-self: end;
+  font-size: 26.7px;
+  line-height: normal;
+  text-align: right;
+}
+
+.columns-offer .columns-offer-card .columns-offer-amount {
+  font-size: 60px;
+  line-height: 0.9;
+}
+
+.columns-offer .columns-offer-card .columns-offer-note {
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+/* tick list */
 .columns-offer .columns-offer-card ul {
+  margin: 30px 0 0;
+  padding: 0;
   list-style: none;
-  padding-left: 0;
+  font-size: 14px;
+  line-height: 1.3;
   text-align: left;
 }
 
 .columns-offer .columns-offer-card li {
   position: relative;
-  padding-left: 28px;
+  min-height: 20px;
+  margin: 0;
+  padding-left: 25px;
 }
 
-/* decorative tick marker */
+.columns-offer .columns-offer-card li + li {
+  margin-top: 10px;
+}
+
 .columns-offer .columns-offer-card li::before {
   content: '';
   position: absolute;
-  top: 0.3em;
-  left: 4px;
-  width: 6px;
-  height: 11px;
-  border: solid currentcolor;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+  top: 2px;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none' stroke='%2300824d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5C4.33 11.53 5.37 12.71 6.6 13.83c.68.62.8.71 1.05-.12C8.84 9.75 12.4 6.07 15 3'/%3E%3C/svg%3E") no-repeat center / 18px 18px;
 }
 
 @media (width >= 900px) {
-  .columns-offer > div {
-    flex-direction: row;
-    align-items: center;
-    gap: 48px;
+  .columns-offer {
+    padding: 72px 14.4px;
+    border-radius: var(--radius-panel);
   }
 
-  .columns-offer > div > div {
-    flex: 1;
+  .columns-offer > div {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 28.8px;
+  }
+
+  .columns-offer .columns-offer-text {
+    grid-column: 2 / span 5;
+  }
+
+  /* source copy box is 80% of the column; Inter sets wider than National2, so the
+     heading keeps the full column to stay on one line like the source */
+  .columns-offer .columns-offer-text > :not(h2) {
+    max-width: 80%;
+  }
+
+  .columns-offer .columns-offer-card {
+    grid-column: 8 / span 4;
+    padding: 36px 24px;
+    border-radius: 6px;
+  }
+
+  .columns-offer .columns-offer-text h2 {
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .columns-offer .columns-offer-text > p {
+    margin-top: 36px;
+    font-size: var(--body-font-size-m);
+  }
+
+  .columns-offer .columns-offer-actions {
+    gap: 24px 12px;
+    margin-top: 36px;
+  }
+
+  main .columns-offer .columns-offer-actions a.button:any-link {
+    min-height: 36px;
+    border-radius: 6px;
+    padding: 0 14px;
+    font-size: 15px;
+    line-height: 32px;
+  }
+
+  .columns-offer .columns-offer-actions a:any-link:not(.button) {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .columns-offer .columns-offer-card > p {
+    margin-top: 12px;
+  }
+
+  .columns-offer .columns-offer-card .columns-offer-label {
+    font-size: var(--heading-font-size-l);
+    line-height: 1.15;
+  }
+
+  .columns-offer .columns-offer-card .columns-offer-currency {
+    font-size: 32.04px;
+  }
+
+  .columns-offer .columns-offer-card .columns-offer-amount {
+    font-size: 72px;
+  }
+
+  .columns-offer .columns-offer-card .columns-offer-note {
+    font-size: 15.6px;
+  }
+
+  .columns-offer .columns-offer-card ul {
+    margin-top: 36px;
+    font-size: 15px;
+    line-height: 1.2;
+  }
+
+  .columns-offer .columns-offer-card li {
+    padding-left: 30px;
+  }
+
+  .columns-offer .columns-offer-card li + li {
+    margin-top: 12px;
+  }
+
+  .columns-offer .columns-offer-card li::before {
+    top: 2.4px;
   }
 }

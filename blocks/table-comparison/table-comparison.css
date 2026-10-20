@@ -1,19 +1,51 @@
+/* Block: table-comparison -- values from https://www.xero.com/au/partner-programme/ computed styles */
+
+.table-comparison {
+  position: relative;
+  isolation: isolate;
+}
+
 .table-comparison .table-comparison-scroller {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
 }
 
+.table-comparison .table-comparison-scroller:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* source: fixed layout, ~151.66px per column at 390px, scrolls horizontally */
 .table-comparison table {
   width: 100%;
-  min-width: 600px;
+  min-width: calc(var(--table-comparison-columns, 5) * 151.66px);
+  table-layout: fixed;
   border-collapse: collapse;
+  border-spacing: 0;
+  color: var(--xero-navy);
+}
+
+.table-comparison thead {
+  border-bottom: 2px solid var(--xero-navy);
+}
+
+.table-comparison tbody tr {
+  border-bottom: 1px solid var(--xero-navy);
 }
 
 .table-comparison th,
 .table-comparison td {
-  padding: 12px 8px;
-  border-bottom: 1px solid currentcolor;
-  vertical-align: middle;
+  padding: 10px;
+  background-color: var(--xero-white);
+  color: var(--xero-navy);
+  font-size: 15px;
+}
+
+.table-comparison th {
+  font-weight: 700;
+  line-height: 16.5px;
+  vertical-align: top;
 }
 
 .table-comparison thead th {
@@ -22,7 +54,17 @@
 
 .table-comparison tbody th {
   text-align: left;
-  font-weight: inherit;
+}
+
+.table-comparison td {
+  font-weight: 400;
+  line-height: 18.75px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table-comparison .table-comparison-corner {
+  padding: 1px;
 }
 
 .table-comparison th > p,
@@ -30,54 +72,66 @@
   margin: 0;
 }
 
-.table-comparison td {
-  text-align: center;
+/* secondary note under a value, e.g. "$5 per additional user" */
+.table-comparison td > p.table-comparison-note {
+  margin-top: 12px;
+  color: rgb(51 57 94);
+  font-size: 15px;
+  line-height: 18px;
 }
 
-/* keep the feature label column visible while scrolling */
+/* sticky label column while scrolling */
 .table-comparison tbody th,
-.table-comparison thead th:first-child {
+.table-comparison thead tr > :first-child {
   position: sticky;
   left: 0;
-  background-color: var(--background-color, #fff);
+  z-index: 1;
 }
 
-.table-comparison .table-comparison-icon {
-  position: relative;
-  display: inline-block;
+.table-comparison tbody th::after,
+.table-comparison thead tr > :first-child::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
   width: 20px;
-  height: 20px;
-  vertical-align: middle;
+  background: linear-gradient(to right, rgb(0 8 86 / 15%), rgb(0 8 86 / 0%));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
 }
 
-/* tick */
-.table-comparison .table-comparison-included::before {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 6px;
-  width: 6px;
-  height: 12px;
-  border: solid currentcolor;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+.table-comparison.is-scrolled tbody th::after,
+.table-comparison.is-scrolled thead tr > :first-child::after {
+  opacity: 1;
 }
 
-/* cross */
-.table-comparison .table-comparison-excluded::before,
-.table-comparison .table-comparison-excluded::after {
-  content: '';
-  position: absolute;
-  top: 9px;
-  left: 2px;
-  width: 16px;
-  height: 2px;
-  background-color: currentcolor;
-  transform: rotate(45deg);
+/* tick / cross icons */
+.table-comparison .table-comparison-icon {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  vertical-align: baseline;
 }
 
-.table-comparison .table-comparison-excluded::after {
-  transform: rotate(-45deg);
+.table-comparison .table-comparison-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.table-comparison .table-comparison-included svg {
+  stroke: rgb(0 130 77);
+}
+
+.table-comparison .table-comparison-excluded svg {
+  stroke: rgb(0 8 86 / 70%);
 }
 
 /* visually hidden, available to assistive tech */
@@ -90,9 +144,149 @@
   white-space: nowrap;
 }
 
+/* row label with description tooltip */
+.table-comparison .table-comparison-info {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.table-comparison .table-comparison-info-text {
+  text-decoration: underline dotted;
+  text-decoration-color: var(--xero-blue);
+  text-underline-offset: 3px;
+}
+
+.table-comparison .table-comparison-info-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid currentcolor;
+  border-radius: 50%;
+  box-sizing: border-box;
+  font-size: 11px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.table-comparison .table-comparison-info:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+.table-comparison .table-comparison-tooltip {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: var(--button-radius);
+  background-color: var(--xero-grey-blue);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.table-comparison .table-comparison-tooltip[hidden] {
+  display: none;
+}
+
+.table-comparison .table-comparison-tooltip p {
+  margin: 0;
+}
+
+/* scroll buttons (shown only when the table overflows) */
+.table-comparison .table-comparison-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 55px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: var(--xero-navy);
+  box-shadow: rgb(0 8 86 / 15%) 0 2.5px 10px 0;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.table-comparison .table-comparison-nav[hidden] {
+  display: none;
+}
+
+.table-comparison .table-comparison-next {
+  right: 0;
+  border-radius: 5px 0 0 5px;
+}
+
+.table-comparison .table-comparison-prev {
+  left: 0;
+  border-radius: 0 5px 5px 0;
+}
+
+.table-comparison .table-comparison-prev svg {
+  transform: scaleX(-1);
+}
+
+.table-comparison .table-comparison-nav svg {
+  width: 14.4px;
+  height: 14.4px;
+  fill: none;
+  stroke: var(--xero-white);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.table-comparison .table-comparison-nav:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
 @media (width >= 900px) {
+  .table-comparison table {
+    min-width: 0;
+  }
+
   .table-comparison th,
   .table-comparison td {
-    padding: 16px;
+    padding: 12px;
+  }
+
+  .table-comparison th {
+    font-size: 18px;
+    line-height: 23.4px;
+  }
+
+  .table-comparison td {
+    font-size: 15.6px;
+    line-height: 19.5px;
+  }
+
+  .table-comparison .table-comparison-corner {
+    padding: 1px;
+  }
+
+  .table-comparison .table-comparison-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .table-comparison tbody th::after,
+  .table-comparison thead tr > :first-child::after {
+    width: 24px;
   }
 }

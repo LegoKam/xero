@@ -1,16 +1,21 @@
+/* cards-promo: grey-blue promo panels (source: Row > Col > Block__Element on xero.com/au) */
 .cards-promo > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 10px;
 }
 
 .cards-promo > ul > li {
   display: flex;
   flex-direction: column;
-  padding: 32px 24px;
+  justify-content: space-between;
+  margin: 0;
+  padding: 45px 10.83px 0;
+  background-color: var(--xero-grey-blue);
+  border-radius: 0;
   text-align: center;
 }
 
@@ -19,26 +24,87 @@
   order: 0;
 }
 
-.cards-promo .cards-promo-card-body > :first-child {
-  margin-top: 0;
+.cards-promo .cards-promo-card-body > * {
+  margin: 0;
+}
+
+.cards-promo .cards-promo-card-body > * + * {
+  margin-top: 30px;
+}
+
+.cards-promo .cards-promo-card-body h2 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: normal;
+  color: var(--xero-navy);
+}
+
+.cards-promo .cards-promo-card-body p {
+  font-size: 16px;
+  line-height: 20.8px;
+  color: var(--xero-navy);
+}
+
+.cards-promo .cards-promo-card-body a:any-link {
+  text-underline-offset: 2px;
 }
 
 .cards-promo .cards-promo-card-image {
   order: 1;
   margin-top: auto;
-  padding-top: 24px;
+  padding-top: 30px;
   line-height: 0;
 }
 
-.cards-promo > ul > li img {
-  width: 100%;
-  max-width: 400px;
+.cards-promo .cards-promo-card-image img {
+  display: block;
+  width: 229.875px;
+  max-width: 100%;
   height: auto;
+  margin: 0 auto;
   object-fit: contain;
 }
 
 @media (width >= 900px) {
+  .cards-promo {
+    max-width: 1123px;
+    margin: 0 auto;
+  }
+
   .cards-promo > ul {
     grid-template-columns: repeat(2, 1fr);
+    gap: 28.8px;
+  }
+
+  .cards-promo > ul > li {
+    padding: 60px 57.6px 0;
+  }
+
+  .cards-promo .cards-promo-card-body > * + * {
+    margin-top: 36px;
+  }
+
+  .cards-promo .cards-promo-card-body h2 {
+    font-size: 32.04px;
+    line-height: 36.846px;
+    letter-spacing: -0.64px;
+  }
+
+  .cards-promo .cards-promo-card-body p {
+    font-size: 18px;
+    line-height: 23.4px;
+  }
+
+  .cards-promo .cards-promo-card-body a:any-link {
+    text-underline-offset: 2.4px;
+  }
+
+  .cards-promo .cards-promo-card-image {
+    padding-top: 36px;
+  }
+
+  .cards-promo .cards-promo-card-image img {
+    width: 316.797px;
   }
 }
