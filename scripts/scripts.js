@@ -155,8 +155,11 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
+    const headerLoaded = loadHeader(doc.querySelector('header'));
     decorateMain(main);
     preloadOf1Sdk(main);
+    // reveal the page only once the tall promo header is in, so main never shifts down
+    await headerLoaded;
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }
@@ -176,8 +179,6 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  loadHeader(doc.querySelector('header'));
-
   const main = doc.querySelector('main');
   await loadSections(main);
 
