@@ -12,14 +12,26 @@
  * governing permissions and limitations under the License.
  */
 
-/* fallback font metrics matched to Inter to limit layout shift while it loads */
+/* fallback font metrics matched to Inter to limit layout shift while it loads;
+   bold gets its own face because Arial Bold is relatively wider than Arial Regular */
 @font-face {
   font-family: inter-fallback;
-  size-adjust: 107.64%;
-  ascent-override: 90%;
-  descent-override: 22.43%;
+  font-weight: 400;
+  size-adjust: 107.12%;
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
   line-gap-override: 0%;
-  src: local('Arial');
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans');
+}
+
+@font-face {
+  font-family: inter-fallback;
+  font-weight: 700;
+  size-adjust: 103%;
+  ascent-override: 94.05%;
+  descent-override: 23.42%;
+  line-gap-override: 0%;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold');
 }
 
 body {

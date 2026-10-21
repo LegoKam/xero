@@ -1,7 +1,5 @@
-import { decorateMain } from '../../scripts/scripts.js';
+import { decorateMain, OF1_WORKER_URL } from '../../scripts/scripts.js';
 import { loadSections, readBlockConfig } from '../../scripts/aem.js';
-
-const DEFAULT_WORKER_URL = 'https://of1-gen-web-service.franklin-prod.workers.dev';
 
 /**
  * Legacy EDS decoration hook — passed to the SDK for non-template-routed
@@ -19,7 +17,7 @@ export default async function decorate(block) {
   const config = readBlockConfig(block);
 
   if (!config['api-endpoint']) {
-    config['api-endpoint'] = DEFAULT_WORKER_URL;
+    config['api-endpoint'] = OF1_WORKER_URL;
   }
   if (!config.domain) {
     const host = window.location.hostname;

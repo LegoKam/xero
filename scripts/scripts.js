@@ -10,7 +10,25 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  readBlockConfig,
 } from './aem.js';
+
+export const OF1_WORKER_URL = 'https://of1-gen-web-service.franklin-prod.workers.dev';
+
+/**
+ * Starts fetching the OF1 client SDK in parallel with the of1 block's own JS/CSS,
+ * since the block renders its LCP heading only after the SDK has loaded.
+ * @param {Element} main The container element
+ */
+function preloadOf1Sdk(main) {
+  const block = main.querySelector('.of1');
+  if (!block) return;
+  const endpoint = readBlockConfig(block)['api-endpoint'] || OF1_WORKER_URL;
+  const link = document.createElement('link');
+  link.rel = 'modulepreload';
+  link.href = `${endpoint}/sdk/of1-client.js`;
+  document.head.append(link);
+}
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -138,6 +156,7 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
+    preloadOf1Sdk(main);
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }

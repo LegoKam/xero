@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-10-21T05:49:10.877Z",
+        "reason": "agent: Inter is the documented open-licence substitute for Xero's licensed National2 (styles/brand.css header)"
+      }
+    ]
+  }
+}

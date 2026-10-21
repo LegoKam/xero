@@ -192,10 +192,15 @@ function buildSelectorTrigger(parts) {
   button.type = 'button';
   button.setAttribute('aria-expanded', 'false');
   button.setAttribute('aria-haspopup', 'dialog');
-  if (parts.heading) button.setAttribute('aria-label', parts.heading.textContent.trim());
   const text = el('span', 'footer-selector-toggle-text');
   text.textContent = parts.toggleLabel ? parts.toggleLabel.textContent.trim() : '';
   button.append(icon('selector-toggle'), text);
+  // accessible name must start with the visible label (WCAG 2.5.3)
+  if (parts.heading) {
+    const purpose = el('span', 'footer-sr-only');
+    purpose.textContent = `, ${parts.heading.textContent.trim()}`;
+    button.append(purpose);
+  }
   trigger.append(button);
   return { trigger, button };
 }
