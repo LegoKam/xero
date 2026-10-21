@@ -1,0 +1,30 @@
+{
+ "phase":"base","newBlocks":[],
+ "alignment":"center",
+ "alignmentNotes":"hero (full-bleed bg image + left h1, white text) and hero-split (left/right) are not centered; use hero-split for leads and keep text-light. cards/columns default left; keep copy short. Never restyle reused blocks.",
+ "usableBlocks":{
+  "hero":{"fingerprint":"1 row x 1 cell: picture + h1","note":"bg image hero; no JS"},
+  "hero-split":{"fingerprint":"1 row x 2 cells: text (eyebrow/h1/p/CTA links) + media","note":"preferred lead"},
+  "cards":{"fingerprint":"N rows x 2 cells: image cell + body cell (h3,p,link)"},
+  "cards-features":{"fingerprint":"N rows x 1 cell: bold title + description + optional link; 3 or 4 multiples, ticks auto","variants":["ticks","no-ticks"]},
+  "cards-promo":{"fingerprint":"see README"},
+  "cards-testimonial":{"fingerprint":"see README"},
+  "columns":{"fingerprint":"N rows x 2 cells: text + picture"},
+  "columns-intro":{"fingerprint":"1 row x 2 cells intro + content"},
+  "columns-feature":{"fingerprint":"1 row x 2 cells"},
+  "columns-offer":{"fingerprint":"1 row x 2 cells: text+CTAs | offer card (label, price stat, note, tick list)","note":"price/best-value card"},
+  "table-comparison":{"fingerprint":"header row + N rows x (1 label cell + K value cells); values Included/Excluded become icons; 2 paragraphs in value cell = value+note"},
+  "tabs-pricing":{"fingerprint":"see README; plan tiers"},
+  "quote-testimonial":{"fingerprint":"see README"},
+  "accordion-faq":{"fingerprint":"N rows x 2 cells: question + answer"}
+ },
+ "excluded":["video","cards-logos","cards-directory","cards-footnotes","cards-industry","header","footer","fragment"],
+ "intents":{
+  "recommendation":["hero-split -> columns-intro -> cards-features -> cards -> CTA(columns-offer)"],
+  "comparison":["hero-split -> table-comparison (-> cards CTA)"],
+  "deep-dive":["hero-split -> table-comparison spec sheet (-> accordion-faq)"],
+  "budget":["columns-offer best-value -> cards -> table-comparison price breakdown -> CTA"],
+  "discovery":["hero-split -> columns-intro -> cards -> cards-features -> CTA"]
+ },
+ "notes":"Site content is mostly boilerplate (live pages only hero/columns/cards); fingerprints for custom blocks are from block JS + READMEs, not live pages. Reuse covers all shapes; no new blocks."
+}

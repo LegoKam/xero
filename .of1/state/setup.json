@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "stateDir": "/Users/karadhak/Workspace/customers/Xero/CODE/xero/.of1/state",
+  "of1Repo": "/Users/karadhak/Workspace/customers/Xero/CODE/xero",
+  "owner": "LegoKam",
+  "repo": "xero",
+  "branch": "main",
+  "tokenSource": "project:.hlx",
+  "tokenFile": "/Users/karadhak/Workspace/customers/Xero/CODE/xero/.hlx/.da-token.json",
+  "tokenFromEnv": false,
+  "playwrightCli": "/opt/homebrew/bin/playwright-cli",
+  "playwrightFallback": "",
+  "warnings": 1,
+  "verifiedAt": "2026-10-21T01:36:02Z"
+}

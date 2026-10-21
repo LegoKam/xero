@@ -1,0 +1,16 @@
+{
+  "stage": 3,
+  "skill": "of1-publish",
+  "status": "done",
+  "summary": "Synced (14 knowledge chunks) + all 7 pre-launch checks passed.",
+  "deliverables": [
+    {
+      "url": "https://main--xero--LegoKam.aem.page/deliverables/index.html",
+      "label": "Demo hub"
+    },
+    {
+      "url": "https://main--xero--LegoKam.aem.page/of1",
+      "label": "OF1 page"
+    }
+  ]
+}

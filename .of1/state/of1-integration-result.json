@@ -1,0 +1,18 @@
+{
+  "status": "done",
+  "summary": "OF1 integrated and published live for www.xero.com; all 7 pre-launch checks pass (templates split into one section per block so generate streams multiple sections)",
+  "deliverables": [
+    {
+      "url": "https://main--xero--LegoKam.aem.page/of1",
+      "label": "OF1 page"
+    },
+    {
+      "url": "https://main--xero--LegoKam.aem.page/deliverables/index.html",
+      "label": "Demo hub"
+    }
+  ],
+  "checks": {
+    "passed": 7,
+    "total": 7
+  }
+}

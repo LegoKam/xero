@@ -1,0 +1,258 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - generic [ref=e6]:
+            - paragraph [ref=e7]: Get 90% off your plan for your first 3 months
+            - paragraph [ref=e8]: Offer ends 2 November 2026. Terms apply.
+            - paragraph [ref=e9]:
+              - link "Buy now" [ref=e10] [cursor=pointer]:
+                - /url: https://www.xero.com/au/pricing-plans/
+          - timer "12 Days, 11 Hours, 14 Mins, 40 Secs" [ref=e11]: 12 Days 11 Hours 14 Mins 40 Secs
+        - button "Dismiss offer banner" [ref=e12] [cursor=pointer]
+      - navigation "Main navigation" [ref=e16]:
+        - link "Xero homepage" [ref=e18] [cursor=pointer]:
+          - /url: /au
+          - generic [ref=e20]: Xero homepage
+        - list [ref=e23]:
+          - listitem [ref=e24]:
+            - link "Pricing" [ref=e25] [cursor=pointer]:
+              - /url: /au/pricing-plans
+          - listitem [ref=e26]:
+            - button "Features" [ref=e27] [cursor=pointer]: Features
+          - listitem [ref=e29]:
+            - button "Small Business" [ref=e30] [cursor=pointer]: Small Business
+          - listitem [ref=e32]:
+            - button "Accountants & Bookkeepers" [ref=e33] [cursor=pointer]: Accountants & Bookkeepers
+          - listitem [ref=e35]:
+            - button "Support" [ref=e36] [cursor=pointer]: Support
+        - generic [ref=e39]:
+          - link "Get one month free" [ref=e40] [cursor=pointer]:
+            - /url: /au/pricing-plans
+          - link "Log in" [ref=e41] [cursor=pointer]:
+            - /url: https://login.xero.com/identity/user/login
+  - main [ref=e42]:
+    - generic [ref=e45]:
+      - generic [ref=e46]:
+        - heading "Small business accounting to set you free" [level=1] [ref=e47]
+        - paragraph [ref=e48]: Accounting software made for small businesses and sole traders.
+        - paragraph [ref=e50]:
+          - link "Compare plans and pricing" [ref=e51] [cursor=pointer]:
+            - /url: /au/pricing-plans
+      - img "A small business owner flies on his jackhammer" [ref=e54]
+    - generic [ref=e59]:
+      - heading "Join over 4.6 million subscribers using Xero" [level=2] [ref=e60]:
+        - strong [ref=e61]: Join over 4.6 million subscribers using Xero
+      - paragraph [ref=e62]: Awards and recognition for our work
+      - paragraph [ref=e63]:
+        - img "buyers choice award" [ref=e65]
+      - paragraph [ref=e66]:
+        - img "Capterra shortlist 2025" [ref=e68]
+      - paragraph [ref=e69]:
+        - img "Software Advice front runners 2025" [ref=e71]
+      - paragraph [ref=e72]:
+        - img "Get app award for 2025" [ref=e74]
+      - paragraph [ref=e75]:
+        - img "finder award" [ref=e77]
+      - paragraph [ref=e78]:
+        - img "G2 leader award for 2025" [ref=e80]
+      - paragraph [ref=e81]:
+        - img "g2 users love us award" [ref=e83]
+      - paragraph [ref=e84]:
+        - img "au accounting leader" [ref=e86]
+    - generic [ref=e90]:
+      - generic [ref=e91]:
+        - heading "Get more done with JAX, your new AI financial superagent" [level=2] [ref=e92]
+        - paragraph [ref=e93]: "While you are working in Xero, JAX takes care of routine tasks and delivers actionable insights so you can focus on growing your business. With JAX you can:"
+        - list [ref=e94]:
+          - listitem [ref=e95]: Get answers to your business questions with access to real-time public information.
+          - listitem [ref=e96]: Explore your financial data with instant, easy-to-understand answers.
+          - listitem [ref=e97]: Automate tasks like create and send quotes and invoices with JAX in Xero, WhatsApp, SMS and email.
+        - paragraph [ref=e98]:
+          - link "Explore JAX, Xero's new AI financial superagent" [ref=e99] [cursor=pointer]:
+            - /url: /au/ai-in-accounting/jax
+      - generic [ref=e100]:
+        - generic:
+          - img "JAX"
+    - generic [ref=e101]:
+      - generic [ref=e102]:
+        - heading "Run your business, but better" [level=2] [ref=e103]
+        - paragraph [ref=e104]:
+          - text: Smart features designed for small businesses and sole traders.
+          - link "Explore our accounting software" [ref=e105] [cursor=pointer]:
+            - /url: /au/accounting-software
+          - text: .
+        - list [ref=e106]:
+          - listitem [ref=e107]:
+            - table [ref=e108]:
+              - rowgroup [ref=e109]:
+                - row "Cards Grid" [ref=e110]:
+                  - cell "Cards Grid" [ref=e111]
+                - row "Keep on top of your cash flow" [ref=e112]:
+                  - cell [ref=e113]
+                  - cell "Keep on top of your cash flow" [ref=e114]:
+                    - heading "Keep on top of your cash flow" [level=2] [ref=e115]
+                - row [ref=e116]:
+                  - cell [ref=e117]
+                  - cell [ref=e118]
+          - listitem [ref=e119]:
+            - table [ref=e120]:
+              - rowgroup [ref=e121]:
+                - row "Cards Grid" [ref=e122]:
+                  - cell "Cards Grid" [ref=e123]
+                - row "Smart online invoicing" [ref=e124]:
+                  - cell [ref=e125]
+                  - cell "Smart online invoicing" [ref=e126]:
+                    - heading "Smart online invoicing" [level=2] [ref=e127]
+                - row [ref=e128]:
+                  - cell [ref=e129]
+                  - cell [ref=e130]
+          - listitem [ref=e131]:
+            - table [ref=e132]:
+              - rowgroup [ref=e133]:
+                - row "Cards Grid" [ref=e134]:
+                  - cell "Cards Grid" [ref=e135]
+                - row "Everything in one place" [ref=e136]:
+                  - cell [ref=e137]
+                  - cell "Everything in one place" [ref=e138]:
+                    - heading "Everything in one place" [level=2] [ref=e139]
+                - row [ref=e140]:
+                  - cell [ref=e141]
+                  - cell [ref=e142]
+        - heading "Plans to suit your business" [level=2] [ref=e143]
+      - generic [ref=e145]:
+        - generic [ref=e147]:
+          - paragraph [ref=e148]: Usually $35
+          - paragraph [ref=e149]:
+            - strong [ref=e150]: Now
+            - strong [ref=e151]: $1.75
+          - paragraph [ref=e152]: AUD per month
+          - paragraph [ref=e153]:
+            - strong [ref=e154]: Save $199.50
+            - text: over 6 months
+          - paragraph [ref=e155]: An easy financial foundation - track cash flow with the essentials.
+        - heading "Ignite" [level=3] [ref=e158]
+        - paragraph [ref=e161]:
+          - link "Buy now" [ref=e162] [cursor=pointer]:
+            - /url: /au/signup/ignite
+          - link "Learn more" [ref=e163] [cursor=pointer]:
+            - /url: /au/pricing-plans/ignite
+        - generic [ref=e165]:
+          - paragraph [ref=e166]: Usually $75
+          - paragraph [ref=e167]:
+            - strong [ref=e168]: Now
+            - strong [ref=e169]: $3.75
+          - paragraph [ref=e170]: AUD per month
+          - paragraph [ref=e171]:
+            - strong [ref=e172]: Save $427.50
+            - text: over 6 months
+          - paragraph [ref=e173]: Go beyond the basics - automate tasks and access performance dashboards.
+        - heading "Grow" [level=3] [ref=e176]
+        - paragraph [ref=e179]:
+          - link "Buy now" [ref=e180] [cursor=pointer]:
+            - /url: /au/signup/grow
+          - link "Learn more" [ref=e181] [cursor=pointer]:
+            - /url: /au/pricing-plans/grow
+        - generic [ref=e183]:
+          - paragraph [ref=e184]: Usually $100
+          - paragraph [ref=e185]:
+            - strong [ref=e186]: Now
+            - strong [ref=e187]: $5
+          - paragraph [ref=e188]: AUD per month
+          - paragraph [ref=e189]:
+            - strong [ref=e190]: Save $570
+            - text: over 6 months
+          - paragraph [ref=e191]: Optimise profitability - tailor your insights for greater control.
+        - heading "Comprehensive" [level=3] [ref=e194]
+        - paragraph [ref=e197]:
+          - link "Buy now" [ref=e198] [cursor=pointer]:
+            - /url: /au/signup/comprehensive
+          - link "Learn more" [ref=e199] [cursor=pointer]:
+            - /url: /au/pricing-plans/comprehensive
+        - generic [ref=e201]:
+          - paragraph [ref=e202]: Usually $130
+          - paragraph [ref=e203]:
+            - strong [ref=e204]: Now
+            - strong [ref=e205]: $6.50
+          - paragraph [ref=e206]: AUD per month
+          - paragraph [ref=e207]:
+            - strong [ref=e208]: Save $741
+            - text: over 6 months
+          - paragraph [ref=e209]: Future proof your scaling business - with advanced tools and analytics.
+        - heading "Ultimate 10 Ultimate 10" [level=3] [ref=e212]:
+          - strong [ref=e213]: Ultimate 10
+          - text: Ultimate 10
+        - paragraph [ref=e216]:
+          - link "Buy now" [ref=e217] [cursor=pointer]:
+            - /url: /au/signup/ultimate-10
+          - link "Learn more" [ref=e218] [cursor=pointer]:
+            - /url: /au/pricing-plans/ultimate-10
+      - paragraph [ref=e220]:
+        - link "Compare all plans" [ref=e221] [cursor=pointer]:
+          - /url: /au/pricing-plans
+    - generic [ref=e223]:
+      - heading "See how Xero works for your business" [level=2] [ref=e224]
+      - paragraph [ref=e225]:
+        - text: Manage your finances, control cash flow and integrate with apps. See how Xero can help your business type or industry.
+        - link "See all business types." [ref=e226] [cursor=pointer]:
+          - /url: /au/small-businesses
+      - list [ref=e227]:
+        - listitem [ref=e228]:
+          - table [ref=e229]:
+            - rowgroup [ref=e230]:
+              - row "Cards Grid" [ref=e231]:
+                - cell "Cards Grid" [ref=e232]
+              - row [ref=e233]:
+                - cell [ref=e234]
+                - cell [ref=e235]
+              - row [ref=e236]:
+                - cell [ref=e237]
+                - cell [ref=e238]
+        - listitem [ref=e239]:
+          - table [ref=e240]:
+            - rowgroup [ref=e241]:
+              - row "Cards Grid" [ref=e242]:
+                - cell "Cards Grid" [ref=e243]
+              - row [ref=e244]:
+                - cell [ref=e245]
+                - cell [ref=e246]
+              - row [ref=e247]:
+                - cell [ref=e248]
+                - cell [ref=e249]
+        - listitem [ref=e250]:
+          - table [ref=e251]:
+            - rowgroup [ref=e252]:
+              - row "Cards Grid" [ref=e253]:
+                - cell "Cards Grid" [ref=e254]
+              - row [ref=e255]:
+                - cell [ref=e256]
+                - cell [ref=e257]
+              - row [ref=e258]:
+                - cell [ref=e259]
+                - cell [ref=e260]
+    - generic [ref=e261]:
+      - paragraph [ref=e266]:
+        - link "Learn about Xero app integrations" [ref=e267] [cursor=pointer]:
+          - /url: /au/accounting-software/app-integrations
+      - paragraph [ref=e272]:
+        - link "Xero for accountants and bookkeepers" [ref=e273] [cursor=pointer]:
+          - /url: /au/accountants-bookkeepers
+      - paragraph [ref=e278]:
+        - link "Get paid faster" [ref=e279] [cursor=pointer]:
+          - /url: /au/accounting-software/accept-payments
+      - paragraph [ref=e284]:
+        - link "Apply now" [ref=e285] [cursor=pointer]:
+          - /url: /au/affiliate-program
+    - generic [ref=e287]:
+      - heading "Start using Xero for free" [level=2] [ref=e288]
+      - paragraph [ref=e289]: Access Xero features for 30 days, then decide which plan best suits your business.
+      - list [ref=e290]:
+        - listitem [ref=e291]:
+          - link "Try Xero for free" [ref=e292] [cursor=pointer]:
+            - /url: /au/signup
+        - listitem [ref=e293]:
+          - link "See all features" [ref=e294] [cursor=pointer]:
+            - /url: /au/accounting-software/all-features
+    - paragraph [ref=e297]: †Xero customers who use online invoice payments get paid up to twice as fast than those who don’t use online invoice payments.
+  - contentinfo

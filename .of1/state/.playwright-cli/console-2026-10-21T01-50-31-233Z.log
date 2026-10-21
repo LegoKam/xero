@@ -1,0 +1,3 @@
+[      80ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://main--xero--legokam.aem.page/content/nav.plain.html:0
+[     213ms] [WARNING] [of1] This site is not served through <ref>--<repo>--<org>.of1.live; falling back to api-endpoint, which will stop accepting anonymous browser calls. @ https://main--xero--legokam.of1.live/sdk/of1-client.js:54
+[     321ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://main--xero--legokam.aem.page/content/footer.plain.html:0

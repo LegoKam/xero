@@ -1,0 +1,12 @@
+{
+  "stage": 3,
+  "skill": "of1-build-templates",
+  "status": "review",
+  "deliverables": [
+    {
+      "url": "https://da.live/edit#/LegoKam/xero/templates",
+      "label": "Edit templates in DA"
+    }
+  ],
+  "summary": "Authored, previewed, and verified DA block templates in /templates."
+}

@@ -1,0 +1,36 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - generic [ref=e6]:
+            - paragraph [ref=e7]: Get 90% off your plan for your first 3 months
+            - paragraph [ref=e8]: Offer ends 2 November 2026. Terms apply.
+            - paragraph [ref=e9]:
+              - link "Buy now" [ref=e10] [cursor=pointer]:
+                - /url: https://www.xero.com/au/pricing-plans/
+          - timer "12 Days, 11 Hours, 3 Mins, 13 Secs" [ref=e11]: 12 Days 11 Hours 03 Mins 13 Secs
+        - button "Dismiss offer banner" [ref=e12] [cursor=pointer]
+      - navigation "Main navigation" [ref=e16]:
+        - link "Xero homepage" [ref=e18] [cursor=pointer]:
+          - /url: /au
+          - generic [ref=e20]: Xero homepage
+        - list [ref=e23]:
+          - listitem [ref=e24]:
+            - link "Pricing" [ref=e25] [cursor=pointer]:
+              - /url: /au/pricing-plans
+          - listitem [ref=e26]:
+            - button "Features" [ref=e27] [cursor=pointer]: Features
+          - listitem [ref=e29]:
+            - button "Small Business" [ref=e30] [cursor=pointer]: Small Business
+          - listitem [ref=e32]:
+            - button "Accountants & Bookkeepers" [ref=e33] [cursor=pointer]: Accountants & Bookkeepers
+          - listitem [ref=e35]:
+            - button "Support" [ref=e36] [cursor=pointer]: Support
+        - generic [ref=e39]:
+          - link "Get one month free" [ref=e40] [cursor=pointer]:
+            - /url: /au/pricing-plans
+          - link "Log in" [ref=e41] [cursor=pointer]:
+            - /url: https://login.xero.com/identity/user/login
+  - main [ref=e42]
+  - contentinfo

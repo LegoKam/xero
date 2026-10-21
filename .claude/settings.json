@@ -1,0 +1,5 @@
+{
+  "enabledPlugins": {
+    "aem-edge-delivery-services@adobe-skills": true
+  }
+}

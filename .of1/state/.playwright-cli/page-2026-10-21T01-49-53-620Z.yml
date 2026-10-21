@@ -1,0 +1,252 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - generic [ref=e6]:
+            - paragraph [ref=e7]: Get 90% off your plan for your first 3 months
+            - paragraph [ref=e8]: Offer ends 2 November 2026. Terms apply.
+            - paragraph [ref=e9]:
+              - link "Buy now" [ref=e10] [cursor=pointer]:
+                - /url: https://www.xero.com/au/pricing-plans/
+          - timer "12 Days, 11 Hours, 9 Mins, 6 Secs" [ref=e229]: 12 Days 11 Hours 09 Mins 06 Secs
+        - button "Dismiss offer banner" [ref=e12] [cursor=pointer]
+      - navigation "Main navigation" [ref=e16]:
+        - link "Xero homepage" [ref=e18] [cursor=pointer]:
+          - /url: /au
+          - generic [ref=e20]: Xero homepage
+        - list [ref=e23]:
+          - listitem [ref=e24]:
+            - link "Pricing" [ref=e25] [cursor=pointer]:
+              - /url: /au/pricing-plans
+          - listitem [ref=e26]:
+            - button "Features" [ref=e27] [cursor=pointer]: Features
+          - listitem [ref=e29]:
+            - button "Small Business" [ref=e30] [cursor=pointer]: Small Business
+          - listitem [ref=e32]:
+            - button "Accountants & Bookkeepers" [ref=e33] [cursor=pointer]: Accountants & Bookkeepers
+          - listitem [ref=e35]:
+            - button "Support" [ref=e36] [cursor=pointer]: Support
+        - generic [ref=e39]:
+          - link "Get one month free" [ref=e40] [cursor=pointer]:
+            - /url: /au/pricing-plans
+          - link "Log in" [ref=e41] [cursor=pointer]:
+            - /url: https://login.xero.com/identity/user/login
+  - main [ref=e42]:
+    - generic [ref=e240]:
+      - heading "Something went wrong" [level=3] [ref=e241]
+      - paragraph [ref=e242]: "template not selected: no templates materialized in tenant config — run sync"
+      - button "Try again" [ref=e243] [cursor=pointer]
+  - contentinfo [ref=e61]:
+    - generic [ref=e63]:
+      - heading "Footer" [level=2] [ref=e64]
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - heading "Accounting software" [level=3] [ref=e67]
+          - list [ref=e68]:
+            - listitem [ref=e69]:
+              - link "How Xero accounting software works" [ref=e70] [cursor=pointer]:
+                - /url: /au/accounting-software/
+            - listitem [ref=e71]:
+              - link "Find an accountant or bookkeeper" [ref=e72] [cursor=pointer]:
+                - /url: /au/advisors/
+            - listitem [ref=e73]:
+              - link "Explore the Xero App Store" [ref=e74] [cursor=pointer]:
+                - /url: https://apps.xero.com/
+            - listitem [ref=e75]:
+              - link "Pricing" [ref=e76] [cursor=pointer]:
+                - /url: /au/pricing-plans/
+        - generic [ref=e77]:
+          - heading "Xero for" [level=3] [ref=e78]
+          - list [ref=e79]:
+            - listitem [ref=e80]:
+              - link "Accountants & bookkeepers" [ref=e81] [cursor=pointer]:
+                - /url: /au/accountants-bookkeepers/
+            - listitem [ref=e82]:
+              - link "Small business" [ref=e83] [cursor=pointer]:
+                - /url: /au/small-businesses/
+            - listitem [ref=e84]:
+              - link "App integrators" [ref=e85] [cursor=pointer]:
+                - /url: /au/integrators/
+            - listitem [ref=e86]:
+              - link "App developers" [ref=e87] [cursor=pointer]:
+                - /url: https://developer.xero.com/
+            - listitem [ref=e88]:
+              - link "Channel partners" [ref=e89] [cursor=pointer]:
+                - /url: /au/campaign/xero-partnership/
+            - listitem [ref=e90]:
+              - link "Affiliates" [ref=e91] [cursor=pointer]:
+                - /url: /au/affiliate-program/
+            - listitem [ref=e92]:
+              - link "End of Financial Year" [ref=e93] [cursor=pointer]:
+                - /url: /au/initiative/end-of-financial-year/
+            - listitem [ref=e94]:
+              - link "Payday Superannuation" [ref=e95] [cursor=pointer]:
+                - /url: /au/initiative/payday-super/
+            - listitem [ref=e96]:
+              - link "Self-employed" [ref=e97] [cursor=pointer]:
+                - /url: /au/small-businesses/self-employed/
+            - listitem [ref=e98]:
+              - link "Non-profit" [ref=e99] [cursor=pointer]:
+                - /url: /au/small-businesses/non-profit/
+            - listitem [ref=e100]:
+              - link "Real estate" [ref=e101] [cursor=pointer]:
+                - /url: /au/small-businesses/real-estate/
+            - listitem [ref=e102]:
+              - link "Construction" [ref=e103] [cursor=pointer]:
+                - /url: /au/small-businesses/construction/
+        - generic [ref=e104]:
+          - heading "Resources" [level=3] [ref=e105]
+          - list [ref=e106]:
+            - listitem [ref=e107]:
+              - link "Small business insights" [ref=e108] [cursor=pointer]:
+                - /url: /au/resources/small-business-insights/
+            - listitem [ref=e109]:
+              - link "Small business guides" [ref=e110] [cursor=pointer]:
+                - /url: /au/guides/
+            - listitem [ref=e111]:
+              - link "Small business templates" [ref=e112] [cursor=pointer]:
+                - /url: /au/templates/
+            - listitem [ref=e113]:
+              - link "Invoice template" [ref=e114] [cursor=pointer]:
+                - /url: /au/templates/invoice-template/
+            - listitem [ref=e115]:
+              - link "Payslip template" [ref=e116] [cursor=pointer]:
+                - /url: /au/templates/payslip-template/
+            - listitem [ref=e117]:
+              - link "Receipt template" [ref=e118] [cursor=pointer]:
+                - /url: /au/templates/receipt-template/
+            - listitem [ref=e119]:
+              - link "Calculators" [ref=e120] [cursor=pointer]:
+                - /url: /au/calculators/
+            - listitem [ref=e121]:
+              - link "Accounting glossary" [ref=e122] [cursor=pointer]:
+                - /url: /au/glossary/
+            - listitem [ref=e123]:
+              - link "Business resources" [ref=e124] [cursor=pointer]:
+                - /url: /au/resources/
+            - listitem [ref=e125]:
+              - link "Customer stories" [ref=e126] [cursor=pointer]:
+                - /url: /au/small-businesses/customers/
+            - listitem [ref=e127]:
+              - link "Refer a friend" [ref=e128] [cursor=pointer]:
+                - /url: https://referral.xero.com/
+        - generic [ref=e129]:
+          - heading "Popular features" [level=3] [ref=e130]
+          - list [ref=e131]:
+            - listitem [ref=e132]:
+              - link "Invoicing" [ref=e133] [cursor=pointer]:
+                - /url: /au/accounting-software/send-invoices/
+            - listitem [ref=e134]:
+              - link "Accept payments" [ref=e135] [cursor=pointer]:
+                - /url: /au/accounting-software/accept-payments/
+            - listitem [ref=e136]:
+              - link "Inventory management" [ref=e137] [cursor=pointer]:
+                - /url: /au/accounting-software/manage-inventory/
+            - listitem [ref=e138]:
+              - link "Payroll" [ref=e139] [cursor=pointer]:
+                - /url: /au/accounting-software/payroll/
+            - listitem [ref=e140]:
+              - link "Manage expenses" [ref=e141] [cursor=pointer]:
+                - /url: /au/accounting-software/claim-expenses/
+            - listitem [ref=e142]:
+              - link "JAX - Your AI finance partner" [ref=e143] [cursor=pointer]:
+                - /url: /au/ai-in-accounting/jax-vision/
+            - listitem [ref=e144]:
+              - link "See all features" [ref=e145] [cursor=pointer]:
+                - /url: /au/accounting-software/all-features/
+        - generic [ref=e146]:
+          - heading "Compare" [level=3] [ref=e147]
+          - list [ref=e148]:
+            - listitem [ref=e149]:
+              - link "Xero vs MYOB" [ref=e150] [cursor=pointer]:
+                - /url: /au/versus/myob-alternative/
+            - listitem [ref=e151]:
+              - link "Xero vs Hnry" [ref=e152] [cursor=pointer]:
+                - /url: /au/versus/hnry-alternative/
+            - listitem [ref=e153]:
+              - link "Xero vs Reckon" [ref=e154] [cursor=pointer]:
+                - /url: /au/versus/reckon-alternative/
+            - listitem [ref=e155]:
+              - link "Xero vs Quickbooks" [ref=e156] [cursor=pointer]:
+                - /url: https://www.xero.com/au/versus/quickbooks-alternative/
+        - generic [ref=e157]:
+          - heading "Company" [level=3] [ref=e158]
+          - list [ref=e159]:
+            - listitem [ref=e160]:
+              - link "About Xero" [ref=e161] [cursor=pointer]:
+                - /url: /au/about/
+            - listitem [ref=e162]:
+              - link "Get support" [ref=e163] [cursor=pointer]:
+                - /url: https://central.xero.com/
+            - listitem [ref=e164]:
+              - link "Innovation at Xero" [ref=e165] [cursor=pointer]:
+                - /url: https://innovations.xero.com/
+            - listitem [ref=e166]:
+              - link "Sustainability at Xero" [ref=e167] [cursor=pointer]:
+                - /url: /au/sustainability/
+            - listitem [ref=e168]:
+              - link "Governance and leadership" [ref=e169] [cursor=pointer]:
+                - /url: /au/investors/governance/
+            - listitem [ref=e170]:
+              - link "Blog" [ref=e171] [cursor=pointer]:
+                - /url: https://blog.xero.com/
+            - listitem [ref=e172]:
+              - link "Our brands" [ref=e173] [cursor=pointer]:
+                - /url: /au/about/our-brands/
+            - listitem [ref=e174]:
+              - link "Product updates" [ref=e175] [cursor=pointer]:
+                - /url: https://blog.xero.com/product-updates/
+            - listitem [ref=e176]:
+              - link "Careers" [ref=e177] [cursor=pointer]:
+                - /url: https://careers.xero.com/
+            - listitem [ref=e178]:
+              - link "Contact us" [ref=e179] [cursor=pointer]:
+                - /url: /au/about/contact/
+            - listitem [ref=e180]:
+              - link "Investors" [ref=e181] [cursor=pointer]:
+                - /url: /au/investors/
+            - listitem [ref=e182]:
+              - link "Media" [ref=e183] [cursor=pointer]:
+                - /url: /au/media/
+      - separator [ref=e184]
+      - generic [ref=e185]:
+        - generic [ref=e187]:
+          - paragraph [ref=e188]: © 2026 Xero Limited. All rights reserved. "Xero", "Beautiful business" and "Your business supercharged" are trademarks of Xero Limited.
+          - list [ref=e189]:
+            - listitem [ref=e190]:
+              - link "Legal" [ref=e191] [cursor=pointer]:
+                - /url: /au/legal/terms/
+            - listitem [ref=e192]:
+              - link "Privacy notice" [ref=e193] [cursor=pointer]:
+                - /url: /au/legal/privacy/
+            - listitem [ref=e194]:
+              - link "Sitemap" [ref=e195] [cursor=pointer]:
+                - /url: /au/sitemap/
+            - listitem [ref=e196]:
+              - link "Accessibility" [ref=e197] [cursor=pointer]:
+                - /url: /au/accessibility/
+            - listitem [ref=e198]:
+              - button "Manage cookies" [ref=e199] [cursor=pointer]
+        - generic [ref=e200]:
+          - generic [ref=e201]:
+            - img "The current region is Australia" [ref=e203]
+            - generic [ref=e204]: Region
+            - button "Change region" [ref=e205] [cursor=pointer]:
+              - generic [ref=e207]: Australia (AUD)
+          - list [ref=e209]:
+            - listitem [ref=e210]:
+              - link "Facebook" [ref=e211] [cursor=pointer]:
+                - /url: https://www.facebook.com/xero
+            - listitem [ref=e213]:
+              - link "Youtube" [ref=e214] [cursor=pointer]:
+                - /url: https://www.youtube.com/user/XeroOnlineAccounting
+            - listitem [ref=e216]:
+              - link "Linkedin" [ref=e217] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/xero
+            - listitem [ref=e219]:
+              - link "Instagram" [ref=e220] [cursor=pointer]:
+                - /url: https://www.instagram.com/xero/
+            - listitem [ref=e222]:
+              - link "Twitter" [ref=e223] [cursor=pointer]:
+                - /url: https://twitter.com/xero/
