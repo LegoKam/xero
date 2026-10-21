@@ -1,0 +1,30 @@
+{
+  "discovery": {
+    "fetchTechnique": "headless",
+    "count": 3,
+    "concurrency": 3
+  },
+  "consent": {
+    "method": "auto"
+  },
+  "crawl": {
+    "failures": []
+  },
+  "visionCheck": [
+    {
+      "slug": "index",
+      "verdict": "ok",
+      "notes": "boilerplate home with Xero chrome; palette and header/footer match brand.css"
+    },
+    {
+      "slug": "au",
+      "verdict": "ok",
+      "notes": "real Xero AU page; content-only styling (oversized award badges) but genuinely rendered; hero text matches record"
+    },
+    {
+      "slug": "docs-library-blocks-form",
+      "verdict": "suspect",
+      "notes": "DA library metadata doc, not a brand page; excluded from brand evidence"
+    }
+  ]
+}

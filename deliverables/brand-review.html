@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand Extraction Report — www.xero.com</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #1C1917;
+      --bg2:      #242220;
+      --bg3:      #2E2B28;
+      --fg:       #F5F0E8;
+      --accent:   #FF3D00;
+      --teal:     #00E5A0;
+      --fg-dim:   rgba(245, 240, 232, 0.55);
+      --border:   rgba(245, 240, 232, 0.10);
+      --radius:   10px;
+      --font-mono: 'JetBrains Mono', 'Fira Mono', monospace;
+      --font-head: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Layout ─────────────────────────────── */
+    .page-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 60px 32px 120px;
+    }
+
+    /* ── Header ─────────────────────────────── */
+    .report-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 40px;
+      margin-bottom: 64px;
+    }
+
+    .report-header .eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 16px;
+    }
+
+    .report-header h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      color: var(--fg);
+    }
+
+    .report-header .domain-pill {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 4px 14px;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+
+    .report-header .timestamp {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--fg-dim);
+    }
+
+    /* ── Section ─────────────────────────────── */
+    .section {
+      margin-bottom: 72px;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--fg);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title .badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--teal);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 32px;
+    }
+
+    /* ── Color Swatches ─────────────────────── */
+    .swatches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 16px;
+    }
+
+    .swatch {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+    }
+
+    .swatch-color {
+      height: 90px;
+      width: 100%;
+    }
+
+    .swatch-info {
+      padding: 10px 12px;
+    }
+
+    .swatch-name {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      margin-bottom: 3px;
+    }
+
+    .swatch-hex {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    /* ── Typography ─────────────────────────── */
+    .typo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .typo-grid { grid-template-columns: 1fr; }
+    }
+
+    .typo-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .typo-card .typo-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 14px;
+    }
+
+    .typo-preview-heading {
+      font-size: 2rem;
+      line-height: 1.2;
+      color: var(--fg);
+      margin-bottom: 16px;
+    }
+
+    .typo-preview-body {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--fg);
+      margin-bottom: 16px;
+    }
+
+    .typo-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--fg-dim);
+      line-height: 1.8;
+    }
+
+    .typo-meta span {
+      display: block;
+    }
+
+    /* ── Shapes & Spacing ───────────────────── */
+    .shapes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .shape-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .shape-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+    }
+
+    .shape-preview-box {
+      width: 80px;
+      height: 44px;
+      background: var(--accent);
+      opacity: 0.85;
+    }
+
+    .shape-value {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--teal);
+    }
+
+    .spacing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .spacing-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .spacing-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      margin-bottom: 8px;
+    }
+
+    .spacing-value {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      color: var(--teal);
+    }
+
+    /* ── Logo ───────────────────────────────── */
+    .logo-well {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .logo-well .logo-display {
+      max-width: 300px;
+      max-height: 120px;
+    }
+
+    .logo-well .logo-display svg {
+      max-width: 300px;
+      max-height: 120px;
+      height: auto;
+      width: auto;
+    }
+
+    .logo-on-dark {
+      background: var(--bg);
+      padding: 24px;
+      border-radius: 6px;
+    }
+
+    .logo-on-light {
+      background: #FFFFFF;
+      padding: 24px;
+      border-radius: 6px;
+    }
+
+    .logo-variants {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo-variant-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-dim);
+      margin-bottom: 8px;
+    }
+
+    .logo-not-found {
+      font-size: 13px;
+      color: var(--fg-dim);
+      font-style: italic;
+    }
+
+    /* ── Screenshots ────────────────────────── */
+    .screenshots-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .screenshot-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .screenshot-caption {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--fg-dim);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .screenshot-caption::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--teal);
+      border-radius: 50%;
+    }
+
+    .screenshot-item img {
+      display: block;
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── Empty state ─────────────────────────── */
+    .empty-state {
+      background: var(--bg2);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      text-align: center;
+      color: var(--fg-dim);
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    /* ── Footer ─────────────────────────────── */
+    .report-footer {
+      margin-top: 80px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--fg-dim);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+
+    <!-- ── Header ──────────────────────────── -->
+    <header class="report-header">
+      <p class="eyebrow">OF1 Demo Pipeline · Step 4 Output</p>
+      <h1>Brand Extraction Report</h1>
+      <span class="domain-pill">{{DOMAIN}}</span>
+      <p class="timestamp">Generated 2026-10-21 01:41 UTC</p>
+    </header>
+
+    <!-- ── 1. Color Palette ─────────────────── -->
+    <section class="section" id="colors">
+      <h2 class="section-title">
+        Color Palette
+        <span class="badge">Step 4</span>
+      </h2>
+      <div class="section-divider"></div>
+      <div class="swatches-grid"><div class="swatch">  <div class="swatch-color" style="background:#000856;"></div>  <div class="swatch-info">    <span class="swatch-name">navy</span>    <span class="swatch-hex">#000856</span>  </div></div><div class="swatch">  <div class="swatch-color" style="background:#1f65d6;"></div>  <div class="swatch-info">    <span class="swatch-name">xero-blue</span>    <span class="swatch-hex">#1f65d6</span>  </div></div><div class="swatch">  <div class="swatch-color" style="background:#184390;"></div>  <div class="swatch-info">    <span class="swatch-name">xero-blue-dark</span>    <span class="swatch-hex">#184390</span>  </div></div><div class="swatch">  <div class="swatch-color" style="background:#50dcaa;"></div>  <div class="swatch-info">    <span class="swatch-name">mint-green</span>    <span class="swatch-hex">#50dcaa</span>  </div></div><div class="swatch">  <div class="swatch-color" style="background:#4ac49d;"></div>  <div class="swatch-info">    <span class="swatch-name">mint-green-dark</span>    <span class="swatch-hex">#4ac49d</span>  </div></div><div class="swatch">  <div class="swatch-color" style="background:#13b5ea;"></div>  <div class="swatch-info">    <span class="swatch-name">cyan</span>    <span class="swatch-hex">#13b5ea</span>  </div></div><div class="swatch">  <div class="swatch-color" style="background:#ecf2f6;"></div>  <div class="swatch-info">    <span class="swatch-name">grey-blue</span>    <span class="swatch-hex">#ecf2f6</span>  </div></div><div class="swatch">  <div class="swatch-color" style="background:#f5f9fa;"></div>  <div class="swatch-info">    <span class="swatch-name">mist</span>    <span class="swatch-hex">#f5f9fa</span>  </div></div><div class="swatch">  <div class="swatch-color" style="background:#f2f1ee;"></div>  <div class="swatch-info">    <span class="swatch-name">sand</span>    <span class="swatch-hex">#f2f1ee</span>  </div></div><div class="swatch">  <div class="swatch-color" style="background:#ffffff;"></div>  <div class="swatch-info">    <span class="swatch-name">white</span>    <span class="swatch-hex">#ffffff</span>  </div></div></div>
+    </section>
+
+    <!-- ── 2. Typography ────────────────────── -->
+    <section class="section" id="typography">
+      <h2 class="section-title">Typography</h2>
+      <div class="section-divider"></div>
+      <div class="typo-grid"><div class="typo-card">  <div class="typo-label">Heading Font</div>  <div class="typo-preview-heading" style="font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-weight:700;font-style:normal;">The quick brown fox jumps</div>  <div class="typo-meta">    <span><b>Family:</b> Inter</span>    <span><b>Stack:</b>  Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif</span>    <span><b>Weight:</b> 700</span>    <span><b>Style:</b>  normal</span>  </div></div><div class="typo-card">  <div class="typo-label">Body Font</div>  <div class="typo-preview-body" style="font-family:Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-weight:400;font-style:normal;">The quick brown fox jumps over the lazy dog. Bright vixens jump; dozy fowl quack.</div>  <div class="typo-meta">    <span><b>Family:</b> Inter</span>    <span><b>Stack:</b>  Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif</span>    <span><b>Weight:</b> 400</span>    <span><b>Style:</b>  normal</span>  </div></div></div>
+    </section>
+
+    <!-- ── 3. Shapes & Spacing ──────────────── -->
+    <section class="section" id="shapes">
+      <h2 class="section-title">Shapes &amp; Spacing</h2>
+      <div class="section-divider"></div>
+      <div class="shapes-grid"><div class="shape-card">  <span class="shape-label">button</span>  <div class="shape-preview-box" style="border-radius:6px;"></div>  <span class="shape-value">border-radius: 6px</span></div><div class="shape-card">  <span class="shape-label">panel</span>  <div class="shape-preview-box" style="border-radius:12px;"></div>  <span class="shape-value">border-radius: 12px</span></div><div class="shape-card">  <span class="shape-label">pill</span>  <div class="shape-preview-box" style="border-radius:56px;"></div>  <span class="shape-value">border-radius: 56px</span></div></div><h3 style="font-family:var(--font-head);font-weight:400;font-size:1.1rem;color:var(--fg-dim);margin:28px 0 12px;">Spacing</h3><div class="spacing-grid"><div class="spacing-card">  <div class="spacing-label">content-max-width</div>  <div class="spacing-value">1440px</div></div><div class="spacing-card">  <div class="spacing-label">content-padding</div>  <div class="spacing-value">22px / 32px / 40px / 29px (mobile / 600+ / 900+ / 1200+)</div></div><div class="spacing-card">  <div class="spacing-label">section-spacing</div>  <div class="spacing-value">45px mobile, 72px at 900+</div></div><div class="spacing-card">  <div class="spacing-label">nav-height</div>  <div class="spacing-value">60px</div></div></div>
+    </section>
+
+    <!-- ── 4. Logo ──────────────────────────── -->
+    <section class="section" id="logo">
+      <h2 class="section-title">Logo</h2>
+      <div class="section-divider"></div>
+      <div class="logo-well">  <div class="logo-variants">    <div>      <div class="logo-variant-label">On Dark</div>      <div class="logo-on-dark logo-display"><svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 79 22" fill="none"><title>Xero homepage</title><path fill="#3ECCFF" d="M55.3255 0.364067C53.3562 0.364067 51.2569 1.89954 50.1834 5.24214V2.37301C50.1834 1.26524 49.286 0.364044 48.1829 0.364044C47.0798 0.364044 46.1824 1.26524 46.1824 2.37301L46.1824 19.674C46.1824 20.7818 47.0798 21.6829 48.1829 21.6829C49.2859 21.6829 50.1833 20.7818 50.1833 19.674V11.5478C50.1834 7.63939 52.381 5.32117 55.7557 4.5614C56.8342 4.31856 57.5042 3.50107 57.5042 2.42783C57.5042 1.21269 56.6083 0.364067 55.3255 0.364067Z"></path><path fill="#3ECCFF" d="M68.0363 0.364075C62.1836 0.364075 57.4221 5.14588 57.4221 11.0235C57.4221 16.9011 62.1836 21.683 68.0363 21.683C73.889 21.683 78.6505 16.9012 78.6505 11.0235C78.6505 5.14581 73.889 0.364075 68.0363 0.364075ZM68.0363 17.6666C64.3888 17.6666 61.4214 14.6865 61.4214 11.0235C61.4214 7.36055 64.3889 4.3805 68.0363 4.3805C71.6837 4.3805 74.6512 7.36053 74.6512 11.0235C74.6512 14.6865 71.6837 17.6666 68.0363 17.6666Z"></path><path fill="#3ECCFF" d="M68.0363 8.36847C66.5785 8.36847 65.3926 9.55946 65.3926 11.0235C65.3926 12.4875 66.5785 13.6785 68.0363 13.6785C69.4941 13.6785 70.6801 12.4875 70.6801 11.0235C70.6801 9.55946 69.4941 8.36847 68.0363 8.36847Z"></path><path fill="#3ECCFF" d="M32.4995 0.364075C26.6443 0.364075 21.8809 5.14588 21.8809 11.0235C21.8809 16.9543 26.5035 21.6829 32.8975 21.6829C36.0184 21.6829 38.5947 20.73 40.7736 18.7698C41.009 18.5332 41.4101 18.021 41.4101 17.289C41.4101 16.181 40.5893 15.3455 39.5006 15.3455C38.939 15.3455 38.622 15.5072 38.2643 15.7867C36.6907 17.0882 34.9619 17.7216 32.9811 17.7216C29.6026 17.7216 26.8421 15.7256 26.0863 12.7169L40.7564 12.717C42.109 12.7117 43.0897 11.6165 43.0897 10.1088C43.0897 6.46305 39.5304 0.364075 32.4995 0.364075ZM26.0804 9.32426C26.7907 6.38199 29.3253 4.28272 32.4995 4.28272C35.6277 4.28272 38.1851 6.15931 38.9123 9.32426H26.0804Z"></path><path fill="#3ECCFF" d="M21.3109 2.34835C21.3109 1.25028 20.4247 0.364075 19.3352 0.364075C18.8074 0.364075 18.3113 0.570469 17.9381 0.945268L10.6968 8.21715L3.45563 0.945268C3.08244 0.570492 2.58627 0.364075 2.0585 0.364075C0.969019 0.364075 0.0827637 1.25028 0.0827637 2.34835C0.0827637 2.87836 0.288237 3.37665 0.661422 3.75138L7.9026 11.0233L0.661422 18.2951C0.288282 18.6699 0.0827637 19.1681 0.0827637 19.6982C0.0827637 20.7958 0.96666 21.6824 2.05855 21.6824C2.58627 21.6824 3.08249 21.476 3.45567 21.1012L10.6968 13.8294L17.938 21.1012C18.3112 21.476 18.8074 21.6824 19.3351 21.6824C20.427 21.6824 21.3109 20.7958 21.3109 19.6982C21.3109 19.1681 21.1054 18.6699 20.7323 18.2951L13.4911 11.0232L20.7323 3.75136C21.1055 3.37663 21.3109 2.87839 21.3109 2.34835Z"></path></svg></div>    </div>    <div>      <div class="logo-variant-label">On Light</div>      <div class="logo-on-light logo-display"><svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 79 22" fill="none"><title>Xero homepage</title><path fill="#3ECCFF" d="M55.3255 0.364067C53.3562 0.364067 51.2569 1.89954 50.1834 5.24214V2.37301C50.1834 1.26524 49.286 0.364044 48.1829 0.364044C47.0798 0.364044 46.1824 1.26524 46.1824 2.37301L46.1824 19.674C46.1824 20.7818 47.0798 21.6829 48.1829 21.6829C49.2859 21.6829 50.1833 20.7818 50.1833 19.674V11.5478C50.1834 7.63939 52.381 5.32117 55.7557 4.5614C56.8342 4.31856 57.5042 3.50107 57.5042 2.42783C57.5042 1.21269 56.6083 0.364067 55.3255 0.364067Z"></path><path fill="#3ECCFF" d="M68.0363 0.364075C62.1836 0.364075 57.4221 5.14588 57.4221 11.0235C57.4221 16.9011 62.1836 21.683 68.0363 21.683C73.889 21.683 78.6505 16.9012 78.6505 11.0235C78.6505 5.14581 73.889 0.364075 68.0363 0.364075ZM68.0363 17.6666C64.3888 17.6666 61.4214 14.6865 61.4214 11.0235C61.4214 7.36055 64.3889 4.3805 68.0363 4.3805C71.6837 4.3805 74.6512 7.36053 74.6512 11.0235C74.6512 14.6865 71.6837 17.6666 68.0363 17.6666Z"></path><path fill="#3ECCFF" d="M68.0363 8.36847C66.5785 8.36847 65.3926 9.55946 65.3926 11.0235C65.3926 12.4875 66.5785 13.6785 68.0363 13.6785C69.4941 13.6785 70.6801 12.4875 70.6801 11.0235C70.6801 9.55946 69.4941 8.36847 68.0363 8.36847Z"></path><path fill="#3ECCFF" d="M32.4995 0.364075C26.6443 0.364075 21.8809 5.14588 21.8809 11.0235C21.8809 16.9543 26.5035 21.6829 32.8975 21.6829C36.0184 21.6829 38.5947 20.73 40.7736 18.7698C41.009 18.5332 41.4101 18.021 41.4101 17.289C41.4101 16.181 40.5893 15.3455 39.5006 15.3455C38.939 15.3455 38.622 15.5072 38.2643 15.7867C36.6907 17.0882 34.9619 17.7216 32.9811 17.7216C29.6026 17.7216 26.8421 15.7256 26.0863 12.7169L40.7564 12.717C42.109 12.7117 43.0897 11.6165 43.0897 10.1088C43.0897 6.46305 39.5304 0.364075 32.4995 0.364075ZM26.0804 9.32426C26.7907 6.38199 29.3253 4.28272 32.4995 4.28272C35.6277 4.28272 38.1851 6.15931 38.9123 9.32426H26.0804Z"></path><path fill="#3ECCFF" d="M21.3109 2.34835C21.3109 1.25028 20.4247 0.364075 19.3352 0.364075C18.8074 0.364075 18.3113 0.570469 17.9381 0.945268L10.6968 8.21715L3.45563 0.945268C3.08244 0.570492 2.58627 0.364075 2.0585 0.364075C0.969019 0.364075 0.0827637 1.25028 0.0827637 2.34835C0.0827637 2.87836 0.288237 3.37665 0.661422 3.75138L7.9026 11.0233L0.661422 18.2951C0.288282 18.6699 0.0827637 19.1681 0.0827637 19.6982C0.0827637 20.7958 0.96666 21.6824 2.05855 21.6824C2.58627 21.6824 3.08249 21.476 3.45567 21.1012L10.6968 13.8294L17.938 21.1012C18.3112 21.476 18.8074 21.6824 19.3351 21.6824C20.427 21.6824 21.3109 20.7958 21.3109 19.6982C21.3109 19.1681 21.1054 18.6699 20.7323 18.2951L13.4911 11.0232L20.7323 3.75136C21.1055 3.37663 21.3109 2.87839 21.3109 2.34835Z"></path></svg></div>    </div>  </div></div>
+    </section>
+
+    <!-- ── 5. Screenshots ───────────────────── -->
+    <section class="section" id="screenshots">
+      <h2 class="section-title">Screenshots</h2>
+      <div class="section-divider"></div>
+      <div class="screenshots-list"><div class="screenshot-item">  <div class="screenshot-caption">Au</div>  <img src="/deliverables/assets/screenshots/au.png" alt="Screenshot: Au" loading="lazy"></div><div class="screenshot-item">  <div class="screenshot-caption">Docs Library Blocks Form</div>  <img src="/deliverables/assets/screenshots/docs-library-blocks-form.png" alt="Screenshot: Docs Library Blocks Form" loading="lazy"></div><div class="screenshot-item">  <div class="screenshot-caption">Index</div>  <img src="/deliverables/assets/screenshots/index.png" alt="Screenshot: Index" loading="lazy"></div></div>
+    </section>
+
+    <footer class="report-footer">
+      <span>Brand Extraction Report · {{DOMAIN}}</span>
+      <span>{{TIMESTAMP}}</span>
+    </footer>
+
+  </div>
+</body>
+</html>

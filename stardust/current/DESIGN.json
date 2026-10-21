@@ -1,0 +1,68 @@
+{
+  "_provenance": {
+    "source": "styles/brand.css (tokens measured from https://www.xero.com/au/ computed styles) + live render of https://main--xero--LegoKam.aem.page (pages: index, au, docs-library-blocks-form)",
+    "renderedBy": "playwright",
+    "notes": "Brand font is National2 (licensed, files in /fonts); Inter is the open-licence substitute declared in --body-font-family. Descriptive snapshot, not a redesign."
+  },
+  "name": "Xero",
+  "description": "Beautiful business software: navy and Xero blue on white, mint-green primary CTA, Inter/National2 type, soft 6px buttons and 12px panels.",
+  "colors": {
+    "navy": "#000856",
+    "xero-blue": "#1f65d6",
+    "xero-blue-dark": "#184390",
+    "mint-green": "#50dcaa",
+    "mint-green-dark": "#4ac49d",
+    "cyan": "#13b5ea",
+    "grey-blue": "#ecf2f6",
+    "mist": "#f5f9fa",
+    "sand": "#f2f1ee",
+    "white": "#ffffff"
+  },
+  "typography": {
+    "heading": {
+      "family": "Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+      "weight": "700",
+      "style": "normal",
+      "letterSpacing": "-0.02em",
+      "sizes": { "xxl": "51.6px", "xl": "42px", "l": "21.96px", "m": "18px", "s": "16px", "xs": "14px" },
+      "note": "Source face National2 (licensed); Inter substituted."
+    },
+    "body": {
+      "family": "Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+      "weight": "400",
+      "style": "normal",
+      "lineHeight": "1.4",
+      "sizes": { "l": "27.6px", "m": "21.96px", "s": "16px", "xs": "14px" },
+      "note": "Source face National2 (licensed); Inter substituted."
+    }
+  },
+  "shapes": {
+    "button": { "borderRadius": "6px" },
+    "panel": { "borderRadius": "12px" },
+    "pill": { "borderRadius": "56px" }
+  },
+  "spacing": {
+    "content-max-width": "1440px",
+    "content-padding": "22px / 32px / 40px / 29px (mobile / 600+ / 900+ / 1200+)",
+    "section-spacing": "45px mobile, 72px at 900+",
+    "nav-height": "60px"
+  },
+  "extensions": {
+    "componentStyle": {
+      "button-primary": { "background": "#50dcaa", "hover": "#4ac49d", "color": "#000856", "radius": "6px" },
+      "button-accent": { "background": "#1f65d6", "hover": "#184390", "color": "#ffffff", "radius": "6px" },
+      "link": { "color": "#000856", "underline": "#1f65d6" }
+    },
+    "motifs": [
+      "navy promo banner with countdown tiles above a white sticky header",
+      "light grey-blue (#ecf2f6) alternating section bands",
+      "rounded white cards with 12px radius on grey-blue bands",
+      "mint-green pill/rounded CTA against navy text"
+    ],
+    "voice": {
+      "heroHeadline": "Small business accounting to set you free",
+      "tone": "plain-spoken, benefit-led, friendly; short declaratives"
+    },
+    "logo": "stardust/current/assets/logo.svg"
+  }
+}

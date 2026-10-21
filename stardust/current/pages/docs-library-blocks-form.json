@@ -1,0 +1,614 @@
+{
+  "_provenance": {
+    "renderedBy": "playwright",
+    "fetchedAt": "2026-10-21T01:38:51.537Z",
+    "waitMode": "medium",
+    "waitMs": 2500,
+    "httpStatus": 200
+  },
+  "slug": "docs-library-blocks-form",
+  "url": "https://main--xero--legokam.aem.page/docs/library/blocks/form",
+  "renderedBy": "playwright",
+  "fetchedAt": "2026-10-21T01:38:51.537Z",
+  "finalUrl": "https://main--xero--legokam.aem.page/docs/library/blocks/form",
+  "title": "Library Metadata",
+  "description": "A set of input controls grouped together that enables users to submit information",
+  "og": {
+    "title": "Library Metadata",
+    "description": "A set of input controls grouped together that enables users to submit information",
+    "image": "https://main--xero--legokam.aem.page/default-meta-image.png?width=1200&format=pjpg&optimize=medium",
+    "type": null
+  },
+  "headings": [
+    {
+      "tag": "h3",
+      "text": "Accounting software"
+    },
+    {
+      "tag": "h3",
+      "text": "Xero for"
+    },
+    {
+      "tag": "h3",
+      "text": "Resources"
+    },
+    {
+      "tag": "h3",
+      "text": "Popular features"
+    },
+    {
+      "tag": "h3",
+      "text": "Compare"
+    },
+    {
+      "tag": "h3",
+      "text": "Company"
+    }
+  ],
+  "body": [
+    "name",
+    "Form",
+    "description",
+    "A set of input controls grouped together that enables users to submit information",
+    "Source Code",
+    "https://main--helix-block-collection--adobe.hlx.live/docs/library/blocks/form.json",
+    "https://httpbin.org/post"
+  ],
+  "codeBlocks": [],
+  "ctas": [
+    {
+      "label": "Buy now",
+      "href": "https://www.xero.com/au/pricing-plans/"
+    },
+    {
+      "label": "Xero homepage",
+      "href": "/au"
+    },
+    {
+      "label": "Pricing",
+      "href": "/au/pricing-plans"
+    },
+    {
+      "label": "Features",
+      "href": null
+    },
+    {
+      "label": "Small Business",
+      "href": null
+    },
+    {
+      "label": "Accountants & Bookkeepers",
+      "href": null
+    },
+    {
+      "label": "Support",
+      "href": null
+    },
+    {
+      "label": "Get one month free",
+      "href": "/au/pricing-plans"
+    },
+    {
+      "label": "Log in",
+      "href": "https://login.xero.com/identity/user/login"
+    },
+    {
+      "label": "Source Code",
+      "href": "https://github.com/adobe/aem-block-collection/tree/main/blocks/form"
+    },
+    {
+      "label": "https://main--helix-block-collection--adobe.hlx.live/docs/library/blocks/form.json",
+      "href": "/docs/library/blocks/form.json"
+    },
+    {
+      "label": "https://httpbin.org/post",
+      "href": "https://httpbin.org/post"
+    },
+    {
+      "label": "How Xero accounting software works",
+      "href": "/au/accounting-software/"
+    },
+    {
+      "label": "Find an accountant or bookkeeper",
+      "href": "/au/advisors/"
+    },
+    {
+      "label": "Explore the Xero App Store",
+      "href": "https://apps.xero.com/"
+    },
+    {
+      "label": "Pricing",
+      "href": "/au/pricing-plans/"
+    },
+    {
+      "label": "Accountants & bookkeepers",
+      "href": "/au/accountants-bookkeepers/"
+    },
+    {
+      "label": "Small business",
+      "href": "/au/small-businesses/"
+    },
+    {
+      "label": "App integrators",
+      "href": "/au/integrators/"
+    },
+    {
+      "label": "App developers",
+      "href": "https://developer.xero.com/"
+    },
+    {
+      "label": "Channel partners",
+      "href": "/au/campaign/xero-partnership/"
+    },
+    {
+      "label": "Affiliates",
+      "href": "/au/affiliate-program/"
+    },
+    {
+      "label": "End of Financial Year",
+      "href": "/au/initiative/end-of-financial-year/"
+    },
+    {
+      "label": "Payday Superannuation",
+      "href": "/au/initiative/payday-super/"
+    },
+    {
+      "label": "Self-employed",
+      "href": "/au/small-businesses/self-employed/"
+    },
+    {
+      "label": "Non-profit",
+      "href": "/au/small-businesses/non-profit/"
+    },
+    {
+      "label": "Real estate",
+      "href": "/au/small-businesses/real-estate/"
+    },
+    {
+      "label": "Construction",
+      "href": "/au/small-businesses/construction/"
+    },
+    {
+      "label": "Small business insights",
+      "href": "/au/resources/small-business-insights/"
+    },
+    {
+      "label": "Small business guides",
+      "href": "/au/guides/"
+    },
+    {
+      "label": "Small business templates",
+      "href": "/au/templates/"
+    },
+    {
+      "label": "Invoice template",
+      "href": "/au/templates/invoice-template/"
+    },
+    {
+      "label": "Payslip template",
+      "href": "/au/templates/payslip-template/"
+    },
+    {
+      "label": "Receipt template",
+      "href": "/au/templates/receipt-template/"
+    },
+    {
+      "label": "Calculators",
+      "href": "/au/calculators/"
+    },
+    {
+      "label": "Accounting glossary",
+      "href": "/au/glossary/"
+    },
+    {
+      "label": "Business resources",
+      "href": "/au/resources/"
+    },
+    {
+      "label": "Customer stories",
+      "href": "/au/small-businesses/customers/"
+    },
+    {
+      "label": "Refer a friend",
+      "href": "https://referral.xero.com/"
+    },
+    {
+      "label": "Invoicing",
+      "href": "/au/accounting-software/send-invoices/"
+    },
+    {
+      "label": "Accept payments",
+      "href": "/au/accounting-software/accept-payments/"
+    },
+    {
+      "label": "Inventory management",
+      "href": "/au/accounting-software/manage-inventory/"
+    },
+    {
+      "label": "Payroll",
+      "href": "/au/accounting-software/payroll/"
+    },
+    {
+      "label": "Manage expenses",
+      "href": "/au/accounting-software/claim-expenses/"
+    },
+    {
+      "label": "JAX - Your AI finance partner",
+      "href": "/au/ai-in-accounting/jax-vision/"
+    },
+    {
+      "label": "See all features",
+      "href": "/au/accounting-software/all-features/"
+    },
+    {
+      "label": "Xero vs MYOB",
+      "href": "/au/versus/myob-alternative/"
+    },
+    {
+      "label": "Xero vs Hnry",
+      "href": "/au/versus/hnry-alternative/"
+    },
+    {
+      "label": "Xero vs Reckon",
+      "href": "/au/versus/reckon-alternative/"
+    },
+    {
+      "label": "Xero vs Quickbooks",
+      "href": "https://www.xero.com/au/versus/quickbooks-alternative/"
+    },
+    {
+      "label": "About Xero",
+      "href": "/au/about/"
+    },
+    {
+      "label": "Get support",
+      "href": "https://central.xero.com/"
+    },
+    {
+      "label": "Innovation at Xero",
+      "href": "https://innovations.xero.com/"
+    },
+    {
+      "label": "Sustainability at Xero",
+      "href": "/au/sustainability/"
+    },
+    {
+      "label": "Governance and leadership",
+      "href": "/au/investors/governance/"
+    },
+    {
+      "label": "Blog",
+      "href": "https://blog.xero.com/"
+    },
+    {
+      "label": "Our brands",
+      "href": "/au/about/our-brands/"
+    },
+    {
+      "label": "Product updates",
+      "href": "https://blog.xero.com/product-updates/"
+    },
+    {
+      "label": "Careers",
+      "href": "https://careers.xero.com/"
+    },
+    {
+      "label": "Contact us",
+      "href": "/au/about/contact/"
+    },
+    {
+      "label": "Investors",
+      "href": "/au/investors/"
+    },
+    {
+      "label": "Media",
+      "href": "/au/media/"
+    },
+    {
+      "label": "Legal",
+      "href": "/au/legal/terms/"
+    },
+    {
+      "label": "Sitemap",
+      "href": "/au/sitemap/"
+    },
+    {
+      "label": "Accessibility",
+      "href": "/au/accessibility/"
+    },
+    {
+      "label": "Manage cookies",
+      "href": null
+    },
+    {
+      "label": "Australia (AUD)",
+      "href": null
+    }
+  ],
+  "links": [
+    "https://www.xero.com/au/pricing-plans/",
+    "https://main--xero--legokam.aem.page/au",
+    "https://main--xero--legokam.aem.page/au/pricing-plans",
+    "https://main--xero--legokam.aem.page/au/accounting-software",
+    "https://main--xero--legokam.aem.page/au/accounting-software/send-invoices",
+    "https://main--xero--legokam.aem.page/au/accounting-software/accept-payments",
+    "https://main--xero--legokam.aem.page/au/accounting-software/pay-bills",
+    "https://main--xero--legokam.aem.page/au/accounting-software/payroll",
+    "https://main--xero--legokam.aem.page/au/accounting-software/manage-inventory",
+    "https://main--xero--legokam.aem.page/au/accounting-software/claim-expenses",
+    "https://main--xero--legokam.aem.page/au/accounting-software/send-quotes",
+    "https://main--xero--legokam.aem.page/au/ai-in-accounting/jax",
+    "https://main--xero--legokam.aem.page/au/accounting-software/create-purchase-orders",
+    "https://main--xero--legokam.aem.page/au/accounting-software/track-projects",
+    "https://main--xero--legokam.aem.page/au/accounting-software/claim-expenses/track-mileage",
+    "https://main--xero--legokam.aem.page/au/accounting-software/manage-fixed-assets",
+    "https://main--xero--legokam.aem.page/au/accounting-software/all-features",
+    "https://main--xero--legokam.aem.page/au/small-businesses/construction",
+    "https://main--xero--legokam.aem.page/au/small-businesses/non-profit",
+    "https://main--xero--legokam.aem.page/au/small-businesses/landlords",
+    "https://main--xero--legokam.aem.page/au/small-businesses/farming",
+    "https://main--xero--legokam.aem.page/au/small-businesses/ecommerce",
+    "https://main--xero--legokam.aem.page/au/small-businesses/manufacturing",
+    "https://main--xero--legokam.aem.page/au/small-businesses",
+    "https://main--xero--legokam.aem.page/au/versus/quickbooks-alternative",
+    "https://main--xero--legokam.aem.page/au/versus/myob-alternative",
+    "https://main--xero--legokam.aem.page/au/versus/reckon-alternative",
+    "https://main--xero--legokam.aem.page/au/versus/hnry-alternative",
+    "https://main--xero--legokam.aem.page/au/advisors",
+    "https://innovations.xero.com/",
+    "https://main--xero--legokam.aem.page/au/small-businesses/xero-for-self-employed",
+    "https://main--xero--legokam.aem.page/au/small-businesses/xero-for-small-business",
+    "https://main--xero--legokam.aem.page/au/small-businesses/xero-for-medium-sized-business",
+    "https://main--xero--legokam.aem.page/au/partner-programme",
+    "https://main--xero--legokam.aem.page/au/accountants-bookkeepers/partner-hub",
+    "https://main--xero--legokam.aem.page/au/accountants-bookkeepers/partner-hub/tax-and-workpapers",
+    "https://main--xero--legokam.aem.page/au/accountants-bookkeepers/partner-hub/practice-management",
+    "https://main--xero--legokam.aem.page/au/xero-ledger-and-cashbook",
+    "https://main--xero--legokam.aem.page/au/xero-tax",
+    "https://main--xero--legokam.aem.page/au/xero-workpapers",
+    "https://main--xero--legokam.aem.page/au/syft-from-xero",
+    "https://main--xero--legokam.aem.page/au/accountants-bookkeepers/accountants",
+    "https://main--xero--legokam.aem.page/au/accountants-bookkeepers/bookkeepers",
+    "https://main--xero--legokam.aem.page/au/accountants-bookkeepers/enterprise",
+    "https://main--xero--legokam.aem.page/au/accountant-bookkeeper-guides",
+    "https://central.xero.com/0/",
+    "https://learning.central.xero.com/student/catalog/browse",
+    "https://main--xero--legokam.aem.page/au/certifications",
+    "https://main--xero--legokam.aem.page/au/guides",
+    "https://main--xero--legokam.aem.page/au/glossary",
+    "https://main--xero--legokam.aem.page/au/templates",
+    "https://main--xero--legokam.aem.page/au/calculators",
+    "https://main--xero--legokam.aem.page/au/small-businesses/customers",
+    "https://main--xero--legokam.aem.page/au/resources",
+    "https://main--xero--legokam.aem.page/au/campaign/talk-to-sales",
+    "https://login.xero.com/identity/user/login",
+    "https://github.com/adobe/aem-block-collection/tree/main/blocks/form",
+    "https://main--xero--legokam.aem.page/docs/library/blocks/form.json",
+    "https://httpbin.org/post",
+    "https://main--xero--legokam.aem.page/au/accounting-software/",
+    "https://main--xero--legokam.aem.page/au/advisors/",
+    "https://apps.xero.com/",
+    "https://main--xero--legokam.aem.page/au/pricing-plans/",
+    "https://main--xero--legokam.aem.page/au/accountants-bookkeepers/",
+    "https://main--xero--legokam.aem.page/au/small-businesses/",
+    "https://main--xero--legokam.aem.page/au/integrators/",
+    "https://developer.xero.com/",
+    "https://main--xero--legokam.aem.page/au/campaign/xero-partnership/",
+    "https://main--xero--legokam.aem.page/au/affiliate-program/",
+    "https://main--xero--legokam.aem.page/au/initiative/end-of-financial-year/",
+    "https://main--xero--legokam.aem.page/au/initiative/payday-super/",
+    "https://main--xero--legokam.aem.page/au/small-businesses/self-employed/",
+    "https://main--xero--legokam.aem.page/au/small-businesses/non-profit/",
+    "https://main--xero--legokam.aem.page/au/small-businesses/real-estate/",
+    "https://main--xero--legokam.aem.page/au/small-businesses/construction/",
+    "https://main--xero--legokam.aem.page/au/resources/small-business-insights/",
+    "https://main--xero--legokam.aem.page/au/guides/",
+    "https://main--xero--legokam.aem.page/au/templates/",
+    "https://main--xero--legokam.aem.page/au/templates/invoice-template/",
+    "https://main--xero--legokam.aem.page/au/templates/payslip-template/",
+    "https://main--xero--legokam.aem.page/au/templates/receipt-template/",
+    "https://main--xero--legokam.aem.page/au/calculators/",
+    "https://main--xero--legokam.aem.page/au/glossary/",
+    "https://main--xero--legokam.aem.page/au/resources/",
+    "https://main--xero--legokam.aem.page/au/small-businesses/customers/",
+    "https://referral.xero.com/",
+    "https://main--xero--legokam.aem.page/au/accounting-software/send-invoices/",
+    "https://main--xero--legokam.aem.page/au/accounting-software/accept-payments/",
+    "https://main--xero--legokam.aem.page/au/accounting-software/manage-inventory/",
+    "https://main--xero--legokam.aem.page/au/accounting-software/payroll/",
+    "https://main--xero--legokam.aem.page/au/accounting-software/claim-expenses/",
+    "https://main--xero--legokam.aem.page/au/ai-in-accounting/jax-vision/",
+    "https://main--xero--legokam.aem.page/au/accounting-software/all-features/",
+    "https://main--xero--legokam.aem.page/au/versus/myob-alternative/",
+    "https://main--xero--legokam.aem.page/au/versus/hnry-alternative/",
+    "https://main--xero--legokam.aem.page/au/versus/reckon-alternative/",
+    "https://www.xero.com/au/versus/quickbooks-alternative/",
+    "https://main--xero--legokam.aem.page/au/about/",
+    "https://central.xero.com/",
+    "https://main--xero--legokam.aem.page/au/sustainability/",
+    "https://main--xero--legokam.aem.page/au/investors/governance/",
+    "https://blog.xero.com/",
+    "https://main--xero--legokam.aem.page/au/about/our-brands/",
+    "https://blog.xero.com/product-updates/",
+    "https://careers.xero.com/",
+    "https://main--xero--legokam.aem.page/au/about/contact/",
+    "https://main--xero--legokam.aem.page/au/investors/",
+    "https://main--xero--legokam.aem.page/au/media/",
+    "https://main--xero--legokam.aem.page/au/legal/terms/",
+    "https://main--xero--legokam.aem.page/au/legal/privacy/",
+    "https://main--xero--legokam.aem.page/au/sitemap/",
+    "https://main--xero--legokam.aem.page/au/accessibility/",
+    "https://www.facebook.com/xero",
+    "https://www.youtube.com/user/XeroOnlineAccounting",
+    "https://www.linkedin.com/company/xero",
+    "https://www.instagram.com/xero/",
+    "https://twitter.com/xero/"
+  ],
+  "media": {
+    "imgs": [
+      {
+        "src": "https://main--xero--legokam.aem.page/docs/library/blocks/media_18a3fd688574bd76579a1342b91cd6ff899221a92.svg?width=2000&format=webply&optimize=medium",
+        "alt": "",
+        "w": 300,
+        "h": 84
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/media_117d339a42b8f46a33767b96d71285af67ac93101.svg?width=750&format=svg&optimize=medium",
+        "alt": "",
+        "w": 50,
+        "h": 50
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/media_1bd46bee3dcaa74069d0f2732c8c3983fc4bb542d.svg?width=750&format=svg&optimize=medium",
+        "alt": "",
+        "w": 50,
+        "h": 50
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/media_10cd629e9abd2c3d03eec6899f3ba5c204a3da843.svg?width=750&format=svg&optimize=medium",
+        "alt": "",
+        "w": 50,
+        "h": 50
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/media_1938c725e7186feac297ed6da76696f3e426fdef8.svg?width=750&format=svg&optimize=medium",
+        "alt": "",
+        "w": 50,
+        "h": 50
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/media_174111ee04bf1058d9a9318bf1ff9e088a619919c.svg?width=750&format=svg&optimize=medium",
+        "alt": "",
+        "w": 50,
+        "h": 50
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/media_1d4c9b1c2019dd775181b25d92afd07f65425dd68.svg?width=750&format=svg&optimize=medium",
+        "alt": "",
+        "w": 50,
+        "h": 50
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/media_158b7bc5c6fcf446661a30b4876dfa63a2cc22c9d.svg?width=750&format=svg&optimize=medium",
+        "alt": "",
+        "w": 50,
+        "h": 50
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/media_1a8c8c163240fad5f4cee8b67651c47b86cb8bbfb.svg?width=750&format=svg&optimize=medium",
+        "alt": "",
+        "w": 50,
+        "h": 50
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/docs/library/blocks/media_1a198ee41f30a6e15d25c99bed57074fb49e37dad.svg?width=2000&format=webply&optimize=medium",
+        "alt": "The current region is Australia",
+        "w": 20,
+        "h": 20
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/icons/selector-toggle.svg",
+        "alt": "",
+        "w": 20,
+        "h": 20
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/docs/library/blocks/media_1b4123907014a67cd72f183ee4d3364d775c5e32d.svg?width=2000&format=webply&optimize=medium",
+        "alt": "",
+        "w": 24,
+        "h": 24
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/docs/library/blocks/media_11795214a978c026b65f35068ddbc1de0d1f26fc5.svg?width=2000&format=webply&optimize=medium",
+        "alt": "",
+        "w": 24,
+        "h": 24
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/docs/library/blocks/media_1e66f585110221b5497a7195ae03b53b36675941c.svg?width=2000&format=webply&optimize=medium",
+        "alt": "",
+        "w": 24,
+        "h": 24
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/docs/library/blocks/media_1fa9caa1cbc0ee7688207f78a01fa99a5bff43ea6.svg?width=2000&format=webply&optimize=medium",
+        "alt": "",
+        "w": 24,
+        "h": 24
+      },
+      {
+        "src": "https://main--xero--legokam.aem.page/docs/library/blocks/media_1505a33fb90c1cf1b2dc4fb35c3ef56652e818d6e.svg?width=2000&format=webply&optimize=medium",
+        "alt": "",
+        "w": 24,
+        "h": 24
+      }
+    ],
+    "allImgCount": 16,
+    "cssBackgrounds": [],
+    "modals": [],
+    "videos": [],
+    "iframes": []
+  },
+  "customProps": {
+    "--xero-navy": "#000856",
+    "--xero-blue": "#1f65d6",
+    "--xero-blue-dark": "#184390",
+    "--xero-green": "#50dcaa",
+    "--xero-green-dark": "#4ac49d",
+    "--xero-cyan": "#13b5ea",
+    "--xero-grey-blue": "#ecf2f6",
+    "--xero-mist": "#f5f9fa",
+    "--xero-sand": "#f2f1ee",
+    "--xero-white": "#fff",
+    "--background-color": "#fff",
+    "--text-color": "#000856",
+    "--heading-color": "#000856",
+    "--link-color": "#000856",
+    "--link-hover-color": "#000856",
+    "--link-underline-color": "#1f65d6",
+    "--light-color": "#ecf2f6",
+    "--dark-color": "#000856",
+    "--focus-color": "#1f65d6",
+    "--button-primary-bg": "#50dcaa",
+    "--button-primary-bg-hover": "#4ac49d",
+    "--button-primary-color": "#000856",
+    "--button-accent-bg": "#1f65d6",
+    "--button-accent-bg-hover": "#184390",
+    "--button-accent-color": "#fff",
+    "--button-radius": "6px",
+    "--button-transition": "background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+    "--radius-panel": "12px",
+    "--radius-pill": "56px",
+    "--body-font-family": "inter, inter-fallback, \"Helvetica Neue\", helvetica, arial, sans-serif",
+    "--heading-font-family": "inter, inter-fallback, \"Helvetica Neue\", helvetica, arial, sans-serif",
+    "--body-font-size-l": "27.6px",
+    "--body-font-size-m": "21.96px",
+    "--body-font-size-s": "16px",
+    "--body-font-size-xs": "14px",
+    "--body-line-height": "1.4",
+    "--heading-font-size-xxl": "51.6px",
+    "--heading-font-size-xl": "42px",
+    "--heading-font-size-l": "21.96px",
+    "--heading-font-size-m": "18px",
+    "--heading-font-size-s": "16px",
+    "--heading-font-size-xs": "14px",
+    "--heading-letter-spacing": "-0.02em",
+    "--content-max-width": "1440px",
+    "--content-padding": "29px",
+    "--section-spacing": "72px",
+    "--panel-section-spacing": "12px",
+    "--nav-height": "60px",
+    "--content-inset": "min(11vw, 158.4px)",
+    "--block-inset": "max(0px, calc(min(11vw, 158.4px) - 29px))"
+  },
+  "_signals": {
+    "filteredInterstitials": 0,
+    "distinctHeadings": 6,
+    "mainTextLen": 223,
+    "realImageCount": 16,
+    "trackingOnlyMedia": false,
+    "spaShellSuspect": false,
+    "screenshotMode": "fullPage"
+  },
+  "screenshot": "assets/screenshots/docs-library-blocks-form.png"
+}
