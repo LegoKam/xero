@@ -38,7 +38,7 @@ const state = {
  * @returns {Promise<Element[]|null>} top-level section elements
  */
 async function fetchNavSections() {
-  let resp = await fetch('/content/nav.plain.html');
+  let resp = await fetch('/nav.plain.html');
   if (!resp.ok) resp = await fetch('/nav.plain.html');
   if (!resp.ok) return null;
   const html = await resp.text();

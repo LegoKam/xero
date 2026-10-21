@@ -16,7 +16,7 @@ const HEADINGS = 'h1, h2, h3, h4, h5, h6';
  * @returns {Promise<Element[]>} top-level section elements
  */
 async function fetchFooterSections() {
-  let resp = await fetch('/content/footer.plain.html');
+  let resp = await fetch('/footer.plain.html');
   if (!resp.ok) resp = await fetch('/footer.plain.html');
   if (!resp.ok) return [];
   const html = await resp.text();
